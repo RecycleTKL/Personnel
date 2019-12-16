@@ -34,7 +34,7 @@ public class Dao {
 	public Dao(){
 		
 	}
-	
+	//ResultSet rs = findForResultSet("");
 	public static ResultSet findForResultSet(String sql) {
 		if (conn == null)
 			return null;

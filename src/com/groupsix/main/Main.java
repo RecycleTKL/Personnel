@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
 
-import com.groupsix.connection.connectionmysql;
 import com.groupsix.frame.PersonManage.PersonManage;
 import com.groupsix.frame.SalaryManagement.SalaryManage;
 
@@ -19,7 +18,7 @@ import javax.swing.JOptionPane;
 
 public class Main{
 	private JFrame frame;
-	JInternalFrame t;
+	private PersonManage t;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -48,12 +47,15 @@ public class Main{
 		frame.setBounds(100, 100, 1050, 840);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		t = new PersonManage();
+		
 		t.setClosable(true);
 		t.setMaximizable(true);
 		t.setIconifiable(true);
-		frame.getContentPane().add(t, BorderLayout.CENTER);
-		t.getContentPane().setLayout(null);
-		PersonManage t =  new PersonManage();
+		t.setVisible(true);
+		//frame.getContentPane().add(t, BorderLayout.CENTER);
+		//t.getContentPane().setLayout(null);
+		//PersonManage t =  new PersonManage();
 		frame.getContentPane().add(t,BorderLayout.CENTER);
 		
 	}

@@ -20,9 +20,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
-import com.groupsix.connection.connectionmysql;
 import com.mysql.cj.jdbc.Blob;
-import com.sun.prism.Image;
 
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
@@ -44,9 +42,10 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
 
-public class dananManage extends JInternalFrame {
-	private JTextField textField;
+public class dananManage extends JPanel {
 	private JTextField textField_1;
 	private JTextField txtYyyymmdd;
 	private JTextField textField_3;
@@ -95,6 +94,7 @@ public class dananManage extends JInternalFrame {
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	JComboBox comboBox_4 = new JComboBox();
 	JComboBox comboBox_5 = new JComboBox();
+	private JTextField textField;
 	/**
 	 * Launch the application.
 	 */
@@ -115,59 +115,18 @@ public class dananManage extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public dananManage() {
-		setIconifiable(true);
-		setClosable(true);
 		setBounds(0, 0, 907, 755);
-		getContentPane().setLayout(null);
-		
-		JButton button = new JButton("\u4FDD\u5B58");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-					try {
-						baocunActionPerformed();
-					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}	
-			}
-		});
-		button.setBounds(321, 13, 63, 27);
-		getContentPane().add(button);
-		
-		JButton button_1 = new JButton("\u9000\u51FA");
-		button_1.setBounds(440, 13, 63, 27);
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) { 
-				dispose();
-			}
-		});
-		getContentPane().add(button_1);
+		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(14, 44, 861, 662);
 		panel.setToolTipText("\u8BF7\u9009\u62E9");
-		getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		JLabel label = new JLabel("\u6863\u6848\u7F16\u53F7\uFF1A");
-		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		label.setBounds(14, 13, 80, 24);
-		panel.add(label);
-		
-		textField = new JTextField();
-		textField.setBounds(97, 13, 98, 24);
-		panel.add(textField);
-		textField.setColumns(10);
+		add(panel, BorderLayout.CENTER);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(14, 42, 833, 202);
+		panel_1.setBorder(new TitledBorder(null, "\u6863\u6848\u4FE1\u606F", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
 		panel.add(panel_1);
 		panel_1.setLayout(null);
-		
-		JLabel label_1 = new JLabel("\u6863\u6848\u4FE1\u606F");
-		label_1.setForeground(Color.BLUE);
-		label_1.setBounds(0, 0, 72, 24);
-		panel_1.add(label_1);
 		
 		JLabel label_2 = new JLabel("\u59D3    \u540D\uFF1A");
 		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -369,14 +328,9 @@ public class dananManage extends JInternalFrame {
 		panel_1.add(photolabel);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(14, 257, 833, 176);
+		panel_2.setBorder(new TitledBorder(null, "\u804C\u52A1\u4FE1\u606F", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
 		panel.add(panel_2);
 		panel_2.setLayout(null);
-		
-		JLabel label_16 = new JLabel("\u804C\u52A1\u4FE1\u606F");
-		label_16.setForeground(Color.BLUE);
-		label_16.setBounds(0, 0, 72, 24);
-		panel_2.add(label_16);
 		
 		JLabel label_17 = new JLabel("\u90E8    \u95E8\uFF1A");
 		label_17.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -560,14 +514,9 @@ public class dananManage extends JInternalFrame {
 		tf2_15.setColumns(10);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(14, 446, 833, 202);
+		panel_3.setBorder(new TitledBorder(null, "\u4E2A\u4EBA\u4FE1\u606F", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
 		panel.add(panel_3);
 		panel_3.setLayout(null);
-		
-		JLabel label_31 = new JLabel("\u4E2A\u4EBA\u4FE1\u606F");
-		label_31.setForeground(Color.BLUE);
-		label_31.setBounds(0, 0, 72, 18);
-		panel_3.add(label_31);
 		
 		JLabel lblNewLabel = new JLabel("\u79FB\u52A8\u7535\u8BDD\uFF1A");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -708,6 +657,20 @@ public class dananManage extends JInternalFrame {
 		tf3_14.setBounds(292, 164, 516, 24);
 		panel_3.add(tf3_14);
 		tf3_14.setColumns(10);
+		
+		JPanel panel_4 = new JPanel();
+		add(panel_4, BorderLayout.NORTH);
+		
+		JLabel label = new JLabel("\u6863\u6848\u7F16\u53F7\uFF1A");
+		label.setHorizontalAlignment(SwingConstants.RIGHT);
+		panel_4.add(label);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		panel_4.add(textField);
+		
+		JButton button = new JButton("\u4FDD\u5B58");
+		panel_4.add(button);
 
 	}
 	/**

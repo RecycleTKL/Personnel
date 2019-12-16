@@ -25,7 +25,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
-public class kaoqinManage extends JInternalFrame {
+public class kaoqinManage extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
 	JTextArea textArea = new JTextArea();
@@ -55,14 +55,14 @@ public class kaoqinManage extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public kaoqinManage() {
-		setIconifiable(true);
-		setClosable(true);
+		//setIconifiable(true);
+		//setClosable(true);
 		setBounds(100, 100, 907, 755);
-		getContentPane().setLayout(null);
+		setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(185, 13, 489, 56);
-		getContentPane().add(panel);
+		add(panel);
 		panel.setLayout(null);
 		
 		JButton button = new JButton("\u65B0\u5EFA");
@@ -92,7 +92,7 @@ public class kaoqinManage extends JInternalFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setForeground(Color.WHITE);
 		panel_1.setBounds(14, 82, 863, 564);
-		getContentPane().add(panel_1);
+		add(panel_1);
 		panel_1.setLayout(null);
 		
 		JLabel label = new JLabel("\u6240\u5728\u90E8\u95E8\uFF1A");

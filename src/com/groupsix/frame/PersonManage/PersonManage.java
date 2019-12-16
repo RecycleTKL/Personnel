@@ -37,13 +37,11 @@ public class PersonManage extends JInternalFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		dananManage t = new dananManage();
-		t.setMaximizable(true);
-		t.setResizable(true);
 		tabbedPane.addTab("档案管理", null, t, null);
 		
 		kaoqinManage t1 = new kaoqinManage();
-		t1.setMaximizable(true);
-		t1.setResizable(true);
+		//t1.setMaximizable(true);
+		//t1.setResizable(true);
 		tabbedPane.addTab("考勤管理", null, t1, null);
 		jiangcheng t2 = new jiangcheng();
 		t2.setMaximizable(true);
