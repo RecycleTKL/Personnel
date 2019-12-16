@@ -9,9 +9,9 @@ import javax.swing.JOptionPane;
 
 public class Dao {
 	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
-	protected static String dbUrl = "jdbc:mysql://localhost:3306/java?useSSL=false&serverTimezone=UTC";// 访问MySQL数据库的路径
-	protected static String dbUser = "root";// 访问MySQL数据库的用户名
-	protected static String dbPwd = "123456";// 访问MySQL数据库的密码
+	protected static String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com/db_person?useSSL=false&serverTimezone=UTC";// 访问MySQL数据库的路径
+	protected static String dbUser = "studio";// 访问MySQL数据库的用户名
+	protected static String dbPwd = "Mystudi0";// 访问MySQL数据库的密码
 	public static Connection conn = null;// MySQL数据库的连接对象
 	public static Object stmt;
 
