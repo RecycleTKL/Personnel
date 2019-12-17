@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import com.groupsix.Item;
 import com.groupsix.dao.model.TbManager;
+import com.groupsix.dao.model.TbReckoning;
 
 public class Dao {
 	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
@@ -43,7 +44,7 @@ public class Dao {
 		
 	}
 	
-	/**********************数据操作************************/
+	/**********************标准数据库操作************************/
 	// 添加数据
 	public static boolean insert(String sql) {
 		boolean result = false;
@@ -145,6 +146,7 @@ public class Dao {
 	
 	// 修改用户信息的方法
 	
+	
 	// 验证登录
 	public static boolean checkLogin(String userStr, String passStr)
 			throws SQLException {
@@ -171,5 +173,9 @@ public class Dao {
 				+ oldpw + "' and id = '" + id + "'");
 	}
 	/***************************************************/
+
+	public static TbReckoning getReckoning(Item item) {
+		return null;
+	}
 	
 }

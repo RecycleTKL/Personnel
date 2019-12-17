@@ -86,6 +86,7 @@ public class newsetManage extends JFrame {
 		JButton button = new JButton("\u9000\u51FA");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				submit = false;
 				dispose();
 			}
 		});
@@ -95,14 +96,14 @@ public class newsetManage extends JFrame {
 		JButton submitButton = new JButton("\u786E\u5B9A");
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String dbClassName = "com.mysql.cj.jdbc.Driver";
+				/*String dbClassName = "com.mysql.cj.jdbc.Driver";
 				String dbUrl = "jdbc:mysql://127.0.0.1:3306/java?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true";// 访问MySQL数据库的路径
 				String dbUser = "root";
 				String dbPwd = "123456";
 				Connection conn = null;
 				PreparedStatement stmt = null;
 				String name = nameTextField.getText().trim();
-				String explained = explainTextArea.getText().trim();
+				String explained = explainTextArea.getText().trim();*/
 				if (nameTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "请填写账套名称！", "友情提示",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -113,7 +114,8 @@ public class newsetManage extends JFrame {
 							JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
-				try {
+				dispose();
+				/*try {
 					Class.forName(dbClassName);				
 				 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
 				 	String sql2="insert into tb_reckoning(name,explained) values(?,?)";		 	
@@ -130,7 +132,7 @@ public class newsetManage extends JFrame {
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				}*/
 			}
 		});
 		submitButton.setBounds(329, 231, 70, 27);

@@ -3,6 +3,7 @@ package com.groupsix.frame.PersonManage;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -16,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-public class peixunManage extends JInternalFrame{
+public class peixunManage extends JPanel{
 	private JTable table;
 	JScrollPane scrollPane = new JScrollPane();
 	/**
@@ -39,10 +40,8 @@ public class peixunManage extends JInternalFrame{
 	 * Create the frame.
 	 */
 	public peixunManage() {
-		setIconifiable(true);
-		setClosable(true);
 		setBounds(100, 100, 907, 755);
-		getContentPane().setLayout(null);
+		setLayout(null);
 		
 		JButton button = new JButton("\u65B0\u5EFA");
 		button.addActionListener(new ActionListener() {
@@ -52,7 +51,7 @@ public class peixunManage extends JInternalFrame{
 			}
 		});
 		button.setBounds(326, 13, 80, 27);
-		getContentPane().add(button);
+		add(button);
 		
 		JButton button_1 = new JButton("\u67E5\u770B");
 		button_1.addActionListener(new ActionListener() {
@@ -122,11 +121,11 @@ public class peixunManage extends JInternalFrame{
 
 		});
 		button_1.setBounds(430, 13, 80, 27);
-		getContentPane().add(button_1);
+		add(button_1);
 		
 		
 		scrollPane.setBounds(14, 68, 863, 557);
-		getContentPane().add(scrollPane);
+		add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setColumnHeaderView(table);

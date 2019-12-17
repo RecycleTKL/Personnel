@@ -3,8 +3,6 @@ package com.groupsix.main;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-
 import com.groupsix.dao.Dao;
 import com.groupsix.frame.SalaryManagement.SalaryManage;
 
@@ -12,7 +10,6 @@ import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class main1 {
 

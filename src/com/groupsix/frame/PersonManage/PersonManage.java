@@ -44,12 +44,8 @@ public class PersonManage extends JInternalFrame {
 		//t1.setResizable(true);
 		tabbedPane.addTab("考勤管理", null, t1, null);
 		jiangcheng t2 = new jiangcheng();
-		t2.setMaximizable(true);
-		t2.setResizable(true);
 		tabbedPane.addTab("奖惩管理", null, t2, null);
 		peixunManage t3 = new peixunManage();
-		t3.setMaximizable(true);
-		t3.setResizable(true);
 		tabbedPane.addTab("培训管理", null, t3, null);
 	}
 
