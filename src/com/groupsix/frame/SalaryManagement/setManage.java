@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.groupsix.Item;
+import com.groupsix.dao.Dao;
 import com.groupsix.dao.model.TbReckoning;
 import com.groupsix.dao.model.TbReckoningInfo;
 
@@ -26,7 +28,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
 
-public class setManage extends JInternalFrame {
+public class setManage extends JPanel{
 	private JTable leftTable;
 	private JTable rightTable;
 	private JTextArea textArea;
@@ -73,7 +75,7 @@ public class setManage extends JInternalFrame {
 	 */
 	public setManage() {
 		setBounds(100, 100, 907, 755);
-		getContentPane().setLayout(null);
+		setLayout(null);
 		
 		JButton addSetButton =  
 				new JButton("\u65B0\u5EFA\u8D26\u5957");
@@ -113,35 +115,35 @@ public class setManage extends JInternalFrame {
 			}
 		});
 		addSetButton.setBounds(76, 13, 100, 27);
-		getContentPane().add(addSetButton);
+		add(addSetButton);
 		
 		JButton updateSetButton = new JButton("\u4FEE\u6539\u8D26\u5957");
 		updateSetButton.setBounds(177, 13, 100, 27);
-		getContentPane().add(updateSetButton);
+		add(updateSetButton);
 		
 		JButton delSetButton = new JButton("\u5220\u9664\u8D26\u5957");
 		delSetButton.setBounds(279, 13, 100, 27);
-		getContentPane().add(delSetButton);
+		add(delSetButton);
 		
 		JButton addItemButton = new JButton("\u6DFB\u52A0\u9879\u76EE");
 		addItemButton.setBounds(405, 13, 100, 27);
-		getContentPane().add(addItemButton);
+		add(addItemButton);
 		
 		JButton delItemButton = new JButton("\u5220\u9664\u9879\u76EE");
 		delItemButton.setBounds(509, 13, 100, 27);
-		getContentPane().add(delItemButton);
+		add(delItemButton);
 		
 		JButton updateMoneyButton = new JButton("\u4FEE\u6539\u91D1\u989D");
 		updateMoneyButton.setBounds(612, 13, 100, 27);
-		getContentPane().add(updateMoneyButton);
+		add(updateMoneyButton);
 		
 		JButton saveButton = new JButton("\u4FDD\u5B58");
 		saveButton.setBounds(752, 13, 70, 27);
-		getContentPane().add(saveButton);
+		add(saveButton);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(14, 590, 863, 116);
-		getContentPane().add(panel);
+		add(panel);
 		panel.setLayout(null);
 		
 		JLabel label = new JLabel("\u8D26\u5957\u8BF4\u660E\uFF1A");
@@ -161,7 +163,7 @@ public class setManage extends JInternalFrame {
 		
 		JScrollPane leftScrollPane = new JScrollPane();
 		leftScrollPane.setBounds(14, 62, 294, 515);
-		getContentPane().add(leftScrollPane);
+		add(leftScrollPane);
 		
 		leftTable = new JTable();
 		leftTable.setModel(new DefaultTableModel() {
@@ -189,13 +191,26 @@ public class setManage extends JInternalFrame {
 		
 		JScrollPane rightScrollPane = new JScrollPane();
 		rightScrollPane.setBounds(322, 62, 555, 515);
-		getContentPane().add(rightScrollPane);
+		add(rightScrollPane);
 		
 		rightTable = new JTable();
 		rightScrollPane.setColumnHeaderView(rightTable);
 
 	}
+	private void refreshTable(TbReckoning tbrecok, final DefaultTableModel dftm) {
+	//  int num = dftm.getRowCount();
+	//  for (int i = 0; i < num; i++)
+	//   dftm.removeRow(0);
+		TbReckoning tbreckoning;// 信息对象
+		Item item = new Item();
+		item.setName(tbrecok.getName());
+		tbreckoning = Dao.getReckoning(item);
+		Vector rowData = new Vector();
+		rowData.add(tbreckoning.getId());// 编号
+		rowData.add(tbreckoning.getName());// 名称
 
+		dftm.addRow(rowData);// 向表格对象中添加行数据（信息）
+	}
 	public void refreshItemAllRowValueV(int row) {
 		rightTableValueV.removeAllElements();
 		if (reckoningV.size() > 0) {
