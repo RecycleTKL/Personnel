@@ -145,7 +145,6 @@ public class Dao {
 	
 	// 修改用户信息的方法
 	
-	
 	// 验证登录
 	public static boolean checkLogin(String userStr, String passStr)
 			throws SQLException {
