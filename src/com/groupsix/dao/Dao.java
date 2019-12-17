@@ -1,4 +1,4 @@
-package com.Dao;
+package com.groupsix.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,10 +12,13 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.groupsix.Item;
+import com.groupsix.dao.model.TbManager;
+
 public class Dao {
 	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
 	protected static String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com/db_person?useSSL=false&serverTimezone=UTC";// 访问MySQL数据库的路径
-	protected static String dbUser = "studio";// 访问MySQL数据库的用户名
+	protected static String dbManager = "studio";// 访问MySQL数据库的用户名
 	protected static String dbPwd = "Mystudi0";// 访问MySQL数据库的密码
 	protected static String second = null;
 	public static Connection conn = null;// MySQL数据库的连接对象
@@ -24,7 +27,7 @@ public class Dao {
 	     try {
 	         if (conn == null) {
 	             Class.forName(dbClassName);// 实例化MySQL数据库的驱动
-	             conn = DriverManager.getConnection(dbUrl, dbUser, dbPwd);// 连接MySQL数据库
+	             conn = DriverManager.getConnection(dbUrl, dbManager, dbPwd);// 连接MySQL数据库
 	          }
 	    } catch (ClassNotFoundException e) {
 	         e.printStackTrace();
@@ -128,6 +131,46 @@ public class Dao {
 	}
 	/***************************************************/
 	
+	/********************系统用户信息操作*********************/
+	// 添加用户信息的方法
+	public static boolean addManager(TbManager manager) {
+		if (manager == null)
+			return false;
+		return insert("insert tb_manager values('" + manager.getId() + "','" 
+			+ manager.getPassword() + "','" + manager.getState() + "', " + manager.getPurview() + ")");
+	}
 	
+	// 获取用户对象的方法
+
+	
+	// 修改用户信息的方法
+	
+	
+	// 验证登录
+	public static boolean checkLogin(String userStr, String passStr)
+			throws SQLException {
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery("select * from tb_manager where id='"
+				+ userStr + "' and password='" + passStr + "'");
+		if (rs == null)
+			return false;
+		return rs.next();
+	}
+	
+	// 权限识别
+	public static int getManagerPurview(String userStr) throws SQLException {
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery("select purview from tb_manager where id='"
+				+ userStr + "'");
+		rs.next();
+		return Integer.parseInt(rs.getString(1));
+	}
+
+	// 修改用户密码方法
+	public static int modifyPassword(String id, String oldpw, String pw) {
+		return update("update tb_manager set password='" + pw + "' where password='"
+				+ oldpw + "' and id = '" + id + "'");
+	}
+	/***************************************************/
 	
 }

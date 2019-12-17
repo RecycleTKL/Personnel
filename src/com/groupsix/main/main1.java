@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
-import com.Dao.Dao;
+import com.groupsix.dao.Dao;
 import com.groupsix.frame.SalaryManagement.SalaryManage;
 
 import java.awt.BorderLayout;
