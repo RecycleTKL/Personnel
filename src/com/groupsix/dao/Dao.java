@@ -43,7 +43,7 @@ public class Dao {
 		
 	}
 	
-	/**********************数据操作************************/
+	/**********************标准数据库操作************************/
 	// 添加数据
 	public static boolean insert(String sql) {
 		boolean result = false;
@@ -144,6 +144,7 @@ public class Dao {
 
 	
 	// 修改用户信息的方法
+	
 	
 	// 验证登录
 	public static boolean checkLogin(String userStr, String passStr)
