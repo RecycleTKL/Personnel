@@ -1,4 +1,4 @@
-package com.groupsix.frame.PersonManage;
+package com.groupsix.frame.PersonnelManage;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -111,7 +111,7 @@ public class peixun_add extends JFrame {
 		panel.add(label_3);
 		
 		textField_4 = new JTextField();
-		textField_4.setBounds(123, 134, 120, 21);
+		textField_4.setBounds(123, 134, 128, 21);
 		panel.add(textField_4);
 		textField_4.setColumns(10);
 		
@@ -152,6 +152,11 @@ public class peixun_add extends JFrame {
 		panel.add(textField_7);
 		textField_7.setColumns(10);
 		
+		JLabel label_7 = new JLabel("\u2014\u2014");
+		label_7.setHorizontalAlignment(SwingConstants.CENTER);
+		label_7.setBounds(242, 135, 72, 18);
+		panel.add(label_7);
+		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.NORTH);
 		
@@ -163,20 +168,6 @@ public class peixun_add extends JFrame {
 		});
 		panel_1.add(btnNewButton);
 		btnNewButton.setBounds(181, 7, 93, 23);
-		
-		JButton button_1 = new JButton("\u4FDD\u5B58");
-		panel_1.add(button_1);
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					baocunPXActionPerformed();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
-		button_1.setBounds(594, 7, 93, 23);
 		
 		JButton btnNewButton_1 = new JButton("\u6DFB\u52A0\u53C2\u8BAD\u4EBA\u5458");
 		panel_1.add(btnNewButton_1);
@@ -243,6 +234,20 @@ public class peixun_add extends JFrame {
 		JButton button = new JButton("\u53D6\u6D88\u53C2\u8BAD\u8D44\u683C");
 		panel_1.add(button);
 		button.setBounds(440, 7, 140, 23);
+		
+		JButton savebutton = new JButton("\u4FDD\u5B58");
+		panel_1.add(savebutton);
+		savebutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					baocunPXActionPerformed();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		savebutton.setBounds(594, 7, 93, 23);
 
 	}
 	/**
@@ -289,6 +294,4 @@ public class peixun_add extends JFrame {
 			e1.printStackTrace();
 		}
 	}
-	
-
 }

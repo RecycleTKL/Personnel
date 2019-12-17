@@ -1,17 +1,13 @@
-package com.groupsix.frame.PersonManage;
+package com.groupsix.frame.PersonInfoManage;
 
 import java.awt.EventQueue;
 
-import javax.swing.JInternalFrame;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -128,7 +124,7 @@ public class dananManage extends JPanel {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel label_2 = new JLabel("\u59D3    \u540D\uFF1A");
+		JLabel label_2 = new JLabel("*\u59D3   \u540D\uFF1A");
 		label_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_2.setBounds(10, 31, 80, 24);
 		panel_1.add(label_2);
@@ -138,7 +134,7 @@ public class dananManage extends JPanel {
 		panel_1.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JLabel label_3 = new JLabel("\u6027    \u522B\uFF1A");
+		JLabel label_3 = new JLabel("*\u6027   \u522B\uFF1A");
 		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_3.setBounds(208, 31, 80, 24);
 		panel_1.add(label_3);
@@ -155,9 +151,9 @@ public class dananManage extends JPanel {
 		radioButton_1.setBounds(345, 28, 50, 27);
 		panel_1.add(radioButton_1);
 		
-		JLabel label_4 = new JLabel("\u51FA\u751F\u65E5\u671F\uFF1A");
+		JLabel label_4 = new JLabel("*\u51FA\u751F\u65E5\u671F\uFF1A");
 		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_4.setBounds(423, 31, 80, 24);
+		label_4.setBounds(420, 31, 83, 24);
 		panel_1.add(label_4);
 		
 		txtYyyymmdd = new JTextField("yyyy-mm-dd");
@@ -166,7 +162,7 @@ public class dananManage extends JPanel {
 		panel_1.add(txtYyyymmdd);
 		txtYyyymmdd.setColumns(10);
 		
-		JLabel label_5 = new JLabel("\u6C11    \u65CF\uFF1A");
+		JLabel label_5 = new JLabel("*\u6C11   \u65CF\uFF1A");
 		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_5.setBounds(10, 65, 80, 24);
 		panel_1.add(label_5);
@@ -176,7 +172,7 @@ public class dananManage extends JPanel {
 		comboBox.setBounds(86, 62, 80, 24);
 		panel_1.add(comboBox);
 		
-		JLabel label_6 = new JLabel("\u7C4D    \u8D2F\uFF1A");
+		JLabel label_6 = new JLabel("*\u7C4D   \u8D2F\uFF1A");
 		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_6.setBounds(208, 65, 80, 24);
 		panel_1.add(label_6);
@@ -186,9 +182,9 @@ public class dananManage extends JPanel {
 		comboBox_1.setBounds(289, 63, 72, 24);
 		panel_1.add(comboBox_1);
 		
-		JLabel label_7 = new JLabel("\u8EAB\u4EFD\u8BC1\u53F7\uFF1A");
+		JLabel label_7 = new JLabel("*\u8EAB\u4EFD\u8BC1\u53F7\uFF1A");
 		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_7.setBounds(423, 65, 80, 24);
+		label_7.setBounds(411, 65, 92, 24);
 		panel_1.add(label_7);
 		
 		textField_3 = new JTextField();
@@ -196,7 +192,7 @@ public class dananManage extends JPanel {
 		panel_1.add(textField_3);
 		textField_3.setColumns(10);
 		
-		JLabel label_8 = new JLabel("\u5B66    \u5386\uFF1A");
+		JLabel label_8 = new JLabel("*\u5B66   \u5386\uFF1A");
 		label_8.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_8.setBounds(10, 99, 80, 24);
 		panel_1.add(label_8);
@@ -207,7 +203,7 @@ public class dananManage extends JPanel {
 		comboBox_2.setBounds(86, 99, 80, 24);
 		panel_1.add(comboBox_2);
 		
-		JLabel label_9 = new JLabel("\u4E13    \u4E1A\uFF1A");
+		JLabel label_9 = new JLabel("*\u4E13   \u4E1A\uFF1A");
 		label_9.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_9.setBounds(208, 102, 80, 24);
 		panel_1.add(label_9);
@@ -269,9 +265,9 @@ public class dananManage extends JPanel {
 		panel_1.add(textField_7);
 		textField_7.setColumns(10);
 		
-		JLabel label_15 = new JLabel("\u6237\u7C4D\u5730\u5740\uFF1A");
+		JLabel label_15 = new JLabel("*\u6237\u7C4D\u5730\u5740\uFF1A");
 		label_15.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_15.setBounds(208, 172, 80, 24);
+		label_15.setBounds(196, 172, 92, 24);
 		panel_1.add(label_15);
 		
 		textField_8 = new JTextField();
@@ -332,7 +328,7 @@ public class dananManage extends JPanel {
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel label_17 = new JLabel("\u90E8    \u95E8\uFF1A");
+		JLabel label_17 = new JLabel("*\u90E8   \u95E8\uFF1A");
 		label_17.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_17.setBounds(10, 23, 80, 24);
 		panel_2.add(label_17);
@@ -342,7 +338,7 @@ public class dananManage extends JPanel {
 		comboBox_3.setBounds(90, 20, 72, 24);
 		panel_2.add(comboBox_3);
 		
-		JLabel label_18 = new JLabel("\u804C    \u52A1\uFF1A");
+		JLabel label_18 = new JLabel("*\u804C   \u52A1\uFF1A");
 		label_18.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_18.setBounds(215, 23, 80, 24);
 		panel_2.add(label_18);
@@ -661,7 +657,7 @@ public class dananManage extends JPanel {
 		JPanel panel_4 = new JPanel();
 		add(panel_4, BorderLayout.NORTH);
 		
-		JLabel label = new JLabel("\u6863\u6848\u7F16\u53F7\uFF1A");
+		JLabel label = new JLabel("*\u6863\u6848\u7F16\u53F7\uFF1A");
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_4.add(label);
 		
@@ -735,11 +731,17 @@ public class dananManage extends JPanel {
 		String ones_strong_suit = tf3_12.getText();
 		String postalcode1 = tf3_13.getText();
 		String address1 = tf3_14.getText();
-		if("".equals(name.trim())||"".equals(birthday.trim())||"".equals(id_card.trim())||"".equals(specialty.trim())
+		if("".equals(name.trim())||"".equals(birthday.trim())||"请选择".equals(nation_id.trim())||"请选择".equals(native_place_id.trim())||"".equals(id_card.trim())||"".equals(specialty.trim())
 				||"".equals(foreign_language.trim())||"".equals(grade.trim())||"".equals(postalcode1.trim())||"".equals(native_place_id.trim())) {
 			JOptionPane.showMessageDialog(null,"请填完所以信息!","提示",JOptionPane.INFORMATION_MESSAGE);
 			return ;
-		}	
+		}
+		if("请选择".equals(dept_id.trim())||"请选择".equals(duty_id.trim())||"请选择".equals(accession_form_id.trim())||"".equals(accession_date.trim())||"".equals(dimission_date.trim())||"".equals(dimission_reason.trim())
+				||"".equals(pact_start_date.trim())||"".equals(pact_end_date.trim())||"".equals(first_pact_date.trim())||"".equals(first_pact_age.trim())||"".equals(bank_name.trim())||"".equals(society_safety_NO.trim())
+				||"".equals(annuity_safety_NO.trim())||"".equals(bank_NO.trim())||"".equals(medicare_safety_NO.trim())||"".equals(anObject)) {
+			JOptionPane.showMessageDialog(null,"请填完所以信息!","提示",JOptionPane.INFORMATION_MESSAGE);
+			return ;
+		}
 		else {
 			java.util.Date d = null;
 			try {

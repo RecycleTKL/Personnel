@@ -1,4 +1,4 @@
-package com.groupsix.frame.PersonManage;
+package com.groupsix.frame.PersonnelManage;
 
 import java.awt.EventQueue;
 
@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-public class peixunManage extends JPanel{
+public class TrainingPanel extends JPanel{
 	private JTable table;
 	JScrollPane scrollPane = new JScrollPane();
 	/**
@@ -27,7 +27,7 @@ public class peixunManage extends JPanel{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					peixunManage frame = new peixunManage();
+					TrainingPanel frame = new TrainingPanel();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +39,7 @@ public class peixunManage extends JPanel{
 	/**
 	 * Create the frame.
 	 */
-	public peixunManage() {
+	public TrainingPanel() {
 		setBounds(100, 100, 907, 755);
 		setLayout(null);
 		

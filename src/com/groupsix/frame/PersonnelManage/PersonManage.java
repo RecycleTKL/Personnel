@@ -1,9 +1,11 @@
-package com.groupsix.frame.PersonManage;
+package com.groupsix.frame.PersonnelManage;
 
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JTabbedPane;
+
+import com.groupsix.frame.PersonInfoManage.dananManage;
 
 import java.awt.BorderLayout;
 
@@ -36,8 +38,6 @@ public class PersonManage extends JInternalFrame {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		dananManage t = new dananManage();
-		tabbedPane.addTab("档案管理", null, t, null);
 		
 		kaoqinManage t1 = new kaoqinManage();
 		//t1.setMaximizable(true);
@@ -45,7 +45,7 @@ public class PersonManage extends JInternalFrame {
 		tabbedPane.addTab("考勤管理", null, t1, null);
 		jiangcheng t2 = new jiangcheng();
 		tabbedPane.addTab("奖惩管理", null, t2, null);
-		peixunManage t3 = new peixunManage();
+		TrainingPanel t3 = new TrainingPanel();
 		tabbedPane.addTab("培训管理", null, t3, null);
 	}
 

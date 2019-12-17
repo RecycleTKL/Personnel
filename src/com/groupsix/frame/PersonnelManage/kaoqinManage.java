@@ -1,4 +1,4 @@
-package com.groupsix.frame.PersonManage;
+package com.groupsix.frame.PersonnelManage;
 
 import java.awt.EventQueue;
 
