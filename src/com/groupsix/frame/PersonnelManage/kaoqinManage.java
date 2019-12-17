@@ -102,9 +102,9 @@ public class kaoqinManage extends JPanel {
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String dbClassName = "com.mysql.cj.jdbc.Driver";
-				String dbUrl = "jdbc:mysql://127.0.0.1:3306/java?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true";// 访问MySQL数据库的路径
-				String dbUser = "root";
-				String dbPwd = "123456";
+				String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
+				String dbUser = "studio";
+				String dbPwd = "Mystudi0";
 				String dept_id = (String) comboBox.getSelectedItem();
 				
 				Connection conn = null;
@@ -212,9 +212,9 @@ public class kaoqinManage extends JPanel {
 		comboBox_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String dbClassName = "com.mysql.cj.jdbc.Driver";
-				String dbUrl = "jdbc:mysql://127.0.0.1:3306/java?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true";// 访问MySQL数据库的路径
-				String dbUser = "root";
-				String dbPwd = "123456";
+				String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
+				String dbUser = "studio";
+				String dbPwd = "Mystudi0";
 				String dept_id = (String) comboBox_4.getSelectedItem();
 				
 				Connection conn = null;
@@ -258,9 +258,9 @@ public class kaoqinManage extends JPanel {
 	 */
 	private void baocunKQMActionPerformed() throws ClassNotFoundException {
 		String dbClassName = "com.mysql.cj.jdbc.Driver";
-		String dbUrl = "jdbc:mysql://127.0.0.1:3306/java?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true";// 访问MySQL数据库的路径
-		String dbUser = "root";
-		String dbPwd = "123456";
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
+		String dbUser = "studio";
+		String dbPwd = "Mystudi0";
 		String record_id = (String) comboBox_1.getSelectedItem();
 		String account_item_id = (String) comboBox_2.getSelectedItem();
 		String explained = textArea.getText().trim();

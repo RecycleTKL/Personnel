@@ -40,6 +40,8 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class dananManage extends JPanel {
 	private JTextField textField_1;
@@ -666,6 +668,16 @@ public class dananManage extends JPanel {
 		panel_4.add(textField);
 		
 		JButton button = new JButton("\u4FDD\u5B58");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					baocunActionPerformed();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		panel_4.add(button);
 
 	}
@@ -675,9 +687,9 @@ public class dananManage extends JPanel {
 	 */
 	private void baocunActionPerformed() throws ClassNotFoundException {
 		String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
-		String dbUrl = "jdbc:mysql://127.0.0.1:3306/java?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true";// 访问MySQL数据库的路径
-		String dbUser = "root";// 访问MySQL数据库的用户名
-		String dbPwd = "123456";// 访问MySQL数据库的密码
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
+		String dbUser = "studio";// 访问MySQL数据库的用户名
+		String dbPwd = "Mystudi0";// 访问MySQL数据库的密码
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		String record_number = textField.getText(); 
@@ -732,13 +744,11 @@ public class dananManage extends JPanel {
 		String postalcode1 = tf3_13.getText();
 		String address1 = tf3_14.getText();
 		if("".equals(name.trim())||"".equals(birthday.trim())||"请选择".equals(nation_id.trim())||"请选择".equals(native_place_id.trim())||"".equals(id_card.trim())||"".equals(specialty.trim())
-			||"".equals(grade.trim())||"".equals(native_place_id.trim())) {
+			||"".equals(grade.trim())) {
 			JOptionPane.showMessageDialog(null,"请填完所以信息!","提示",JOptionPane.INFORMATION_MESSAGE);
 			return ;
 		}
-		if("请选择".equals(dept_id.trim())||"请选择".equals(duty_id.trim())||"请选择".equals(accession_form_id.trim())||"".equals(accession_date.trim())||"".equals(dimission_date.trim())||"".equals(dimission_reason.trim())
-				||"".equals(pact_start_date.trim())||"".equals(pact_end_date.trim())||"".equals(first_pact_date.trim())||"".equals(first_pact_age.trim())||"".equals(bank_name.trim())||"".equals(society_safety_NO.trim())
-				||"".equals(annuity_safety_NO.trim())||"".equals(bank_NO.trim())||"".equals(medicare_safety_NO.trim())||"".equals(anObject)) {
+		if("请选择".equals(dept_id.trim())||"请选择".equals(duty_id.trim())) {
 			JOptionPane.showMessageDialog(null,"请填完所以信息!","提示",JOptionPane.INFORMATION_MESSAGE);
 			return ;
 		}

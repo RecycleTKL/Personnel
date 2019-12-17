@@ -95,9 +95,9 @@ public class jiangcheng extends JPanel {
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String dbClassName = "com.mysql.cj.jdbc.Driver";
-				String dbUrl = "jdbc:mysql://127.0.0.1:3306/java?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true";// 访问MySQL数据库的路径
-				String dbUser = "root";
-				String dbPwd = "123456";
+				String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
+				String dbUser = "studio";
+				String dbPwd = "Mystudi0";
 				String dept_id = (String) comboBox.getSelectedItem();
 				
 				Connection conn = null;
@@ -183,9 +183,9 @@ public class jiangcheng extends JPanel {
 		comboBox_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String dbClassName = "com.mysql.cj.jdbc.Driver";
-				String dbUrl = "jdbc:mysql://127.0.0.1:3306/java?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true";// 访问MySQL数据库的路径
-				String dbUser = "root";
-				String dbPwd = "123456";
+				String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
+				String dbUser = "studio";
+				String dbPwd = "Mystudi0";
 				String dept_id = (String) comboBox_2.getSelectedItem();
 				
 				Connection conn = null;
@@ -265,10 +265,10 @@ public class jiangcheng extends JPanel {
 	 * @throws ClassNotFoundException 
 	 */
 	private void baocunJCActionPerformed() throws ClassNotFoundException {
-		String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
-		String dbUrl = "jdbc:mysql://127.0.0.1:3306/java?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true";// 访问MySQL数据库的路径
-		String dbUser = "root";// 访问MySQL数据库的用户名
-		String dbPwd = "123456";// 访问MySQL数据库的密码
+		String dbClassName = "com.mysql.cj.jdbc.Driver";
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
+		String dbUser = "studio";
+		String dbPwd = "Mystudi0";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		String record_id =(String) comboBox_1.getSelectedItem();

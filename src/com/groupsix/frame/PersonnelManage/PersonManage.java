@@ -40,8 +40,7 @@ public class PersonManage extends JInternalFrame {
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		kaoqinManage t1 = new kaoqinManage();
-		//t1.setMaximizable(true);
-		//t1.setResizable(true);
+
 		tabbedPane.addTab("考勤管理", null, t1, null);
 		jiangcheng t2 = new jiangcheng();
 		tabbedPane.addTab("奖惩管理", null, t2, null);

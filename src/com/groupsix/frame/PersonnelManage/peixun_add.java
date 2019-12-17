@@ -174,10 +174,10 @@ public class peixun_add extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
-				String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
-				String dbUrl = "jdbc:mysql://127.0.0.1:3306/java?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true";// 访问MySQL数据库的路径
-				String dbUser = "root";// 访问MySQL数据库的用户名
-				String dbPwd = "123456";// 访问MySQL数据库的密码
+				String dbClassName = "com.mysql.cj.jdbc.Driver";
+				String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
+				String dbUser = "studio";
+				String dbPwd = "Mystudi0";
 				Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
@@ -255,10 +255,10 @@ public class peixun_add extends JFrame {
 	 * @throws ClassNotFoundException 
 	 */
 	private void baocunPXActionPerformed() throws ClassNotFoundException {
-		String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
-		String dbUrl = "jdbc:mysql://127.0.0.1:3306/java?useSSL=FALSE&serverTimezone=UTC&allowPublicKeyRetrieval=true";// 访问MySQL数据库的路径
-		String dbUser = "root";// 访问MySQL数据库的用户名
-		String dbPwd = "123456";// 访问MySQL数据库的密码
+		String dbClassName = "com.mysql.cj.jdbc.Driver";
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
+		String dbUser = "studio";
+		String dbPwd = "Mystudi0";
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
