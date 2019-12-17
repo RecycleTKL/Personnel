@@ -41,7 +41,8 @@ public class setManage extends JInternalFrame {
 		setBounds(100, 100, 907, 755);
 		getContentPane().setLayout(null);
 		
-		JButton button = new JButton("\u65B0\u5EFA\u8D26\u5957");
+		JButton button =  
+				new JButton("\u65B0\u5EFA\u8D26\u5957");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new newsetManage().setVisible(true);
