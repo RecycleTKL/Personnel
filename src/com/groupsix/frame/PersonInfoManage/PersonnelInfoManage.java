@@ -1,8 +1,10 @@
 package com.groupsix.frame.PersonInfoManage;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JTabbedPane;
 
 public class PersonnelInfoManage extends JInternalFrame {
 
@@ -26,8 +28,15 @@ public class PersonnelInfoManage extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public PersonnelInfoManage() {
-		setBounds(100, 100, 450, 300);
-
+		setMaximizable(true);
+		setIconifiable(true);
+		setBounds(100, 100, 950, 757);
+		setResizable(true);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		getContentPane().add(tabbedPane, BorderLayout.CENTER);
+		dananManage t = new dananManage();
+		tabbedPane.addTab("µµ∞∏π‹¿Ì", null, t, null);
 	}
 
 }
