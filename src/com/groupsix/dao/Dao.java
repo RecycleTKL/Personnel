@@ -17,7 +17,7 @@ import com.groupsix.dao.model.TbManager;
 
 public class Dao {
 	protected static String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
-	protected static String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com/db_person?useSSL=false&serverTimezone=UTC";// 访问MySQL数据库的路径
+	protected static String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
 	protected static String dbManager = "studio";// 访问MySQL数据库的用户名
 	protected static String dbPwd = "Mystudi0";// 访问MySQL数据库的密码
 	protected static String second = null;
