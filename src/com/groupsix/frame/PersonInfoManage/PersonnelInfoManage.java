@@ -35,8 +35,11 @@ public class PersonnelInfoManage extends JInternalFrame {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		dananManage t = new dananManage();
-		tabbedPane.addTab("档案管理", null, t, null);
+		staffManage t = new staffManage();
+		tabbedPane.addTab("员工管理", null, t, null);
+		
+		dananManage t1 = new dananManage();
+		tabbedPane.addTab("档案管理", null, t1, null);
 	}
 
 }

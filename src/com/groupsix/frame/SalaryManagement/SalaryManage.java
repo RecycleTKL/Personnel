@@ -6,7 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import javax.swing.JTabbedPane;
 
-import com.groupsix.frame.PersonInfoManage.dananManage;
+import com.groupsix.frame.PersonInfoManage.staffManage;
 
 public class SalaryManage extends JInternalFrame {
 
