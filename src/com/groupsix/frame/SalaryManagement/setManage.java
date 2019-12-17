@@ -12,7 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import com.mwq.hibernate.mapping.TbReckoning;
+import com.groupsix.dao.model.TbReckoning;
+import com.groupsix.dao.model.TbReckoningInfo;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -22,11 +23,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.JSplitPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextArea;
 
 public class setManage extends JInternalFrame {
-	private JTextField textArea;
 	private JTable leftTable;
 	private JTable rightTable;
+	JTextArea textArea = new JTextArea();
 	private int needSaveRow = -1;
 	private int lastSelectedRow = -1;
 	private final Vector<String> leftTableColumnV = new Vector<String>();
@@ -142,10 +144,10 @@ public class setManage extends JInternalFrame {
 		label.setBounds(14, 13, 80, 20);
 		panel.add(label);
 		
-		textArea = new JTextField();
-		textArea.setBounds(99, 11, 750, 92);
-		panel.add(textArea);
-		textArea.setColumns(10);
+		JScrollPane explainScrollPane = new JScrollPane();
+		explainScrollPane.setBounds(93, 13, 756, 90);
+		panel.add(explainScrollPane);
+		explainScrollPane.setViewportView(textArea);
 		
 		JScrollPane leftScrollPane = new JScrollPane();
 		leftScrollPane.setBounds(14, 62, 294, 515);
@@ -173,13 +175,12 @@ public class setManage extends JInternalFrame {
 
 	}
 
-	public void refreshItemAllRowValueV(int selectedRow) {
+	public void refreshItemAllRowValueV(int row) {
 		rightTableValueV.removeAllElements();
 		if (reckoningV.size() > 0) {
 			TbReckoning reckoning = reckoningV.get(row);
 			textArea.setText(reckoning.getExplain());
-			Iterator<TbReckoningInfo> reckoningInfoIt = reckoning
-					.getTbReckoningInfos().iterator();
+			Iterator<TbReckoningInfo> reckoningInfoIt = reckoning.getTbReckoningInfos().iterator();
 			int reckoningInfoNum = 1;
 			while (reckoningInfoIt.hasNext()) {
 				TbReckoningInfo reckoningInfo = reckoningInfoIt.next();

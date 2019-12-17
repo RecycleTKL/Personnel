@@ -30,7 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ButtonGroup;
 
-public class jiangcheng extends JInternalFrame {
+public class jiangcheng extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -64,10 +64,10 @@ public class jiangcheng extends JInternalFrame {
 	 */
 	public jiangcheng() {
 		setBounds(100, 100, 907, 755);
-		getContentPane().setLayout(new BorderLayout(0, 0));
+		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.NORTH);
+		add(panel, BorderLayout.NORTH);
 		
 		JButton button = new JButton("\u65B0\u5EFA");
 		panel.add(button);
@@ -86,7 +86,7 @@ public class jiangcheng extends JInternalFrame {
 		panel.add(button_1);
 		
 		JPanel panel_1 = new JPanel();
-		getContentPane().add(panel_1, BorderLayout.CENTER);
+		add(panel_1, BorderLayout.CENTER);
 		
 		JLabel label = new JLabel("\u6240\u5728\u90E8\u95E8\uFF1A");
 		label.setBounds(182, 47, 75, 18);
