@@ -1,6 +1,9 @@
 package com.groupsix.frame.SalaryManagement;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JButton;
@@ -15,12 +18,10 @@ import javax.swing.table.DefaultTableModel;
 import com.groupsix.dao.model.TbReckoning;
 import com.groupsix.dao.model.TbReckoningInfo;
 
-import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
-import javax.swing.JSplitPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
@@ -28,7 +29,8 @@ import javax.swing.JTextArea;
 public class setManage extends JInternalFrame {
 	private JTable leftTable;
 	private JTable rightTable;
-	JTextArea textArea = new JTextArea();
+	private JTextArea textArea;
+	private DefaultTableModel dftm;
 	private int needSaveRow = -1;
 	private int lastSelectedRow = -1;
 	private final Vector<String> leftTableColumnV = new Vector<String>();
@@ -45,6 +47,11 @@ public class setManage extends JInternalFrame {
 	private final DefaultTableModel rightTableModel = new DefaultTableModel(
 			rightTableValueV, rightTableColumnV);
 	private final Vector<TbReckoning> reckoningV = new Vector<TbReckoning>();
+	private String reckoningExplain = "";
+	private final Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	private final int width = dimension.width;
+
+	private final int height = dimension.height;
 	/**
 	 * Launch the application.
 	 */
@@ -68,27 +75,25 @@ public class setManage extends JInternalFrame {
 		setBounds(100, 100, 907, 755);
 		getContentPane().setLayout(null);
 		
-		JButton button =  
+		JButton addSetButton =  
 				new JButton("\u65B0\u5EFA\u8D26\u5957");
-		button.addActionListener(new ActionListener() {
+		addSetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (needSaveRow == -1) {// 没有需要保存的账套
+				if (needSaveRow == -1) {// 没有需要保存的账套					
 					newsetManage createCriterionSet = new newsetManage();
+					createCriterionSet.setBounds((width - 350) / 2,(height - 250) / 2, 350, 250);
 					createCriterionSet.setVisible(true);// 弹出新建账套对话框
 					if (createCriterionSet.isSubmit()) {// 单击“确定”按钮
-						String name = createCriterionSet.getNameTextField()
-								.getText();// 获得账套名称
-						String explain = createCriterionSet
-								.getExplainTextArea().getText();// 获得账套说明
+						String name = createCriterionSet.getNameTextField().getText();// 获得账套名称
+						String explain = createCriterionSet.getExplainTextArea().getText();// 获得账套说明
 
 						needSaveRow = leftTableValueV.size();// 将新建账套设置为需要保存的账套
-
+						System.out.println(needSaveRow);
 						Vector<String> newCriterionSetV = new Vector<String>();// 创建代表账套表格行的向量对象
 						newCriterionSetV.add(needSaveRow + 1 + "");// 添加账套序号
 						newCriterionSetV.add(name);// 添加账套名称
 						leftTableModel.addRow(newCriterionSetV);// 将向量对象添加到左侧的账套表格中
-						leftTable.setRowSelectionInterval(needSaveRow,
-								needSaveRow);// 设置新建账套为选中行
+						leftTable.setRowSelectionInterval(needSaveRow,needSaveRow);// 设置新建账套为选中行
 						textArea.setText(explain);// 设置账套说明
 
 						TbReckoning reckoning = new TbReckoning();// 创建账套对象
@@ -107,32 +112,32 @@ public class setManage extends JInternalFrame {
 				//textField.setText(newsetManage.get_Explained().toString());
 			}
 		});
-		button.setBounds(76, 13, 100, 27);
-		getContentPane().add(button);
+		addSetButton.setBounds(76, 13, 100, 27);
+		getContentPane().add(addSetButton);
 		
-		JButton button_1 = new JButton("\u4FEE\u6539\u8D26\u5957");
-		button_1.setBounds(177, 13, 100, 27);
-		getContentPane().add(button_1);
+		JButton updateSetButton = new JButton("\u4FEE\u6539\u8D26\u5957");
+		updateSetButton.setBounds(177, 13, 100, 27);
+		getContentPane().add(updateSetButton);
 		
-		JButton button_2 = new JButton("\u5220\u9664\u8D26\u5957");
-		button_2.setBounds(279, 13, 100, 27);
-		getContentPane().add(button_2);
+		JButton delSetButton = new JButton("\u5220\u9664\u8D26\u5957");
+		delSetButton.setBounds(279, 13, 100, 27);
+		getContentPane().add(delSetButton);
 		
-		JButton button_3 = new JButton("\u6DFB\u52A0\u9879\u76EE");
-		button_3.setBounds(405, 13, 100, 27);
-		getContentPane().add(button_3);
+		JButton addItemButton = new JButton("\u6DFB\u52A0\u9879\u76EE");
+		addItemButton.setBounds(405, 13, 100, 27);
+		getContentPane().add(addItemButton);
 		
-		JButton button_4 = new JButton("\u5220\u9664\u9879\u76EE");
-		button_4.setBounds(509, 13, 100, 27);
-		getContentPane().add(button_4);
+		JButton delItemButton = new JButton("\u5220\u9664\u9879\u76EE");
+		delItemButton.setBounds(509, 13, 100, 27);
+		getContentPane().add(delItemButton);
 		
-		JButton button_5 = new JButton("\u4FEE\u6539\u91D1\u989D");
-		button_5.setBounds(612, 13, 100, 27);
-		getContentPane().add(button_5);
+		JButton updateMoneyButton = new JButton("\u4FEE\u6539\u91D1\u989D");
+		updateMoneyButton.setBounds(612, 13, 100, 27);
+		getContentPane().add(updateMoneyButton);
 		
-		JButton button_6 = new JButton("\u4FDD\u5B58");
-		button_6.setBounds(752, 13, 70, 27);
-		getContentPane().add(button_6);
+		JButton saveButton = new JButton("\u4FDD\u5B58");
+		saveButton.setBounds(752, 13, 70, 27);
+		getContentPane().add(saveButton);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(14, 590, 863, 116);
@@ -147,6 +152,11 @@ public class setManage extends JInternalFrame {
 		JScrollPane explainScrollPane = new JScrollPane();
 		explainScrollPane.setBounds(93, 13, 756, 90);
 		panel.add(explainScrollPane);
+		
+		textArea = new JTextArea();
+		textArea.setText(reckoningExplain);
+		textArea.setEditable(false);
+		textArea.setLineWrap(true);
 		explainScrollPane.setViewportView(textArea);
 		
 		JScrollPane leftScrollPane = new JScrollPane();
@@ -154,7 +164,18 @@ public class setManage extends JInternalFrame {
 		getContentPane().add(leftScrollPane);
 		
 		leftTable = new JTable();
-		leftTable.addMouseListener(new MouseAdapter() {
+		leftTable.setModel(new DefaultTableModel() {
+			   public boolean isCellEditable(int row, int column) {
+			    return false;
+			   }
+			  });
+			  leftTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+			  dftm = (DefaultTableModel) leftTable.getModel();
+			  String[] tableHeads = new String[] { "序号","账套名称" };
+			  dftm.setColumnIdentifiers(tableHeads);
+			  leftTable.setFont(new Font("宋体", Font.PLAIN, 14));
+			  leftScrollPane.setViewportView(leftTable);
+			  leftTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				int selectedRow = leftTable.getSelectedRow();
