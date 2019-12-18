@@ -55,6 +55,7 @@ import javax.swing.tree.TreePath;
 import com.groupsix.frame.PersonInfoManage.PersonnelInfoManage;
 import com.groupsix.frame.PersonnelManage.PersonManage;
 import com.groupsix.frame.PersonnelManage.jiangcheng;
+import com.groupsix.frame.userManage.UserManage;
 
 
 public class MainFrame extends JFrame {
@@ -177,7 +178,7 @@ public class MainFrame extends JFrame {
 		menuItem_userManage.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menuItem_userManage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//createIFrame(menuItem_userManage, UserManage.class);
+				createIFrame(menuItem_userManage, UserManage.class);
 			}
 		});
 		mnNewMenu.add(menuItem_userManage);

@@ -132,6 +132,13 @@ public class Dao {
 	}
 	/***************************************************/
 	
+	/********************tb_record档案表操作*********************/
+	//获取档案表所有
+	public static List getAllTbRecordInfo() {
+		List list = findForList("select id, record_number, name from tb_record");
+		return list;
+	}
+	
 	/********************系统用户信息操作*********************/
 	// 添加用户信息的方法
 	public static boolean addManager(TbManager manager) {
@@ -142,7 +149,7 @@ public class Dao {
 	}
 	
 	// 获取用户对象的方法
-	public static TbManager getUserInfo(Item item) {
+	public static TbManager getManagerInfo(Item item) {
 		String where = "id='" + item.getNo() + "'";
 		ResultSet rs = findForResultSet("select * from tb_manager where "
 				+ where);
