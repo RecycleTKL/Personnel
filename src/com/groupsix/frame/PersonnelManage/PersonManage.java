@@ -1,6 +1,7 @@
 package com.groupsix.frame.PersonnelManage;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JTabbedPane;
@@ -37,16 +38,20 @@ public class PersonManage extends JInternalFrame {
 		setIconifiable(true);
 		setBounds(100, 100, 950, 757);
 		setResizable(true);
+		setClosable(true);
 		
-		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
-		kaoqinManage t1 = new kaoqinManage();
-
+		tabbedPane = new JTabbedPane();
+		tabbedPane.setFont(new Font("宋体", Font.PLAIN, 14));
+		final kaoqinManage t1 = new kaoqinManage();
 		tabbedPane.addTab("考勤管理", null, t1, null);
-		jiangcheng t2 = new jiangcheng();
+		final jiangcheng t2 = new jiangcheng();
 		tabbedPane.addTab("奖惩管理", null, t2, null);
-		TrainingPanel t3 = new TrainingPanel();
+		final TrainingPanel t3 = new TrainingPanel();
 		tabbedPane.addTab("培训管理", null, t3, null);
+		getContentPane().add(tabbedPane);// 把选项卡面板添加到药品管理内部窗体的内容面板中
+		
+		pack();// 药品管理内部窗体中的组件按其首选大小进行布局
+		setVisible(true);// 使药品管理内部窗体可见
 	}
 
 	public static void setTabPane(int i) {

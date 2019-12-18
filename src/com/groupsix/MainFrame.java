@@ -7,16 +7,22 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -62,8 +68,6 @@ public class MainFrame extends JFrame {
 	private JDesktopPane desktopPane = null;
 	private JTree tree;
 	private JMenuItem menuItem_recordManage;
-	private JMenuItem menuItem_agencyManage;
-	private JMenuItem menuItem_medicineManage;
 	private JMenuItem menuItem_userManage;
 	private static Date currentDate;
 	private static JLabel label_currentTime = null;		//当前系统时间
@@ -164,24 +168,6 @@ public class MainFrame extends JFrame {
 			}
 		});
 		menu.add(menuItem_recordManage);
-		
-		menuItem_agencyManage = new JMenuItem("经办人信息管理");
-		menuItem_agencyManage.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
-		menuItem_agencyManage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//createIFrame(menuItem_agencyManage, AgencyManage.class);
-			}
-		});
-		menu.add(menuItem_agencyManage);
-		
-		menuItem_medicineManage = new JMenuItem("药品信息管理");
-		menuItem_medicineManage.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
-		menuItem_medicineManage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//createIFrame(menuItem_medicineManage, MedicineManage.class);
-			}
-		});
-		menu.add(menuItem_medicineManage);
 		
 		JMenu mnNewMenu = new JMenu("系统选项");
 		mnNewMenu.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
@@ -288,6 +274,12 @@ public class MainFrame extends JFrame {
 		button_exit.setFont(new Font("黑体", Font.PLAIN, 18));
 		toolBar.add(button_exit);
 		
+//			URL picURL = MainFrame.class.getResource("/res/landscape.jpg");
+//			String picPath = MainFrame.class.getResource("/res/landscape.jpg").getFile();
+//			System.out.println(picPath);
+//			picPath=URLDecoder.decode(picPath,"utf-8");
+//			Image image = ImageIO.read(new File(picPath));
+			
 		desktopPane = new JDesktopPane();
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		desktopPane.setLayout(null);
