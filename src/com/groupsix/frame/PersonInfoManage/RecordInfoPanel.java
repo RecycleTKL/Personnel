@@ -845,9 +845,11 @@ public class RecordInfoPanel extends JPanel {
             stmt.setString(14, ones_strong_suit); 
             stmt.setString(15, str);
 		 	stmt.executeUpdate();
-            
-            
+		 	JOptionPane.showMessageDialog(RecordInfoPanel.this,
+					"修改成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
+		 	//new StaffListPanel();
             setNull();
+            
 		}catch(SQLException e1) {
 			e1.printStackTrace();
 		}
