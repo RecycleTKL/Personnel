@@ -8,7 +8,7 @@ import javax.swing.JTabbedPane;
 
 public class PersonnelInfoManage extends JInternalFrame {
 
-	private static JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private static JTabbedPane tabbedPane;
 
 	/**
 	 * Launch the application.
@@ -34,13 +34,17 @@ public class PersonnelInfoManage extends JInternalFrame {
 		setIconifiable(true);
 		setBounds(100, 100, 950, 757);
 		setResizable(true);
+		setClosable(true);
 		
-		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
+		tabbedPane = new JTabbedPane();
 		dananManage t1 = new dananManage();
 		tabbedPane.addTab("档案管理", null, t1, null);
 		staffManage t = new staffManage();
 		tabbedPane.addTab("员工管理", null, t, null);
+		getContentPane().add(tabbedPane);// 把选项卡面板添加到药品管理内部窗体的内容面板中
+		
+		pack();// 药品管理内部窗体中的组件按其首选大小进行布局
+		setVisible(true);// 使药品管理内部窗体可见
 	}
 	
 	public static void setTabPane(int i) {

@@ -54,7 +54,7 @@ public class Login extends JFrame {
 		
 		JButton btn_confirm = new JButton("\u767B\u5F55");
 		btn_confirm.setHorizontalAlignment(SwingConstants.LEFT);
-		btn_confirm.setPressedIcon(new ImageIcon(Login.class.getResource("/res/loginbtnprsdy.gif")));
+		btn_confirm.setPressedIcon(new ImageIcon(Login.class.getResource("/res/loginbtnprs.png")));
 		btn_confirm.setBorderPainted(false);
 		btn_confirm.setContentAreaFilled(false);
 		btn_confirm.setOpaque(false);
