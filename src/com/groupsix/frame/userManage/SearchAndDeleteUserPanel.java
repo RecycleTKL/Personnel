@@ -8,9 +8,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.studio.Item;
-import com.studio.dao.Dao;
-import com.studio.dao.model.*;
+import com.groupsix.Item;
+import com.groupsix.dao.Dao;
+import com.groupsix.dao.model.*;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -77,7 +77,7 @@ public class SearchAndDeleteUserPanel extends JPanel {
 		});
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		dftm = (DefaultTableModel) table.getModel();
-		String[] tableHeads = new String[] { "用户编号", "用户�?", "用户�?", "经办人编�?", "�?有�?�姓�?" };
+		String[] tableHeads = new String[] { "员工档案编号", "用户名", "状态", "用户权限" };
 		dftm.setColumnIdentifiers(tableHeads);
 		table.setFont(new Font("宋体", Font.PLAIN, 14));
 		scrollPane.setViewportView(table);
@@ -85,22 +85,22 @@ public class SearchAndDeleteUserPanel extends JPanel {
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.NORTH);
 		
-		JLabel label = new JLabel("选择查询条件�?");
+		JLabel label = new JLabel("选择查询条件：");
 		label.setFont(new Font("宋体", Font.PLAIN, 14));
 		panel.add(label);
 		
 		comboBox_conditionName = new JComboBox();
 		comboBox_conditionName.setPreferredSize(new Dimension(120, 21));
-		comboBox_conditionName.setModel(new DefaultComboBoxModel(new String[] {"用户编号", "用户�?", "用户�?", "经办人编�?"}));
+		comboBox_conditionName.setModel(new DefaultComboBoxModel(new String[] {"员工档案编号", "用户姓名", "用户权限"}));
 		comboBox_conditionName.setFont(new Font("宋体", Font.PLAIN, 14));
 		comboBox_conditionName.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
-				// TODO 自动生成的方法存�?
-				if(comboBox_conditionName.getSelectedItem().toString().equals("用户�?")) {
+				// TODO 自动生成的方法存�?
+				if(comboBox_conditionName.getSelectedItem().toString().equals("用户权限")) {
 					textField_conditionContent.setEnabled(false);
-					comboBox_conditionOperation.setModel(new DefaultComboBoxModel(new String[] {"管理�?",
-							"库存经办�?", "经办�?"}));
+					comboBox_conditionOperation.setModel(new DefaultComboBoxModel(new String[] {"管理员",
+							"超级管理员" }));
 				} else {
 					textField_conditionContent.setEnabled(true);
 					comboBox_conditionOperation.setModel(new DefaultComboBoxModel(new String[] {"包含", "等于"}));
@@ -129,7 +129,8 @@ public class SearchAndDeleteUserPanel extends JPanel {
 		button.setFont(new Font("宋体", Font.PLAIN, 14));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				List list = Dao.findForList("select * from tb_userlist");// 点击“显示全部数据�?�按钮后，更新表格内�?
+				List list = Dao.findForList("select tb_record.record_number, tb_record.name," 
+			+ " tb_manager.state, tb_manager.purview from tb_manager, tb_record where tb_manager.id=tb_record.id");// 点击“显示全部数据�?�按钮后，更新表格内�?
 				updateTable(list, dftm);
 			}
 		});
@@ -141,45 +142,20 @@ public class SearchAndDeleteUserPanel extends JPanel {
 		int num = dftm.getRowCount();
 		for (int i = 0; i < num; i++)
 			dftm.removeRow(0);
+		
 		Iterator iterator = list.iterator();
-		TbUser userInfo;// 经办人信�?
 		int rowCounter = 0;
 		while (iterator.hasNext()) {
 			List info = (List) iterator.next();
-			Item item = new Item();
-			item.setNo((String) info.get(0));
-			item.setName((String) info.get(1));
-			userInfo = Dao.getManagerInfo(item);
-			
-			try {
-				ResultSet rs = Dao.findForResultSet("select aname from tb_agency where ano=" + userInfo.getAno());
-				rs.next();
-				Vector rowData = new Vector();
-				rowData.add(userInfo.getUserid().trim());// 用户编号
-				rowData.add(userInfo.getName().trim());// 用户�?
-				String usergroup = null;
-				switch(Integer.parseInt(userInfo.getUsergroup().toString().trim())) {
-				case 1:
-					usergroup = "管理�?";
-					break;
-				case 2:
-					usergroup = "库存经办�?";
-					break;
-				case 3:
-					usergroup = "经办�?";
-					break;
-				}
-				rowData.add(usergroup);// 用户�?
-				rowData.add(userInfo.getAno().trim());// 用户�?
-				rowData.add(rs.getString(1));// �?有�?�姓�?
-				dftm.addRow(rowData);// 向表格对象添加行数据（用户信息）
-			} catch (SQLException e) {
-				// TODO 自动生成�? catch �?
-				e.printStackTrace();
-			}
+			Vector rowData = new Vector();
+			rowData.add((String) info.get(0));
+			rowData.add((String) info.get(1));
+			rowData.add((String) info.get(2));
+			rowData.add((String) info.get(3));
+			dftm.addRow(rowData);// 向表格对象添加行数据（用户信息）
 			rowCounter++;
 		}
-		label_queryResult.setText("共查询到" + rowCounter + "条记�?!");
+		label_queryResult.setText("共查询到" + rowCounter + "条记录!");
 	}
 
 	// 条件查询
@@ -197,27 +173,26 @@ public class SearchAndDeleteUserPanel extends JPanel {
 			list = searchInfo(conName, conOperation, content, list);
 			updateTable(list, dftm);
 		}
-		// 拼接SQL语句，并获得执行SQL语句后相应的结果�?
+		// 拼接SQL语句，并获得执行SQL语句后相应的结果�?
 		private List searchInfo(String conName, String conOperation,
 				String content, List list) {
-			String sql = "select * from tb_userlist where ";
-			if(conName.equals("用户�?")) {
-				list = Dao.findForList(sql + "usergroup=" + (comboBox_conditionOperation.getSelectedIndex()+1));
+			String sql = "select tb_record.record_number, tb_record.name, tb_manager.state,"
+					+" tb_manager.purview from tb_record, tb_manager where tb_record.id=tb_manager.id and ";
+			if(conName.equals("用户权限")) {
+				list = Dao.findForList(sql + "tb_manager.purview='" +
+							(comboBox_conditionOperation.getSelectedItem().toString())+"'");
 			} else {
 				if (conOperation.equals("等于")) {
-					if (conName.equals("用户编号"))
-						list = Dao.findForList(sql + "userid=" + content );
-					if (conName.equals("用户�?"))
-						list = Dao.findForList(sql + "name='" + content + "'");
-					if (conName.equals("经办人编�?"))
-						list = Dao.findForList(sql + "ano=" + content );
+					if (conName.equals("员工档案编号"))
+						list = Dao.findForList(sql + "tb_record.record_number='" + content + "'");
+					if (conName.equals("用户姓名"))
+						list = Dao.findForList(sql + "tb_record.name='" + content + "'");
+
 				} else {
-					if (conName.equals("用户编号"))
-						list = Dao.findForList(sql + "userid like '%" + content + "%'");
-					if (conName.equals("用户�?"))
-						list = Dao.findForList(sql + "name like '%" + content + "%'");
-					if (conName.equals("经办人编�?"))
-						list = Dao.findForList(sql + "ano like '%" + content + "%'");
+					if (conName.equals("员工档案编号"))
+						list = Dao.findForList(sql + "tb_record.record_number like '%" + content + "%'");
+					if (conName.equals("用户姓名"))
+						list = Dao.findForList(sql + "tb_record.name like '%" + content + "%'");
 				}
 			}
 			
@@ -229,20 +204,20 @@ public class SearchAndDeleteUserPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO 自动生成的方法存�?
-			String userid, sql;
+			// TODO 自动生成的方法存�?
+			String record_number, sql;
 			int row = table.getSelectedRow();
-			userid = table.getValueAt(row, 0).toString();
-			sql = "delete tb_userlist where userid=" + userid;
-			int confirm = JOptionPane.showConfirmDialog(SearchAndDeleteUserPanel.this, "确认删除用户信息�??");// 弹出“确认删除经办人信息吗？”提示框
-			if (confirm == JOptionPane.YES_OPTION) {// 点击“确认�?�键
-				int rs = Dao.delete(sql);// 获得删除用户信息的数�?
-				if (rs > 0) {// 删除用户信息的数量大�?0
-					JOptionPane.showMessageDialog(SearchAndDeleteUserPanel.this, "用户信息删除成功!");// 弹出提示�?
+			record_number = table.getValueAt(row, 0).toString();
+			sql = "delete tb_manager where id=(select id from tb_record where record_number='" + record_number + "'";
+			int confirm = JOptionPane.showConfirmDialog(SearchAndDeleteUserPanel.this, "确认删除用户信息吗?");// 弹出“确认删除经办人信息吗？”提示框
+			if (confirm == JOptionPane.YES_OPTION) {// 点击“确认�?�键
+				int rs = Dao.delete(sql);// 获得删除用户信息的数�?
+				if (rs > 0) {// 删除用户信息的数量大�?0
+					JOptionPane.showMessageDialog(SearchAndDeleteUserPanel.this, "用户信息删除成功!");// 弹出提示�?
 					dftm.removeRow(row);
 				}
 				else {
-					JOptionPane.showMessageDialog(SearchAndDeleteUserPanel.this, "删除失败!请检查是否存在约束问题�??");// 弹出提示�?
+					JOptionPane.showMessageDialog(SearchAndDeleteUserPanel.this, "删除失败!请检查是否存在约束问题。");// 弹出提示�?
 				}
 			}
 		}

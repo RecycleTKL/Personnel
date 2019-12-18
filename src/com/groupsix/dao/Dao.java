@@ -156,7 +156,7 @@ public class Dao {
 		TbManager manager = new TbManager();
 		try {
 			if (rs.next()) {
-				manager.setId(Integer.parseInt(rs.getString("userid").trim()));
+				manager.setId(Integer.parseInt(rs.getString("id").trim()));
 				manager.setPassword(rs.getString("password").trim());
 				manager.setState(rs.getString("state").trim());
 				manager.setPurview(rs.getString("purview").trim());
@@ -167,12 +167,6 @@ public class Dao {
 		return manager;
 	}
 	
-	// 修改用户信息的方法
-	public static int updateManager(TbManager managerInfo) {
-		return update("update tb_userlist set state='" + managerInfo.getState()
-				+ "',purview='" + managerInfo.getPurview()
-				+ "' where id=" + managerInfo.getId());
-	}
 	
 	// 验证登录
 	public static boolean checkLogin(String userStr, String passStr)

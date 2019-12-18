@@ -50,11 +50,9 @@ public class UserManage extends JInternalFrame {
 			
 			tabPane = new JTabbedPane();
 			tabPane.setFont(new Font("宋体", Font.PLAIN, 14));
-			final AddUserPanel addPanel = new AddUserPanel();// 用户修改面板
-			final ModifyUserPanel modifyPanel = new ModifyUserPanel();// 用户添加面板
+			final AddUserPanel addPanel = new AddUserPanel();// 用户添加面板
 			final SearchAndDeleteUserPanel searchAndDeletePanel = new SearchAndDeleteUserPanel(); //用户查询删除面板
 			tabPane.addTab("用户信息添加", null, addPanel, "信息添加");// 把用户添加面板添加到选项卡面板中
-			tabPane.addTab("用户信息修改", null, modifyPanel, "信息修改");// 把用户修改面板添加到选项卡面板中
 			tabPane.addTab("用户信息查询与删除", null, searchAndDeletePanel, "信息查询与删除");// 把用户查询删除面板添加到选项卡面板中
 			getContentPane().add(tabPane);// 把�?�项卡面板添加到用户管理内部窗体的内容面板中
 			tabPane.addChangeListener(new ChangeListener() {

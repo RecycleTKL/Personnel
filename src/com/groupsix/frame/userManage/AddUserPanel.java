@@ -171,7 +171,8 @@ public class AddUserPanel extends JPanel {
 		gbc_button.gridy = 17;
 		panel.add(button, gbc_button);
 		
-		List list = Dao.findForList("select * from tb_manager");
+		List list = Dao.findForList("select tb_record.record_number, tb_record.name "
+				+"from tb_record, tb_manager where tb_record.id=tb_manager.id");
 		updateTable(list, dftm);
 		initRecordNameBox();
 	}
@@ -182,26 +183,15 @@ public class AddUserPanel extends JPanel {
 		for (int i = 0; i < num; i++)
 			dftm.removeRow(0);
 		Iterator iterator = list.iterator();
-		TbManager managerInfo;// 用户信息
 
 		while (iterator.hasNext()) {
 			List info = (List) iterator.next();
-			Item item = new Item();
-			item.setNo((String) info.get(0));
-			item.setName((String) info.get(1));
-			managerInfo = Dao.getManagerInfo(item);
 			
-			try {
-				ResultSet rs = Dao.findForResultSet("select record_number, name from tb_record where id=" + managerInfo.getId());
-				rs.next();
-				Vector rowData = new Vector();
-				rowData.add(rs.getString(1));// 用户编号
-				rowData.add(rs.getString(2));// 所有者姓名
-				dftm.addRow(rowData);// 向表格对象添加行数据（用户信息）
-			} catch (SQLException e) {
-				// TODO 自动生成�? catch �?
-				e.printStackTrace();
-			}
+			Vector rowData = new Vector();
+			rowData.add((String) info.get(0));// 用户编号
+			rowData.add((String) info.get(1));// 所有者姓名
+			dftm.addRow(rowData);// 向表格对象添加行数据（用户信息）
+			
 		}
 	}
 	
