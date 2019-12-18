@@ -172,8 +172,9 @@ public class Dao {
 	public static boolean checkLogin(String userStr, String passStr)
 			throws SQLException {
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("select * from tb_manager where id='"
-				+ userStr + "' and password='" + passStr + "'");
+		ResultSet rs = stmt.executeQuery("select * from tb_manager, tb_record where"
+				+ " tb_manager.id=tb_record.id and tb_record.record_number='"
+				+ userStr + "' and tb_manager.password='" + passStr + "'");
 		if (rs == null)
 			return false;
 		return rs.next();
