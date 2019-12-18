@@ -11,6 +11,8 @@ import java.awt.BorderLayout;
 
 public class PersonManage extends JInternalFrame {
 
+	private static JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+
 	/**
 	 * Launch the application.
 	 */
@@ -36,7 +38,6 @@ public class PersonManage extends JInternalFrame {
 		setBounds(100, 100, 950, 757);
 		setResizable(true);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		kaoqinManage t1 = new kaoqinManage();
@@ -46,6 +47,11 @@ public class PersonManage extends JInternalFrame {
 		tabbedPane.addTab("奖惩管理", null, t2, null);
 		TrainingPanel t3 = new TrainingPanel();
 		tabbedPane.addTab("培训管理", null, t3, null);
+	}
+
+	public static void setTabPane(int i) {
+		// TODO 自动生成的方法存根
+		tabbedPane.setSelectedIndex(i);
 	}
 
 }

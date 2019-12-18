@@ -8,6 +8,8 @@ import javax.swing.JTabbedPane;
 
 public class PersonnelInfoManage extends JInternalFrame {
 
+	private static JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+
 	/**
 	 * Launch the application.
 	 */
@@ -33,13 +35,16 @@ public class PersonnelInfoManage extends JInternalFrame {
 		setBounds(100, 100, 950, 757);
 		setResizable(true);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		dananManage t1 = new dananManage();
 		tabbedPane.addTab("档案管理", null, t1, null);
 		staffManage t = new staffManage();
 		tabbedPane.addTab("员工管理", null, t, null);
+	}
+	
+	public static void setTabPane(int i) {
+		tabbedPane.setSelectedIndex(i);
 	}
 
 }
