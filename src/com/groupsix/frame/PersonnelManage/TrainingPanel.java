@@ -45,8 +45,7 @@ public class TrainingPanel extends JPanel{
 		
 		JButton button = new JButton("\u65B0\u5EFA");
 		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {				
 				new peixun_add().setVisible(true);
 			}
 		});

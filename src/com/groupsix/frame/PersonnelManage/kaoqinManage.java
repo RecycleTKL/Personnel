@@ -133,10 +133,7 @@ public class kaoqinManage extends JPanel {
 				 	} 
 				 	stmt.close();
 				 	conn.close();
-				 	
-				 	JOptionPane.showMessageDialog(kaoqinManage.this,
-							"保存成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
-				 	setNull();
+				 
 				}
 				catch(SQLException e1) {
 					e1.printStackTrace();
@@ -322,6 +319,9 @@ public class kaoqinManage extends JPanel {
 			stmt.setString(8, ratifier_data);
 			stmt.executeUpdate();
 		 	 
+			JOptionPane.showMessageDialog(kaoqinManage.this,
+					"保存成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);		
+			setNull();
 		}
 		catch(SQLException e1) {
 			e1.printStackTrace();
