@@ -34,7 +34,10 @@ import java.awt.Dimension;
 
 import javax.imageio.ImageIO;
 import javax.sql.rowset.serial.SerialBlob;
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -47,9 +50,9 @@ import java.awt.event.ActionEvent;
 
 public class RecordInfoPanel extends JPanel {
 	private static int flag;
-	private static JTextField textField_1;
+	private static JTextField nameField_1;
 	private static JTextField txtYyyymmdd;
-	private static JTextField textField_3;
+	private static JTextField ID_cardField_3;
 	private static JTextField textField_4;
 	private static JTextField textField_5;
 	private static JTextField textField_6;
@@ -84,8 +87,8 @@ public class RecordInfoPanel extends JPanel {
 	private static JTextField tf2_13;
 	private static JTextField tf2_14;
 	private static JTextField tf2_15;
-	private JRadioButton radioButton,radioButton_1,radioButton_3,radioButton_4,radioButton_5,radioButton_6;
-	private final static ButtonGroup buttonGroup = new ButtonGroup();
+	private static JRadioButton radioButton_male,radioButton_female,radioButton_3,radioButton_4,radioButton_5,radioButton_6;
+	private final static ButtonGroup buttonGroup_sex = new ButtonGroup();
 	static JComboBox comboBox = new JComboBox();
 	static JComboBox comboBox_1 = new JComboBox();
 	static JComboBox comboBox_2 = new JComboBox();
@@ -95,7 +98,7 @@ public class RecordInfoPanel extends JPanel {
 	private final static ButtonGroup buttonGroup_1 = new ButtonGroup();
 	static JComboBox comboBox_4 = new JComboBox();
 	static JComboBox comboBox_5 = new JComboBox();
-	private static JTextField textField;
+	private static JTextField record_numberField;
 	private static JButton button_modify;
 	private static JButton button_new;
 	/**
@@ -138,27 +141,27 @@ public class RecordInfoPanel extends JPanel {
 		label_2.setBounds(10, 31, 80, 24);
 		panel_1.add(label_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(86, 28, 98, 24);
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
+		nameField_1 = new JTextField();
+		nameField_1.setBounds(86, 28, 98, 24);
+		panel_1.add(nameField_1);
+		nameField_1.setColumns(10);
 		
 		JLabel label_3 = new JLabel("*\u6027   \u522B\uFF1A");
 		label_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_3.setBounds(208, 31, 80, 24);
 		panel_1.add(label_3);
 		
-		radioButton = new JRadioButton("\u7537");
-		buttonGroup.add(radioButton);
-		radioButton.setFont(new Font("宋体", Font.PLAIN, 11));
-		radioButton.setBounds(289, 28, 50, 27);
-		panel_1.add(radioButton);
+		radioButton_male = new JRadioButton("\u7537");
+		buttonGroup_sex.add(radioButton_male);
+		radioButton_male.setFont(new Font("宋体", Font.PLAIN, 14));
+		radioButton_male.setBounds(289, 28, 50, 27);
+		panel_1.add(radioButton_male);
 		
-		radioButton_1 = new JRadioButton("\u5973");
-		buttonGroup.add(radioButton_1);
-		radioButton_1.setFont(new Font("宋体", Font.PLAIN, 11));
-		radioButton_1.setBounds(345, 28, 50, 27);
-		panel_1.add(radioButton_1);
+		radioButton_female = new JRadioButton("\u5973");
+		buttonGroup_sex.add(radioButton_female);
+		radioButton_female.setFont(new Font("宋体", Font.PLAIN, 14));
+		radioButton_female.setBounds(345, 28, 50, 27);
+		panel_1.add(radioButton_female);
 		
 		JLabel label_4 = new JLabel("*\u51FA\u751F\u65E5\u671F\uFF1A");
 		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -196,10 +199,10 @@ public class RecordInfoPanel extends JPanel {
 		label_7.setBounds(411, 65, 92, 24);
 		panel_1.add(label_7);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(503, 65, 118, 24);
-		panel_1.add(textField_3);
-		textField_3.setColumns(10);
+		ID_cardField_3 = new JTextField();
+		ID_cardField_3.setBounds(503, 65, 118, 24);
+		panel_1.add(ID_cardField_3);
+		ID_cardField_3.setColumns(10);
 		
 		JLabel label_8 = new JLabel("*\u5B66   \u5386\uFF1A");
 		label_8.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -263,6 +266,7 @@ public class RecordInfoPanel extends JPanel {
 		radioButton_4.setFont(new Font("宋体", Font.PLAIN, 11));
 		radioButton_4.setBounds(559, 134, 55, 27);
 		panel_1.add(radioButton_4);
+		
 		
 		JLabel label_14 = new JLabel("\u90AE\u653F\u7F16\u7801\uFF1A");
 		label_14.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -670,9 +674,9 @@ public class RecordInfoPanel extends JPanel {
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_4.add(label);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		panel_4.add(textField);
+		record_numberField = new JTextField();
+		record_numberField.setColumns(10);
+		panel_4.add(record_numberField);
 		
 		button_new = new JButton("\u65B0\u5EFA");
 		button_new.addActionListener(new ActionListener() {
@@ -713,14 +717,14 @@ public class RecordInfoPanel extends JPanel {
 		String dbPwd = "Mystudi0";// 访问MySQL数据库的密码
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		String record_number = textField.getText(); 
-		String name = textField_1.getText();
-		String sex = radioButton.isSelected()?radioButton.getText():radioButton_1.getText();
+		String record_number = record_numberField.getText(); 
+		String name = nameField_1.getText();
+		String sex = radioButton_male.isSelected()?radioButton_male.getText():radioButton_female.getText();
 		String birthday = txtYyyymmdd.getText();
 		//SerialBlob photo = new SerialBlob(filter);
 		String nation_id = (String) comboBox.getSelectedItem();
 		String native_place_id = (String) comboBox_1.getSelectedItem();
-		String id_card = textField_3.getText();
+		String id_card = ID_cardField_3.getText();
 		String school_age = (String) comboBox_2.getSelectedItem();
 		String specialty = textField_4.getText();
 		String party_member = radioButton_5.isSelected()?radioButton_5.getText():radioButton_6.getText();
@@ -860,14 +864,14 @@ public class RecordInfoPanel extends JPanel {
 		String dbPwd = "Mystudi0";// 访问MySQL数据库的密码
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		String record_number = textField.getText(); 
-		String name = textField_1.getText();
-		String sex = radioButton.isSelected()?radioButton.getText():radioButton_1.getText();
+		String record_number = record_numberField.getText(); 
+		String name = nameField_1.getText();
+		String sex = radioButton_male.isSelected()?radioButton_male.getText():radioButton_female.getText();
 		String birthday = txtYyyymmdd.getText();
 		//SerialBlob photo = new SerialBlob(filter);
 		String nation_id = (String) comboBox.getSelectedItem();
 		String native_place_id = (String) comboBox_1.getSelectedItem();
-		String id_card = textField_3.getText();
+		String id_card = ID_cardField_3.getText();
 		String school_age = (String) comboBox_2.getSelectedItem();
 		String specialty = textField_4.getText();
 		String party_member = radioButton_5.isSelected()?radioButton_5.getText():radioButton_6.getText();
@@ -1010,16 +1014,16 @@ public class RecordInfoPanel extends JPanel {
 	 * 清空处理界面组件内容事件
 	 */
 	public static void setNull() {
-		textField.setText("");
-		textField_1.setText("");
+		record_numberField.setText("");
+		nameField_1.setText("");
 		txtYyyymmdd.setText("");
-		textField_3.setText("");
+		ID_cardField_3.setText("");
 		textField_4.setText("");
 		textField_5.setText("");
 		textField_6.setText("");
 		textField_7.setText("");
 		textField_8.setText("");
-		buttonGroup.clearSelection();
+		buttonGroup_sex.clearSelection();
 		buttonGroup_1.clearSelection();
 		buttonGroup_2.clearSelection();
 		comboBox.setSelectedItem("");
@@ -1092,7 +1096,86 @@ public class RecordInfoPanel extends JPanel {
 		 	stmt.setString(1, id);
 		 	conn.prepareStatement(Sql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
 			rs = stmt.executeQuery();
+			while(rs.next()) {
+				record_numberField.setText(rs.getString(2));
+				nameField_1.setText(rs.getString(3));
+				if(rs.getString(4)=="男") {
+					radioButton_male.setSelected(true);
+				}else {
+					radioButton_female.setSelected(true);
+				}
+				txtYyyymmdd.setText(rs.getString(5));				
+				ID_cardField_3.setText(rs.getString(7));
+				//buttonGroup_2.setText(rs.getString(8));
+				if(rs.getString(8) == "未婚") {
+					radioButton_3.setSelected(true);
+				}else {
+					radioButton_4.setSelected(true);
+				}
+				comboBox.setSelectedItem(rs.getString(9));
+				comboBox_1.setSelectedItem(rs.getString(10));
+				textField_8.setText(rs.getString(11));
+				textField_7.setText(rs.getString(12));
+//				buttonGroup_1.setText(rs.getString(13));
+				if(rs.getString(8) == "是") {
+					radioButton_5.setSelected(true);
+				}else {
+					radioButton_6.setSelected(true);
+				}
+				comboBox_2.setSelectedItem(rs.getString(14));		
+				textField_4.setText(rs.getString(15));			
+				textField_5.setText(rs.getString(16));
+				textField_6.setText(rs.getString(17));	
+			}
+					
 			
+			String Sql1 = "select * from tb_duty_info where id = ?";
+		 	stmt = conn.prepareStatement(Sql1);
+		 	stmt.setString(1, id);
+		 	conn.prepareStatement(Sql1,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				comboBox_3.setSelectedItem(rs.getString(2));
+				comboBox_4.setSelectedItem(rs.getString(3));
+				tf2_1.setText(rs.getString(4));
+				comboBox_5.setSelectedItem(rs.getString(5));
+				tf2_2.setText(rs.getString(6));
+				tf2_3.setText(rs.getString(7));
+				tf2_6.setText(rs.getString(8));
+				tf2_4.setText(rs.getString(9));
+				tf2_5.setText(rs.getString(10));
+				tf2_8.setText(rs.getString(11));
+				tf2_12.setText(rs.getString(12));
+				tf2_9.setText(rs.getString(13));
+				tf2_11.setText(rs.getString(14));
+				tf2_10.setText(rs.getString(15));
+				tf2_13.setText(rs.getString(16));
+				tf2_14.setText(rs.getString(17));
+				tf2_15.setText(rs.getString(18));
+				tf2_7.setText(rs.getString(19));	
+			}
+			
+			String Sql2 = "select * from tb_personal_info where id = ?";
+		 	stmt = conn.prepareStatement(Sql2);
+		 	stmt.setString(1, id);
+		 	conn.prepareStatement(Sql2,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				tf3_3.setText(rs.getString(2));
+				tf3_4.setText(rs.getString(3));
+				tf3_1.setText(rs.getString(4));
+				tf3_2.setText(rs.getString(5));
+				tf3_14.setText(rs.getString(6));
+				tf3_13.setText(rs.getString(7));
+				tf3_5.setText(rs.getString(8));
+				tf3_6.setText(rs.getString(9));
+				tf3_8.setText(rs.getString(10));
+				tf3_7.setText(rs.getString(11));
+				tf3_11.setText(rs.getString(12));
+				tf3_9.setText(rs.getString(13));
+				tf3_10.setText(rs.getString(14));
+				tf3_12.setText(rs.getString(15));
+			}
 		}catch(SQLException e1) {
 			e1.printStackTrace();
 		}
