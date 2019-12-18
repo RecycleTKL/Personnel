@@ -2,6 +2,7 @@ package com.groupsix.frame.PersonInfoManage;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.sql.SQLException;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JTabbedPane;
@@ -28,21 +29,23 @@ public class PersonnelInfoManage extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public PersonnelInfoManage() {
+	public PersonnelInfoManage() throws ClassNotFoundException  {
 		setMaximizable(true);
 		setIconifiable(true);
-		setBounds(100, 100, 950, 757);
+		setBounds(100, 100, 495, 525);
 		setResizable(true);
 		setClosable(true);
 		
 		tabbedPane = new JTabbedPane();
-		dananManage t1 = new dananManage();
-		tabbedPane.addTab("档案管理", null, t1, null);
-		staffManage t = new staffManage();
-		tabbedPane.addTab("员工管理", null, t, null);
-		getContentPane().add(tabbedPane);// 把选项卡面板添加到药品管理内部窗体的内容面板中
+		StaffListPanel t1 = new StaffListPanel();
+		tabbedPane.addTab("档案列表", null, t1, null);
+		RecordInfoPanel t = new RecordInfoPanel();
+		tabbedPane.addTab("档案资料编辑", null, t, null);
 		
+		getContentPane().add(tabbedPane);// 把选项卡面板添加到药品管理内部窗体的内容面板中
 		pack();// 药品管理内部窗体中的组件按其首选大小进行布局
 		setVisible(true);// 使药品管理内部窗体可见
 	}

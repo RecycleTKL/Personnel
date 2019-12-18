@@ -43,7 +43,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class staffManage extends JPanel {
+public class RecordInfoPanel extends JPanel {
 	private JTextField textField_1;
 	private JTextField txtYyyymmdd;
 	private JTextField textField_3;
@@ -93,6 +93,8 @@ public class staffManage extends JPanel {
 	JComboBox comboBox_4 = new JComboBox();
 	JComboBox comboBox_5 = new JComboBox();
 	private JTextField textField;
+	private static JButton button_modify;
+	private static JButton button_new;
 	/**
 	 * Launch the application.
 	 */
@@ -100,7 +102,7 @@ public class staffManage extends JPanel {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					staffManage frame = new staffManage();
+					RecordInfoPanel frame = new RecordInfoPanel();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -112,10 +114,10 @@ public class staffManage extends JPanel {
 	/**
 	 * Create the frame.
 	 */
-	public staffManage() {
+	public RecordInfoPanel() {
 		setBounds(0, 0, 907, 755);
 		setLayout(new BorderLayout(0, 0));
-		
+		setVisible(true);
 		JPanel panel = new JPanel();
 		panel.setToolTipText("\u8BF7\u9009\u62E9");
 		add(panel, BorderLayout.CENTER);
@@ -667,8 +669,8 @@ public class staffManage extends JPanel {
 		textField.setColumns(10);
 		panel_4.add(textField);
 		
-		JButton button = new JButton("\u4FDD\u5B58");
-		button.addActionListener(new ActionListener() {
+		button_new = new JButton("\u65B0\u5EFA");
+		button_new.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					baocunActionPerformed();
@@ -678,9 +680,32 @@ public class staffManage extends JPanel {
 				}
 			}
 		});
-		panel_4.add(button);
+		panel_4.add(button_new);
+		
+		button_modify = new JButton("\u4FEE\u6539");
+		button_modify.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				modifyRecordInfoActionPerformed();
+			}
+		});
+		panel_4.add(button_modify);
 
 	}
+	/**
+	 * 修改档案管理信息处理事件
+	 */
+	protected void modifyRecordInfoActionPerformed() {
+		String str = StaffListPanel.str;
+		String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
+		String dbUser = "studio";// 访问MySQL数据库的用户名
+		String dbPwd = "Mystudi0";// 访问MySQL数据库的密码
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		
+	}
+
 	/**
 	 * 保存档案管理信息处理事件
 	 * @throws ClassNotFoundException 
@@ -841,7 +866,7 @@ public class staffManage extends JPanel {
 	/**
 	 * 清空处理事件
 	 */
-	private void setNull() {
+	public void setNull() {
 		textField.setText("");
 		textField_1.setText("");
 		txtYyyymmdd.setText("");
@@ -851,6 +876,9 @@ public class staffManage extends JPanel {
 		textField_6.setText("");
 		textField_7.setText("");
 		textField_8.setText("");
+		buttonGroup.clearSelection();
+		buttonGroup_1.clearSelection();
+		buttonGroup_2.clearSelection();
 		comboBox.setSelectedItem("");
 		comboBox_1.setSelectedItem("");
 		comboBox_2.setSelectedItem("");
@@ -886,6 +914,15 @@ public class staffManage extends JPanel {
 		tf3_12.setText("");
 		tf3_13.setText("");
 		tf3_14.setText("");
-		
+	}
+	
+	public static void toModifyMode() {
+		button_modify.setEnabled(true);
+		button_new.setEnabled(false);
+	}
+	
+	public static void toNewMode() {
+		button_modify.setEnabled(false);
+		button_new.setEnabled(true);
 	}
 }
