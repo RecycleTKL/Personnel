@@ -14,6 +14,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,6 +22,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import com.groupsix.frame.PersonInfoManage.RecordInfoPanel;
 
 public class peixun_add extends JFrame {
 	private JTextField textField;
@@ -33,7 +36,7 @@ public class peixun_add extends JFrame {
 	private JTable table;
 	private JTextField textField_7;
 	private JPanel contentPane;
-
+	private DefaultTableCellRenderer de; 
 	/**
 	 * Launch the application.
 	 */
@@ -209,13 +212,15 @@ public class peixun_add extends JFrame {
 				 		V.add(rs.getString(6));
 				 		rowData.add(V);
 				 	}
-				 	DefaultTableCellRenderer de=new DefaultTableCellRenderer();
+				 	de=new DefaultTableCellRenderer();
 		            table.setDefaultRenderer(Object.class, de);
 		            table=new JTable(rowData, columnName);
 		            table.updateUI();
 		            scrollPane.setViewportView(table);
 		            this.setVisible(true);
-
+		            
+		            JOptionPane.showMessageDialog(peixun_add.this,
+							"添加成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
 				}catch(SQLException e1) {
 					e1.printStackTrace();
 				} catch (ClassNotFoundException e) {
@@ -262,7 +267,6 @@ public class peixun_add extends JFrame {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
-		
 		String name = textField.getText();
 		String object = textField_1.getText();
 		String content = textField_2.getText();
@@ -288,10 +292,25 @@ public class peixun_add extends JFrame {
             stmt.executeUpdate();
             stmt.close();
             conn.close();
+            
+            JOptionPane.showMessageDialog(peixun_add.this,
+					"保存成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
+            setNull();
 		}
 		
 		catch(SQLException e1) {
 			e1.printStackTrace();
 		}
+	}
+
+	private void setNull() {
+		textField.setText("");
+		textField_1.setText("");
+		textField_2.setText("");
+		textField_3.setText("");
+		textField_4.setText("");
+		textField_5.setText("");
+		textField_6.setText("");
+		textField_7.setText("");
 	}
 }

@@ -16,6 +16,7 @@ import java.awt.BorderLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -91,7 +92,7 @@ public class jiangcheng extends JPanel {
 		JLabel label = new JLabel("\u6240\u5728\u90E8\u95E8\uFF1A");
 		label.setBounds(182, 47, 75, 18);
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "1", "2"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "\u5F00\u53D1\u90E8", "\u4EBA\u4E8B\u7BA1\u7406\u90E8", "\u9500\u552E\u90E8"}));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String dbClassName = "com.mysql.cj.jdbc.Driver";
@@ -216,7 +217,7 @@ public class jiangcheng extends JPanel {
 		
 		
 		comboBox_2.setBounds(263, 576, 104, 24);
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"", "\u4EBA\u4E8B\u7BA1\u7406\u90E8"}));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"", "\u4EBA\u4E8B\u7BA1\u7406\u90E8", "\u7ECF\u7406\u529E\u516C\u5BA4"}));
 		
 		JLabel label_8 = new JLabel("\u6279\u51C6\u4EBA\uFF1A");
 		label_8.setBounds(494, 579, 72, 18);
@@ -274,15 +275,20 @@ public class jiangcheng extends JPanel {
 		String record_id =(String) comboBox_1.getSelectedItem();
 		String type = radioButton.isSelected()?radioButton.getText():radioButton_1.getText();
 		String reason = textArea.getText();
-		System.out.print(reason);
+		//System.out.print(reason);
 		String content = textArea_1.getText();
-		System.out.print(content);
+		//System.out.print(content);
 		String money = textField.getText();
 		String start_date = textField_1.getText();
 		String end_date = textField_2.getText();
 		String ratifier_dept_id = (String) comboBox_2.getSelectedItem();
 		String ratifier_record_id = (String) comboBox_2.getSelectedItem();
 		String ratifier_date = textField_3.getText();
+		if("请选择".equals(record_id)||"请选择".equals(type)||"".equals(reason)||"".equals(content)||"".equals(end_date)
+				||"".equals(money)||"".equals(start_date)||"".equals(ratifier_dept_id)||"".equals(ratifier_date)) {
+			JOptionPane.showMessageDialog(jiangcheng.this,
+					"请添加完所有信息!", "存在未操作对象", JOptionPane.WARNING_MESSAGE);
+		}
 		try {
 			Class.forName(dbClassName);				
 		 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
@@ -301,6 +307,9 @@ public class jiangcheng extends JPanel {
             stmt.setString(9, ratifier_record_id);
             stmt.setString(10, ratifier_date);
             stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(jiangcheng.this,
+					"保存信息成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
             setNull();
 		}catch(SQLException e1) {
 			e1.printStackTrace();
@@ -313,12 +322,13 @@ public class jiangcheng extends JPanel {
 		textField.setText("");
 		textField_1.setText("");
 		comboBox.setSelectedItem("");
-		comboBox_1.setSelectedItem("");
+		comboBox_1.setSelectedItem("请选择");
 		comboBox_2.setSelectedItem("");
 		comboBox_3.setSelectedItem("");
 		textField_2.setText("");
 		textField_3.setText("");	
 		textArea.setText("");
 		textArea_1.setText("");
+		buttonGroup.clearSelection();
 	}
 }

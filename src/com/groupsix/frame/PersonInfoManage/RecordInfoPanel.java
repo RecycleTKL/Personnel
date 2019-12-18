@@ -190,7 +190,7 @@ public class RecordInfoPanel extends JPanel {
 		panel_1.add(label_6);
 		
 		
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "  \u5E7F\u4E1C", "  \u5E7F\u897F", "  "}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "\u5317\u4EAC", "\u5929\u6D25", "\u4E0A\u6D77", "\u91CD\u5E86", "\u6CB3\u5317", "\u5C71\u897F", "\u5E7F\u4E1C", "\u5E7F\u897F", "\u6E56\u5357", "\u6E56\u5317", "\u6CB3\u5357", "\u6CB3\u5317", "\u56DB\u5DDD", "\u65B0\u7586", "\u4E91\u5357  ", "\u7518\u8083", "\u5185\u8499\u53E4", "\u5C71\u4E1C", "\u798F\u5EFA", "\u8FBD\u5B81", "\u6D59\u6C5F", "\u9655\u897F", "\u5C71\u897F", "\u5409\u6797", "\u6D77\u5357", "\u9999\u6E2F", "\u6FB3\u95E8", "\u8D35\u5DDE"}));
 		comboBox_1.setBounds(289, 63, 72, 24);
 		panel_1.add(comboBox_1);
 		
@@ -347,7 +347,7 @@ public class RecordInfoPanel extends JPanel {
 		panel_2.add(label_17);
 		
 		
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "1", "2", "\u4EBA\u4E8B\u7BA1\u7406\u90E8"}));
+		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "\u5F00\u53D1\u90E8", "\u4EBA\u4E8B\u7BA1\u7406\u90E8", "\u7ECF\u7406\u529E\u516C\u5BA4", "\u9500\u552E\u90E8"}));
 		comboBox_3.setBounds(90, 20, 72, 24);
 		panel_2.add(comboBox_3);
 		
@@ -357,7 +357,7 @@ public class RecordInfoPanel extends JPanel {
 		panel_2.add(label_18);
 		
 		
-		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "1", "2", "\u6279\u51C6\u4EBA"}));
+		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "\u5F00\u53D1\u5458\u5DE5", "\u4EBA\u4E8B\u5458\u5DE5", "\u7ECF\u7406", "\u9500\u552E\u5458\u5DE5"}));
 		comboBox_4.setBounds(296, 20, 72, 24);
 		panel_2.add(comboBox_4);
 		
@@ -377,7 +377,7 @@ public class RecordInfoPanel extends JPanel {
 		panel_2.add(label_20);
 		
 		
-		comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "1", "2"}));
+		comboBox_5.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "\u56FA\u5B9A\u7528\u5DE5", "\u4E34\u65F6\u7528\u5DE5", "\u975E\u5168\u65E5\u5236\u7528\u5DE5"}));
 		comboBox_5.setToolTipText("");
 		comboBox_5.setBounds(296, 48, 72, 24);
 		panel_2.add(comboBox_5);
@@ -848,6 +848,8 @@ public class RecordInfoPanel extends JPanel {
 		 	JOptionPane.showMessageDialog(RecordInfoPanel.this,
 					"修改成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
 		 	//new StaffListPanel();
+		 	toNewMode();
+		 	PersonnelInfoManage.setTabPane(0);
             setNull();
             
 		}catch(SQLException e1) {
@@ -1005,7 +1007,8 @@ public class RecordInfoPanel extends JPanel {
             stmt.setString(14, ones_strong_suit);           
 		 	stmt.executeUpdate();
 		 
-            
+		 	JOptionPane.showMessageDialog(RecordInfoPanel.this,
+					"保存成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
 		 	setNull();
 		}catch(SQLException e1) {
 			e1.printStackTrace();
@@ -1028,12 +1031,12 @@ public class RecordInfoPanel extends JPanel {
 		buttonGroup_sex.clearSelection();
 		buttonGroup_1.clearSelection();
 		buttonGroup_2.clearSelection();
-		comboBox.setSelectedItem("");
-		comboBox_1.setSelectedItem("");
-		comboBox_2.setSelectedItem("");
-		comboBox_3.setSelectedItem("");
-		comboBox_4.setSelectedItem("");
-		comboBox_5.setSelectedItem("");
+		comboBox.setSelectedItem("请选择");
+		comboBox_1.setSelectedItem("请选择");
+		comboBox_2.setSelectedItem("请选择");
+		comboBox_3.setSelectedItem("请选择");
+		comboBox_4.setSelectedItem("请选择");
+		comboBox_5.setSelectedItem("请选择");
 		tf2_1.setText("");
 		tf2_2.setText("");
 		tf2_3.setText("");
@@ -1068,7 +1071,6 @@ public class RecordInfoPanel extends JPanel {
 	public static void toModifyMode() {
 		button_modify.setEnabled(true);
 		button_new.setEnabled(false);
-		flag = 1;
 	}
 	
 	public static void toNewMode() {

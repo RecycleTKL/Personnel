@@ -7,7 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+
+import com.groupsix.frame.PersonInfoManage.RecordInfoPanel;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -68,6 +72,7 @@ public class kaoqinManage extends JPanel {
 		JButton button = new JButton("\u65B0\u5EFA");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				setNull();
 			}
 		});
 		button.setFont(new Font("宋体", Font.PLAIN, 16));
@@ -101,12 +106,17 @@ public class kaoqinManage extends JPanel {
 		panel_1.add(label);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				String dbClassName = "com.mysql.cj.jdbc.Driver";
 				String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
 				String dbUser = "studio";
 				String dbPwd = "Mystudi0";
 				String dept_id = (String) comboBox.getSelectedItem();
-				
+				if("".equals(dept_id)) {
+					JOptionPane.showMessageDialog(kaoqinManage.this,
+							"请选择对象所在部门!", "未选择对象", JOptionPane.WARNING_MESSAGE);
+				 	setNull();
+				}
 				Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
@@ -123,6 +133,10 @@ public class kaoqinManage extends JPanel {
 				 	} 
 				 	stmt.close();
 				 	conn.close();
+				 	
+				 	JOptionPane.showMessageDialog(kaoqinManage.this,
+							"保存成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
+				 	setNull();
 				}
 				catch(SQLException e1) {
 					e1.printStackTrace();
@@ -135,7 +149,7 @@ public class kaoqinManage extends JPanel {
 		
 		
 		comboBox.setBounds(180, 121, 100, 24);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "1", "2"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "\u5F00\u53D1\u90E8", "\u4EBA\u4E8B\u7BA1\u7406\u90E8", "\u9500\u552E\u90E8"}));
 		panel_1.add(comboBox);
 		
 		JLabel label_1 = new JLabel("\u8003\u52E4\u5458\u5DE5\uFF1A");
@@ -242,7 +256,7 @@ public class kaoqinManage extends JPanel {
 				}
 			}
 		});
-		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"", "\u4EBA\u4E8B\u7BA1\u7406\u90E8"}));
+		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"", "\u4EBA\u4E8B\u7BA1\u7406\u90E8", "\u7ECF\u7406\u529E\u516C\u5BA4"}));
 		comboBox_4.setBounds(180, 433, 100, 24);
 		panel_1.add(comboBox_4);
 		
@@ -252,6 +266,21 @@ public class kaoqinManage extends JPanel {
 		textField_2.setColumns(10);
 
 	}
+	/**
+	 * 清空处理事件
+	 */
+	private void setNull() {
+		comboBox.setSelectedItem("");
+		comboBox_1.setSelectedItem("");
+		comboBox_2.setSelectedItem("请选择");
+		comboBox_3.setSelectedItem("");
+		comboBox_4.setSelectedItem("");
+		textArea.setText("");
+		textField.setText("");
+		textField_1.setText("");
+		textField_2.setText("");
+	}
+
 	/**
 	 * 保存考勤信息表处理事件
 	 * @throws ClassNotFoundException 
@@ -269,6 +298,12 @@ public class kaoqinManage extends JPanel {
 		String ratifier_dept_id = (String) comboBox_4.getSelectedItem();
 		String ratifier_record_id = (String) comboBox_4.getSelectedItem();
 		String ratifier_data = textField_2.getText().trim();
+		if("".equals(record_id)||"请选择".equals(account_item_id)||"".equals(explained)||"".equals(start_data)
+				||"".equals(end_data)||"".equals(ratifier_dept_id)||"".equals(ratifier_data)) {
+			JOptionPane.showMessageDialog(kaoqinManage.this,
+					"请添加完所有信息!", "存在未操作对象", JOptionPane.WARNING_MESSAGE);
+		}
+		
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		try {
