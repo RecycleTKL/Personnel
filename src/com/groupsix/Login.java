@@ -38,7 +38,7 @@ public class Login extends JFrame {
 	private static Login loginFrame;
 
 	Login(){
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/res/main.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/res/main.png")));
 		setResizable(false);
 		setLocationRelativeTo(getOwner());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,13 +47,14 @@ public class Login extends JFrame {
 		
 		LoginPanel panel = new LoginPanel();
 		panel.setForeground(new Color(0, 153, 255));
-		panel.setBounds(0, 0, 463, 278);
+		panel.setBounds(0, 0, 501, 333);
 		//panel.setBounds(0, 0, 434, 261);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JButton btn_confirm = new JButton("");
-		btn_confirm.setPressedIcon(new ImageIcon(Login.class.getResource("/res/loginbtnprs.png")));
+		JButton btn_confirm = new JButton("\u767B\u5F55");
+		btn_confirm.setHorizontalAlignment(SwingConstants.LEFT);
+		btn_confirm.setPressedIcon(new ImageIcon(Login.class.getResource("/res/loginbtnprsdy.gif")));
 		btn_confirm.setBorderPainted(false);
 		btn_confirm.setContentAreaFilled(false);
 		btn_confirm.setOpaque(false);
@@ -77,6 +78,11 @@ public class Login extends JFrame {
 						}
 					}
 					
+					mainFrame = new MainFrame();
+					MainFrame.getCurrentUserLabel().setText(str_username);
+					MainFrame.initTimeField();
+					mainFrame.setVisible(true);
+					
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -85,29 +91,27 @@ public class Login extends JFrame {
 			}
 			
 		});
-		btn_confirm.setFont(new Font("华文行楷", Font.PLAIN, 24));
-		btn_confirm.setBounds(137, 207, 190, 40);
+		btn_confirm.setFont(new Font("宋体", Font.PLAIN, 24));
+		btn_confirm.setBounds(163, 229, 190, 40);
 		panel.add(btn_confirm);
 		
 		JLabel label_name = new JLabel("用户名：");
-		label_name.setForeground(new Color(0, 0, 0));
+		label_name.setForeground(Color.WHITE);
 		label_name.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_name.setFont(new Font("华文行楷", Font.BOLD, 18));
-		label_name.setBounds(89, 108, 82, 30);
+		label_name.setBounds(115, 130, 82, 30);
 		panel.add(label_name);
 		
 		JLabel label_password = new JLabel("密码：");
-		label_password.setForeground(new Color(0, 0, 0));
+		label_password.setForeground(Color.WHITE);
 		label_password.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_password.setFont(new Font("华文行楷", Font.BOLD, 18));
-		label_password.setBounds(89, 148, 82, 30);
+		label_password.setBounds(115, 170, 82, 30);
 		panel.add(label_password);
 		
 		textField_username = new JTextField();
-		textField_username.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(0, 0, 0)));
 		textField_username.setFont(new Font("宋体", Font.BOLD, 18));
-		textField_username.setBounds(165, 108, 190, 30);
-		textField_username.setOpaque(false);
+		textField_username.setBounds(191, 130, 190, 30);
 		textField_username.addKeyListener(new KeyAdapter() {// 为文本框添加键盘时间的监听
 			public void keyTyped(KeyEvent e) {
 				if (e.getKeyChar() == '\n')// 按下的按键是回车时
@@ -118,10 +122,8 @@ public class Login extends JFrame {
 		textField_username.setColumns(10);
 		
 		passwordField_username = new JPasswordField();
-		passwordField_username.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.BLACK));
 		passwordField_username.setFont(new Font("宋体", Font.BOLD, 18));
-		passwordField_username.setBounds(165, 150, 190, 30);
-		passwordField_username.setOpaque(false);
+		passwordField_username.setBounds(191, 172, 190, 30);
 		passwordField_username.addKeyListener(new KeyAdapter() {// 为文本框添加键盘时间的监听
 			public void keyTyped(KeyEvent e) {
 				if (e.getKeyChar() == '\n')// 按下的按键是回车时
@@ -130,7 +132,7 @@ public class Login extends JFrame {
 		});
 		panel.add(passwordField_username);
 		
-		setBounds(700, 400, 469, 307);
+		setBounds(700, 400, 502, 360);
 	}
 	
 	public static void main(String[] args) {
