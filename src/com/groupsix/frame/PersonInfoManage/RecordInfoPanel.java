@@ -44,55 +44,56 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class RecordInfoPanel extends JPanel {
-	private JTextField textField_1;
-	private JTextField txtYyyymmdd;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField tf2_1;
-	private JTextField tf2_2;
-	private JTextField tf2_3;
-	private JTextField tf2_4;
-	private JTextField tf2_5;
-	private JTextField tf2_6;
-	private JTextField tf2_7;
-	private JTextField tf2_8;
-	private JTextField tf2_9;
-	private JTextField tf2_10;
-	private JTextField tf2_11;
-	private JTextField tf3_1;
-	private JTextField tf3_2;
-	private JTextField tf3_3;
-	private JTextField tf3_4;
-	private JTextField tf3_5;
-	private JTextField tf3_6;
-	private JTextField tf3_7;
-	private JTextField tf3_8;
-	private JTextField tf3_9;
-	private JTextField tf3_10;
-	private JTextField tf3_11;
-	private JTextField tf3_12;
-	private JTextField tf3_13;
-	private JTextField tf3_14;
-	private JTextField tf2_12;
-	private JTextField tf2_13;
-	private JTextField tf2_14;
-	private JTextField tf2_15;
+	private static int flag;
+	private static JTextField textField_1;
+	private static JTextField txtYyyymmdd;
+	private static JTextField textField_3;
+	private static JTextField textField_4;
+	private static JTextField textField_5;
+	private static JTextField textField_6;
+	private static JTextField textField_7;
+	private static JTextField textField_8;
+	private static JTextField tf2_1;
+	private static JTextField tf2_2;
+	private static JTextField tf2_3;
+	private static JTextField tf2_4;
+	private static JTextField tf2_5;
+	private static JTextField tf2_6;
+	private static JTextField tf2_7;
+	private static JTextField tf2_8;
+	private static JTextField tf2_9;
+	private static JTextField tf2_10;
+	private static JTextField tf2_11;
+	private static JTextField tf3_1;
+	private static JTextField tf3_2;
+	private static JTextField tf3_3;
+	private static JTextField tf3_4;
+	private static JTextField tf3_5;
+	private static JTextField tf3_6;
+	private static JTextField tf3_7;
+	private static JTextField tf3_8;
+	private static JTextField tf3_9;
+	private static JTextField tf3_10;
+	private static JTextField tf3_11;
+	private static JTextField tf3_12;
+	private static JTextField tf3_13;
+	private static JTextField tf3_14;
+	private static JTextField tf2_12;
+	private static JTextField tf2_13;
+	private static JTextField tf2_14;
+	private static JTextField tf2_15;
 	private JRadioButton radioButton,radioButton_1,radioButton_3,radioButton_4,radioButton_5,radioButton_6;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	JComboBox comboBox = new JComboBox();
-	JComboBox comboBox_1 = new JComboBox();
-	JComboBox comboBox_2 = new JComboBox();
-	private final ButtonGroup buttonGroup_2 = new ButtonGroup();
+	private final static ButtonGroup buttonGroup = new ButtonGroup();
+	static JComboBox comboBox = new JComboBox();
+	static JComboBox comboBox_1 = new JComboBox();
+	static JComboBox comboBox_2 = new JComboBox();
+	private final static ButtonGroup buttonGroup_2 = new ButtonGroup();
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	JComboBox comboBox_3 = new JComboBox();
-	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
-	JComboBox comboBox_4 = new JComboBox();
-	JComboBox comboBox_5 = new JComboBox();
-	private JTextField textField;
+	static JComboBox comboBox_3 = new JComboBox();
+	private final static ButtonGroup buttonGroup_1 = new ButtonGroup();
+	static JComboBox comboBox_4 = new JComboBox();
+	static JComboBox comboBox_5 = new JComboBox();
+	private static JTextField textField;
 	private static JButton button_modify;
 	private static JButton button_new;
 	/**
@@ -118,6 +119,8 @@ public class RecordInfoPanel extends JPanel {
 		setBounds(0, 0, 907, 755);
 		setLayout(new BorderLayout(0, 0));
 		setVisible(true);
+		
+		
 		JPanel panel = new JPanel();
 		panel.setToolTipText("\u8BF7\u9009\u62E9");
 		add(panel, BorderLayout.CENTER);
@@ -685,7 +688,12 @@ public class RecordInfoPanel extends JPanel {
 		button_modify = new JButton("\u4FEE\u6539");
 		button_modify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				modifyRecordInfoActionPerformed();
+				try {
+					modifyRecordInfoActionPerformed();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		panel_4.add(button_modify);
@@ -693,8 +701,9 @@ public class RecordInfoPanel extends JPanel {
 	}
 	/**
 	 * 修改档案管理信息处理事件
+	 * @throws ClassNotFoundException 
 	 */
-	protected void modifyRecordInfoActionPerformed() {
+	protected void modifyRecordInfoActionPerformed() throws ClassNotFoundException {
 		String str = StaffListPanel.str;
 		String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
 		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
@@ -702,8 +711,140 @@ public class RecordInfoPanel extends JPanel {
 		String dbPwd = "Mystudi0";// 访问MySQL数据库的密码
 		Connection conn = null;
 		PreparedStatement stmt = null;
+		String record_number = textField.getText(); 
+		String name = textField_1.getText();
+		String sex = radioButton.isSelected()?radioButton.getText():radioButton_1.getText();
+		String birthday = txtYyyymmdd.getText();
+		//SerialBlob photo = new SerialBlob(filter);
+		String nation_id = (String) comboBox.getSelectedItem();
+		String native_place_id = (String) comboBox_1.getSelectedItem();
+		String id_card = textField_3.getText();
+		String school_age = (String) comboBox_2.getSelectedItem();
+		String specialty = textField_4.getText();
+		String party_member = radioButton_5.isSelected()?radioButton_5.getText():radioButton_6.getText();
+		String foreign_language = textField_5.getText();
+		String grade = textField_6.getText();
+		String marriaged = radioButton_3.isSelected()?radioButton_3.getText():radioButton_4.getText();
+		String postalcode = textField_7.getText();
+		String address = textField_8.getText();
 		
+		String dept_id = (String) comboBox_3.getSelectedItem();
+		String duty_id = (String) comboBox_4.getSelectedItem();
+		String accession_date = tf2_1.getText();
+		String accession_form_id = (String) comboBox_5.getSelectedItem();
+		String dimission_date = tf2_2.getText();
+		String dimission_reason = tf2_3.getText();
+		String pact_start_date = tf2_4.getText();
+		String pact_end_date = tf2_5.getText();
+		String first_pact_date = tf2_6.getText();
+		String first_pact_age = tf2_7.getText();
+		String bank_name = tf2_8.getText();
+		String society_safety_NO = tf2_9.getText();
+		String dole_safety_NO = tf2_10.getText();
+		String annuity_safety_NO = tf2_11.getText();
+		String bank_NO = tf2_12.getText();
+		String medicare_safety_NO = tf2_13.getText();
+		String compo_safety_NO = tf2_14.getText();
+		String accumulation_fund_NO = tf2_15.getText();
+				
 		
+		String handset = tf3_1.getText();
+		String telephone = tf3_2.getText();
+		String QQ = tf3_3.getText();
+		String E_mail = tf3_4.getText();
+		String second_school_age = tf3_5.getText();
+		String second_specialty = tf3_6.getText();
+		String graduate_date = tf3_7.getText();
+		String graduate_school = tf3_8.getText();
+		String computer_grade = tf3_9.getText();
+		String likes = tf3_10.getText();
+		String party_number_date = tf3_11.getText();
+		String ones_strong_suit = tf3_12.getText();
+		String postalcode1 = tf3_13.getText();
+		String address1 = tf3_14.getText();
+		
+		try {
+			Class.forName(dbClassName);				
+		 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
+		 	//修改档案信息表
+			String SQL = "update tb_record set record_number=?,name=?,sex=?,birthday=?,photo=?,"
+					+ "ID_card=?,marriaged=?,nation_id=?,native_place_id=?,address=?,postalcode=?,party_member=?,"
+					+ "school_age=?,specialty=?,foreign_language=?,grade=? where id = ?";
+			stmt = conn.prepareStatement(SQL);
+		 	stmt.setString(1, record_number);
+            stmt.setString(2, name); 
+            stmt.setString(3, sex); 
+            stmt.setString(4, birthday);
+            stmt.setString(5, record_number);
+            stmt.setString(6, id_card);
+            stmt.setString(7, marriaged);
+            stmt.setString(8, nation_id);
+            stmt.setString(9, native_place_id);
+            stmt.setString(10, address1);
+            stmt.setString(11, postalcode1); 
+            stmt.setString(12, party_member); 
+            stmt.setString(13, school_age);
+            stmt.setString(14, specialty);
+            stmt.setString(15, foreign_language);
+            stmt.setString(16, grade);
+            stmt.setString(17, record_number);
+            stmt.executeUpdate();
+            
+            String SQL1 = "update tb_duty_info set dept_id=?,duty_id=?,accession_date=?,accession_form_id=?,"
+            		+ "dimission_date=?,dimission_reason=?,first_pact_date=?,pact_start_date=?,pact_end_date=?,"
+            		+ "bank_name=?,bank_NO=?,society_safety_NO=?,annuity_safety_NO=?,dole_safety_NO=?,"
+            		+ "medicare_safety_NO=?,compo_safety_NO=?,accumulation_fund_NO=?,first_pact_age=? where id=?";
+            
+            stmt = conn.prepareStatement(SQL1);
+            stmt.setString(1, dept_id);
+            stmt.setString(2, duty_id); 
+            stmt.setString(3, accession_date); 
+            stmt.setString(4, accession_form_id);
+            stmt.setString(5, dimission_date);
+            stmt.setString(6, dimission_reason);
+            stmt.setString(7, first_pact_date);
+            stmt.setString(8, pact_start_date);
+            stmt.setString(9, pact_end_date);
+            stmt.setString(10, bank_name);
+            stmt.setString(11, bank_NO); 
+            stmt.setString(12, society_safety_NO); 
+            stmt.setString(13, annuity_safety_NO);
+            stmt.setString(14, dole_safety_NO);
+            stmt.setString(15, medicare_safety_NO);
+            stmt.setString(16, compo_safety_NO);
+            stmt.setString(17, accumulation_fund_NO);
+            stmt.setString(18, first_pact_age);
+            stmt.setString(19, dept_id);
+            stmt.executeUpdate();
+            
+            String SQL2 = "update tb_personal_info set QQ=?,E_mail=?,handset=?,telephone=?,"
+            		+ "address=?,postalcode=?,second_school_age=?,second_specialty=?,graduate_school=?,"
+		 			+ "graduate_date=?,party_number_date=?,computer_grade=?,likes=?,"
+		 			+ "ones_strong_suit=? where id = ?";
+       
+		 	stmt = conn.prepareStatement(SQL2);
+            stmt.setString(1, QQ);
+            stmt.setString(2, E_mail); 
+            stmt.setString(3, handset); 
+            stmt.setString(4, telephone);
+            stmt.setString(5, address1);
+            stmt.setString(6, postalcode1);
+            stmt.setString(7, second_school_age);
+            stmt.setString(8, second_specialty);
+            stmt.setString(9, graduate_school);
+            stmt.setString(10, graduate_date);
+            stmt.setString(11, party_number_date); 
+            stmt.setString(12, computer_grade); 
+            stmt.setString(13, likes);
+            stmt.setString(14, ones_strong_suit); 
+            stmt.setString(15, QQ);
+		 	stmt.executeUpdate();
+            
+            
+            setNull();
+		}catch(SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	/**
@@ -864,9 +1005,9 @@ public class RecordInfoPanel extends JPanel {
 		
 	}
 	/**
-	 * 清空处理事件
+	 * 清空处理界面组件内容事件
 	 */
-	public void setNull() {
+	public static void setNull() {
 		textField.setText("");
 		textField_1.setText("");
 		txtYyyymmdd.setText("");
@@ -919,10 +1060,21 @@ public class RecordInfoPanel extends JPanel {
 	public static void toModifyMode() {
 		button_modify.setEnabled(true);
 		button_new.setEnabled(false);
+		flag = 1;
 	}
 	
 	public static void toNewMode() {
 		button_modify.setEnabled(false);
 		button_new.setEnabled(true);
+	}
+	
+	public static void initForNewMode() {
+		setNull();
+		toNewMode();
+	}
+	
+	public static void initForModifyMode(String id) {
+		
+		toModifyMode();
 	}
 }

@@ -35,7 +35,7 @@ public class PersonnelInfoManage extends JInternalFrame {
 	public PersonnelInfoManage() throws ClassNotFoundException  {
 		setMaximizable(true);
 		setIconifiable(true);
-		setBounds(100, 100, 495, 525);
+		setBounds(100, 100, 475, 514);
 		setResizable(true);
 		setClosable(true);
 		

@@ -54,10 +54,11 @@ public class StaffListPanel extends JPanel {
 									"请选择要修改的员工!", "未选择修改对象", JOptionPane.WARNING_MESSAGE);
 							return;
 						}
-						String str=table.getValueAt(table.getSelectedRow(), 0).toString();
-						System.out.println(str);
-						RecordInfoPanel.toModifyMode();
+						str=table.getValueAt(table.getSelectedRow(), 0).toString();
+						RecordInfoPanel.initForModifyMode(str);
+						//System.out.println(str);
 						PersonnelInfoManage.setTabPane(1);
+						
 						setVisible(true);
 					}
 				});
@@ -65,7 +66,7 @@ public class StaffListPanel extends JPanel {
 				button_new = new JButton("\u65B0\u5EFA\u5458\u5DE5\u6863\u6848");
 				button_new.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						RecordInfoPanel.toNewMode();
+						RecordInfoPanel.initForNewMode();
 					}
 				});
 				panel.add(button_new);
