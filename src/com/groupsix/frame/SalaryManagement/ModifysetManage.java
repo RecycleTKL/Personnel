@@ -1,31 +1,29 @@
 package com.groupsix.frame.SalaryManagement;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.border.EmptyBorder;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.awt.event.ActionEvent;
 
-public class newsetManage extends JFrame {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-	private JPanel contentPane;
-	public JTextField nameTextField;
-	private JTextArea explainTextArea;
+public class ModifysetManage extends JFrame {
+	
+	private JPanel contentPane1;
+	public static JTextField nameTextField;
+	public static JTextArea explainTextArea;
 	private boolean submit = true;
 	private String name;
 	public static String st;
@@ -36,7 +34,6 @@ public class newsetManage extends JFrame {
 	public String get_Explain() {
 		return name;
 	}
-
 	/**
 	 * Launch the application.
 	 */
@@ -44,7 +41,7 @@ public class newsetManage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					newsetManage frame = new newsetManage();
+					ModifysetManage frame = new ModifysetManage();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,40 +53,36 @@ public class newsetManage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public newsetManage() {
+	public ModifysetManage() {
 		super();
-		setTitle("ÐÂ½¨ÕËÌ×");
+		setTitle("ÕËÌ×Î¬»¤");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 620, 420);
 		setLocationRelativeTo(null);
-		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				submit = false;
-			}
-		});
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		System.out.print(setManage.str);
+		contentPane1 = new JPanel();
+		contentPane1.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane1);
+		contentPane1.setLayout(null);
 		//ÕËÌ×Ãû³Æ£º
 		JLabel label = new JLabel("\u8D26\u5957\u540D\u79F0\uFF1A");
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		label.setBounds(31, 27, 80, 18);
-		contentPane.add(label);
+		contentPane1.add(label);
 		
 		nameTextField = new JTextField();
 		nameTextField.setBounds(114, 24, 285, 24);
-		contentPane.add(nameTextField);
+		contentPane1.add(nameTextField);
 		nameTextField.setColumns(10);
 		//ÕËÌ×ËµÃ÷£º
 		JLabel label_1 = new JLabel("\u8D26\u5957\u8BF4\u660E\uFF1A");
 		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_1.setBounds(31, 68, 80, 18);
-		contentPane.add(label_1);
+		contentPane1.add(label_1);
 		
 		explainTextArea = new JTextArea();
 		explainTextArea.setBounds(113, 65, 286, 130);
-		contentPane.add(explainTextArea);
+		contentPane1.add(explainTextArea);
 		explainTextArea.setColumns(10);
 		
 		JButton button = new JButton("\u9000\u51FA");
@@ -100,7 +93,7 @@ public class newsetManage extends JFrame {
 			}
 		});
 		button.setBounds(245, 231, 70, 27);
-		contentPane.add(button);
+		contentPane1.add(button);
 		
 		JButton submitButton = new JButton("\u786E\u5B9A");
 		submitButton.addActionListener(new ActionListener() {
@@ -146,17 +139,7 @@ public class newsetManage extends JFrame {
 			}
 		});
 		submitButton.setBounds(329, 231, 70, 27);
-		contentPane.add(submitButton);
-	}
-	/*public JTextArea getExplainTextArea() {
-		return explainTextArea;
+		contentPane1.add(submitButton);
 	}
 
-	public JTextField getNameTextField() {
-		return nameTextField;
-	}*/
-
-	public boolean isSubmit() {
-		return submit;
-	}
 }

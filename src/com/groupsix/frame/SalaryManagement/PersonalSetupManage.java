@@ -39,7 +39,7 @@ public class PersonalSetupManage extends JPanel {
 		
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.NORTH);
-		
+		//ÃÌº”»À‘±
 		JButton addbutton = new JButton("\u6DFB\u52A0\u4EBA\u5458");
 		panel.add(addbutton);
 		

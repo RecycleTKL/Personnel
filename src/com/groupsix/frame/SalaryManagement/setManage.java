@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.groupsix.Item;
@@ -26,13 +27,21 @@ import java.util.Vector;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.JTextArea;
 
-public class setManage extends JPanel{
+public class setManage extends JPanel implements MouseListener{
 	private JTable leftTable;
 	private JTable rightTable;
-	private JTextArea textArea;
 	private DefaultTableModel dftm;
+	public static String str;
+	JScrollPane  leftScrollPane;
 	private int needSaveRow = -1;
 	private int lastSelectedRow = -1;
 	private final Vector<String> leftTableColumnV = new Vector<String>();
@@ -76,127 +85,122 @@ public class setManage extends JPanel{
 	public setManage() {
 		setBounds(100, 100, 907, 755);
 		setLayout(null);
-		
+		Init();
+		//新建账套
 		JButton addSetButton =  
 				new JButton("\u65B0\u5EFA\u8D26\u5957");
 		addSetButton.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent arg0) {
-				if (needSaveRow == -1) {// 没有需要保存的账套					
-					newsetManage createCriterionSet = new newsetManage();
-					createCriterionSet.setBounds((width - 350) / 2,(height - 250) / 2, 350, 250);
-					createCriterionSet.setVisible(true);// 弹出新建账套对话框
-					if (createCriterionSet.isSubmit()) {// 单击“确定”按钮
-						String name = createCriterionSet.getNameTextField().getText();// 获得账套名称
-						String explain = createCriterionSet.getExplainTextArea().getText();// 获得账套说明
-
-						needSaveRow = leftTableValueV.size();// 将新建账套设置为需要保存的账套
-						System.out.println(needSaveRow);
-						Vector<String> newCriterionSetV = new Vector<String>();// 创建代表账套表格行的向量对象
-						newCriterionSetV.add(needSaveRow + 1 + "");// 添加账套序号
-						newCriterionSetV.add(name);// 添加账套名称
-						leftTableModel.addRow(newCriterionSetV);// 将向量对象添加到左侧的账套表格中
-						leftTable.setRowSelectionInterval(needSaveRow,needSaveRow);// 设置新建账套为选中行
-						textArea.setText(explain);// 设置账套说明
-
-						TbReckoning reckoning = new TbReckoning();// 创建账套对象
-						reckoning.setName(name);// 设置账套名称
-						reckoning.setExplain(explain);// 设置账套说明
-						reckoningV.add(reckoning);// 将账套对象添加到向量中
-
-						refreshItemAllRowValueV(needSaveRow);// 同步刷新右侧的账套项目表格
-					}
-				} else {// 有需要保存的账套，弹出提示保存对话框
-					JOptionPane.showMessageDialog(null, "请先保存账套： "
-							+ leftTable.getValueAt(needSaveRow, 1), "友情提示",
-							JOptionPane.INFORMATION_MESSAGE);
-				}
 				new newsetManage().setVisible(true);
-				//textField.setText(newsetManage.get_Explained().toString());
+				
 			}
+
+
 		});
 		addSetButton.setBounds(76, 13, 100, 27);
 		add(addSetButton);
-		
+		//修改账套
 		JButton updateSetButton = new JButton("\u4FEE\u6539\u8D26\u5957");
+		updateSetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ModifysetManage().setVisible(true);;
+			}
+		});
 		updateSetButton.setBounds(177, 13, 100, 27);
 		add(updateSetButton);
-		
+		//删除账套
 		JButton delSetButton = new JButton("\u5220\u9664\u8D26\u5957");
+		delSetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		delSetButton.setBounds(279, 13, 100, 27);
 		add(delSetButton);
-		
+		//添加项目
 		JButton addItemButton = new JButton("\u6DFB\u52A0\u9879\u76EE");
+		addItemButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		addItemButton.setBounds(405, 13, 100, 27);
 		add(addItemButton);
-		
+		//删除项目
 		JButton delItemButton = new JButton("\u5220\u9664\u9879\u76EE");
 		delItemButton.setBounds(509, 13, 100, 27);
 		add(delItemButton);
-		
+		//修改金额
 		JButton updateMoneyButton = new JButton("\u4FEE\u6539\u91D1\u989D");
 		updateMoneyButton.setBounds(612, 13, 100, 27);
 		add(updateMoneyButton);
-		
+		//保存
 		JButton saveButton = new JButton("\u4FDD\u5B58");
 		saveButton.setBounds(752, 13, 70, 27);
 		add(saveButton);
+	//	leftScrollPane = new JScrollPane();
+	//	leftScrollPane.setBounds(14, 62, 294, 515);
+		//add(leftScrollPane);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(14, 590, 863, 116);
-		add(panel);
-		panel.setLayout(null);
-		
-		JLabel label = new JLabel("\u8D26\u5957\u8BF4\u660E\uFF1A");
-		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		label.setBounds(14, 13, 80, 20);
-		panel.add(label);
-		
-		JScrollPane explainScrollPane = new JScrollPane();
-		explainScrollPane.setBounds(93, 13, 756, 90);
-		panel.add(explainScrollPane);
-		
-		textArea = new JTextArea();
-		textArea.setText(reckoningExplain);
-		textArea.setEditable(false);
-		textArea.setLineWrap(true);
-		explainScrollPane.setViewportView(textArea);
-		
-		JScrollPane leftScrollPane = new JScrollPane();
-		leftScrollPane.setBounds(14, 62, 294, 515);
-		add(leftScrollPane);
-		
-		leftTable = new JTable();
-		leftTable.setModel(new DefaultTableModel() {
-			   public boolean isCellEditable(int row, int column) {
-			    return false;
-			   }
-			  });
-			  leftTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-			  dftm = (DefaultTableModel) leftTable.getModel();
-			  String[] tableHeads = new String[] { "序号","账套名称" };
-			  dftm.setColumnIdentifiers(tableHeads);
-			  leftTable.setFont(new Font("宋体", Font.PLAIN, 14));
-			  leftScrollPane.setViewportView(leftTable);
-			  leftTable.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				int selectedRow = leftTable.getSelectedRow();
-				if (selectedRow != lastSelectedRow) {
-					lastSelectedRow = selectedRow;
-					refreshItemAllRowValueV(selectedRow);
-				}
-			}
-		});
-		leftScrollPane.setColumnHeaderView(leftTable);
+		//leftTable = new JTable();
+		//leftScrollPane.setColumnHeaderView(leftTable);
 		
 		JScrollPane rightScrollPane = new JScrollPane();
-		rightScrollPane.setBounds(322, 62, 555, 515);
+		rightScrollPane.setBounds(14, 376, 879, 379);
 		add(rightScrollPane);
 		
 		rightTable = new JTable();
 		rightScrollPane.setColumnHeaderView(rightTable);
+		
 
 	}
+	void Init() {
+		String dbClassName = "com.mysql.cj.jdbc.Driver";
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
+		String dbUser = "studio";
+		String dbPwd = "Mystudi0";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Vector rowData = new Vector();
+		Vector<String> columnName = new Vector<String>();
+		
+		try {
+			Class.forName(dbClassName);				
+		 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
+		 	columnName.add("序号");
+		 	columnName.add("账套名称"); 
+		 	columnName.add("账套说明");
+		 	String sql="select * from tb_reckoning";
+		 	stmt = conn.prepareStatement(sql);
+		 	conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+		 	rs = stmt.executeQuery();
+		 	
+		 	while(rs.next()) {	 	
+		 		Vector<Object> V = new Vector<>();
+		 		V.add(rs.getString(1));
+		 		V.add(rs.getString(2));
+		 		V.add(rs.getString(3));
+		 		rowData.add(V);
+		 	}
+		 	leftTable=new JTable(rowData, columnName);
+		 	leftTable.updateUI();
+		 	leftTable.addMouseListener(this);
+		 	leftScrollPane = new JScrollPane();
+			leftScrollPane.setBounds(14, 53, 879, 310);
+			add(leftScrollPane);
+			leftScrollPane.setViewportView(leftTable);
+            this.setVisible(true);
+            stmt.close();
+            conn.close();
+		}catch(SQLException e1) {
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
+
 	private void refreshTable(TbReckoning tbrecok, final DefaultTableModel dftm) {
 	//  int num = dftm.getRowCount();
 	//  for (int i = 0; i < num; i++)
@@ -207,11 +211,12 @@ public class setManage extends JPanel{
 		tbreckoning = Dao.getReckoning(item);
 		Vector rowData = new Vector();
 		rowData.add(tbreckoning.getId());// 编号
-		rowData.add(tbreckoning.getName());// 名称
+		rowData.add(tbreckoning.getName());//tbreckoning.getName() 名称
+		System.out.println(tbreckoning.getId()+tbreckoning.getName());
 
 		dftm.addRow(rowData);// 向表格对象中添加行数据（信息）
 	}
-	public void refreshItemAllRowValueV(int row) {
+	/*public void refreshItemAllRowValueV(int row) {
 		rightTableValueV.removeAllElements();
 		if (reckoningV.size() > 0) {
 			TbReckoning reckoning = reckoningV.get(row);
@@ -235,5 +240,46 @@ public class setManage extends JPanel{
 		if (rightTable.getRowCount() > 0)
 			rightTable.setRowSelectionInterval(0, 0);
 		
+	}*/
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO 自动生成的方法存根
+		Init();
+		int i=leftTable.getSelectedRow();
+		
+		System.out.print(leftTable.getValueAt(i,1).toString());
+		str = setText(leftTable.getValueAt(i,0).toString());
 	}
+
+	private String setText(String string) {
+		// TODO 自动生成的方法存根
+		return string;
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO 自动生成的方法存根
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO 自动生成的方法存根
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO 自动生成的方法存根
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO 自动生成的方法存根
+		
+	}
+
+
 }
