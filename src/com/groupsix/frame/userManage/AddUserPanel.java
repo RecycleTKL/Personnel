@@ -69,7 +69,7 @@ public class AddUserPanel extends JPanel {
 		});
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		final DefaultTableModel dftm = (DefaultTableModel) table.getModel();
-		String[] tableHeads = new String[] { "用户编号", "所有者" };
+		String[] tableHeads = new String[] { "用户账号", "所有者" };
 		dftm.setColumnIdentifiers(tableHeads);
 		table.setFont(new Font("宋体", Font.PLAIN, 14));
 		scrollPane.setViewportView(table);
@@ -216,29 +216,37 @@ public class AddUserPanel extends JPanel {
 				return;
 			}
 			
-			String[] spilt = comboBox_recordNumber.getSelectedItem().toString().split("\\(");
-			String no = spilt[0];
-			System.out.println(no);
-			TbManager user = new TbManager();// 用户信息
-			user.setId(Integer.parseInt(no.trim()));// 设置用户�?
-			user.setPassword(passwordField_pw.getText().trim());// 设置用户密码
-			user.setState("正常");// 设置用户�?
-			user.setPurview(comboBox_purview.getSelectedItem().toString());// 设置经办人编�?
-
-			Dao.addManager(user);// 添加用户信息
-			JOptionPane.showMessageDialog(AddUserPanel.this, "已成功添加用户", "用户添加信息", JOptionPane.INFORMATION_MESSAGE);// 弹出提示�?
-			// 清空组件内容
-			passwordField_pw.setText("");
-			passwordField_checkpw.setText("");
-			comboBox_purview.setSelectedIndex(-1);
-			comboBox_recordNumber.setSelectedIndex(-1);
-			List list = Dao.findForList("select * from tb_manager");
-			updateTable(list, dftm);
+			try {
+				String[] spilt = comboBox_recordNumber.getSelectedItem().toString().split("\\(");
+				String no = spilt[0];
+				System.out.println(no);
+				ResultSet rs = Dao.findForResultSet("select id from tb_record where record_number='"+ no +"'");
+				rs.next();
+				TbManager user = new TbManager();// 用户信息
+				user.setId(Integer.parseInt(rs.getString(1).toString()));// 设置用户�?
+				user.setPassword(passwordField_pw.getText().trim());// 设置用户密码
+				user.setState("正常");// 设置用户�?
+				user.setPurview(comboBox_purview.getSelectedItem().toString().trim());// 设置经办人编�?
+	
+				Dao.addManager(user);// 添加用户信息
+				JOptionPane.showMessageDialog(AddUserPanel.this, "已成功添加用户", "用户添加信息", JOptionPane.INFORMATION_MESSAGE);// 弹出提示�?
+				// 清空组件内容
+				passwordField_pw.setText("");
+				passwordField_checkpw.setText("");
+				comboBox_purview.setSelectedIndex(-1);
+				comboBox_recordNumber.setSelectedIndex(-1);
+				List list = Dao.findForList("select tb_record.record_number, tb_record.name "
+						+"from tb_record, tb_manager where tb_record.id=tb_manager.id");
+				updateTable(list, dftm);
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		}
 	}
 	
-	public void initRecordNameBox() {// 初始化经办人编号下拉选择框
+	public void initRecordNameBox() {// 初始化员工编号下拉选择框
 		List agencyInfo = Dao.getAllTbRecordInfo();// 获取经办人信息
 		List<Item> items = new ArrayList<Item>();// 创建数据公共表的集合
 		comboBox_recordNumber.removeAllItems();// 移除下拉列表中现有的经办人信息

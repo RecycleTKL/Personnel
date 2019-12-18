@@ -144,8 +144,8 @@ public class Dao {
 	public static boolean addManager(TbManager manager) {
 		if (manager == null)
 			return false;
-		return insert("insert tb_manager values('" + manager.getId() + "','" 
-			+ manager.getPassword() + "','" + manager.getState() + "', " + manager.getPurview() + ")");
+		return insert("insert tb_manager values(" + manager.getId() + ",'" 
+			+ manager.getPassword() + "','" + manager.getState() + "', '" + manager.getPurview() + "')");
 	}
 	
 	// 获取用户对象的方法

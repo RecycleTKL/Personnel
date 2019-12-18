@@ -6,7 +6,6 @@ import java.awt.Font;
 import javax.swing.JInternalFrame;
 import javax.swing.JTabbedPane;
 
-import com.groupsix.frame.PersonInfoManage.staffManage;
 
 import java.awt.BorderLayout;
 
