@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import com.mysql.cj.jdbc.Blob;
+import com.mysql.cj.xdevapi.Result;
 
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
@@ -780,14 +782,14 @@ public class RecordInfoPanel extends JPanel {
             stmt.setString(7, marriaged);
             stmt.setString(8, nation_id);
             stmt.setString(9, native_place_id);
-            stmt.setString(10, address1);
-            stmt.setString(11, postalcode1); 
+            stmt.setString(10, address);
+            stmt.setString(11, postalcode); 
             stmt.setString(12, party_member); 
             stmt.setString(13, school_age);
             stmt.setString(14, specialty);
             stmt.setString(15, foreign_language);
             stmt.setString(16, grade);
-            stmt.setString(17, record_number);
+            stmt.setString(17, str);
             stmt.executeUpdate();
             
             String SQL1 = "update tb_duty_info set dept_id=?,duty_id=?,accession_date=?,accession_form_id=?,"
@@ -814,7 +816,7 @@ public class RecordInfoPanel extends JPanel {
             stmt.setString(16, compo_safety_NO);
             stmt.setString(17, accumulation_fund_NO);
             stmt.setString(18, first_pact_age);
-            stmt.setString(19, dept_id);
+            stmt.setString(19, str);
             stmt.executeUpdate();
             
             String SQL2 = "update tb_personal_info set QQ=?,E_mail=?,handset=?,telephone=?,"
@@ -837,7 +839,7 @@ public class RecordInfoPanel extends JPanel {
             stmt.setString(12, computer_grade); 
             stmt.setString(13, likes);
             stmt.setString(14, ones_strong_suit); 
-            stmt.setString(15, QQ);
+            stmt.setString(15, str);
 		 	stmt.executeUpdate();
             
             
@@ -944,8 +946,8 @@ public class RecordInfoPanel extends JPanel {
             stmt.setString(7, marriaged);
             stmt.setString(8, nation_id);
             stmt.setString(9, native_place_id);
-            stmt.setString(10, address1);
-            stmt.setString(11, postalcode1); 
+            stmt.setString(10, address);
+            stmt.setString(11, postalcode); 
             stmt.setString(12, party_member); 
             stmt.setString(13, school_age);
             stmt.setString(14, specialty);
@@ -1073,8 +1075,27 @@ public class RecordInfoPanel extends JPanel {
 		toNewMode();
 	}
 	
-	public static void initForModifyMode(String id) {
-		
+	public static void initForModifyMode(String id) throws ClassNotFoundException {
+		//传入的是表的id，利用这个id查询档案资料界面涉及的三个表，然后直接将数据结果放入组件
+		String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
+		String dbUser = "studio";// 访问MySQL数据库的用户名
+		String dbPwd = "Mystudi0";// 访问MySQL数据库的密码
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(dbClassName);				
+		 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
+		 	String Sql = "select * from tb_record where id = ?";
+		 	stmt = conn.prepareStatement(Sql);
+		 	stmt.setString(1, id);
+		 	conn.prepareStatement(Sql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			rs = stmt.executeQuery();
+			
+		}catch(SQLException e1) {
+			e1.printStackTrace();
+		}
 		toModifyMode();
 	}
 }

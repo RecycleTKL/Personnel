@@ -55,7 +55,12 @@ public class StaffListPanel extends JPanel {
 							return;
 						}
 						str=table.getValueAt(table.getSelectedRow(), 0).toString();
-						RecordInfoPanel.initForModifyMode(str);
+						try {
+							RecordInfoPanel.initForModifyMode(str);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						//System.out.println(str);
 						PersonnelInfoManage.setTabPane(1);
 						
