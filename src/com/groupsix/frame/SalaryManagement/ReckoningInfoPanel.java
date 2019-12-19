@@ -40,7 +40,6 @@ import javax.swing.JTextArea;
 public class ReckoningInfoPanel extends JPanel implements MouseListener {
 	private JTable leftTable;
 	private JTable rightTable;
-	private DefaultTableModel dftm;
 	public static String str;
 	JScrollPane leftScrollPane;
 	private int needSaveRow = -1;
@@ -176,9 +175,9 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
-		int num = dftm.getRowCount();// 初始化要确保表格内清空
+		int num = leftTableModel.getRowCount();// 初始化要确保表格内清空
 		for (int i = 0; i < num; i++)
-			dftm.removeRow(0);
+			leftTableModel.removeRow(0);
 
 		try {
 			Class.forName(dbClassName);
