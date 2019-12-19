@@ -215,7 +215,7 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 	// 对添加到数据库成功后执行的表格内容追加操作
 	//使用方法，单击了添加账套，成功执行insert数据库的操作弹出了成功提示框后，执行一条下面的代码:
 	//refreshTable(tbreckoning, leftTableModel);
-	private void refreshTable(TbReckoning tbrecok, final DefaultTableModel dftm) {
+	public static void refreshTable(TbReckoning tbrecok, final DefaultTableModel dftm) {
 		// int num = dftm.getRowCount();	//这个时候就保留原来的表格内数据别删了
 		// for (int i = 0; i < num; i++)
 		// dftm.removeRow(0);
@@ -226,6 +226,7 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		Vector rowData = new Vector();
 		rowData.add(tbreckoning.getId());// 编号
 		rowData.add(tbreckoning.getName());// tbreckoning.getName() 名称
+		rowData.add(tbreckoning.getExplain());
 		System.out.println(tbreckoning.getId() + tbreckoning.getName());
 
 		dftm.addRow(rowData);// 向表格对象中添加行数据（信息）

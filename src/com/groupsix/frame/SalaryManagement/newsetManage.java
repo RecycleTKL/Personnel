@@ -1,5 +1,6 @@
 package com.groupsix.frame.SalaryManagement;
-
+import com.groupsix.dao.model.TbReckoning;
+import com.groupsix.frame.SalaryManagement.ReckoningInfoPanel;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -112,8 +113,12 @@ public class newsetManage extends JFrame {
 				String dbPwd = "Mystudi0";
 				Connection conn = null;
 				PreparedStatement stmt = null;
+				TbReckoning tbrecok=null;
 				String name = nameTextField.getText().trim();
+				tbrecok.setId(10);
+				tbrecok.setName(name);
 				String explained = explainTextArea.getText().trim();
+				tbrecok.setExplain(explained);
 				if (nameTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "请填写账套名称！", "友情提示",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -124,7 +129,7 @@ public class newsetManage extends JFrame {
 							JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
-				refreshTable(nameTextField, leftTableModel);
+				ReckoningInfoPanel.refreshTable(tbrecok, leftTableModel);
 				dispose();
 				try {
 					Class.forName(dbClassName);				

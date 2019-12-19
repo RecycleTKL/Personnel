@@ -136,6 +136,9 @@ public class ModifysetManage extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				/*
+				 * Jo ReckoningInfoPanel.r
+				 */
 			}
 		});
 		submitButton.setBounds(329, 231, 70, 27);

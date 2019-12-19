@@ -2,6 +2,7 @@ package com.groupsix.frame.PersonInfoManage;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.beans.PropertyVetoException;
 import java.sql.SQLException;
 
 import javax.swing.JInternalFrame;
