@@ -181,12 +181,12 @@ public class Dao {
 	}
 	
 	// 权限识别
-	public static int getManagerPurview(String userStr) throws SQLException {
+	public static String getManagerPurview(String userStr) throws SQLException {
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("select purview from tb_manager where id='"
-				+ userStr + "'");
+		ResultSet rs = stmt.executeQuery("select purview from tb_manager, tb_record where tb_record.record_number='"
+				+ userStr + "' and tb_manager.id=tb_record.id");
 		rs.next();
-		return Integer.parseInt(rs.getString(1));
+		return rs.getString(1);
 	}
 
 	// 修改用户密码方法

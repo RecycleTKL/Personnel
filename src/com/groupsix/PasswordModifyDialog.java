@@ -48,7 +48,7 @@ public class PasswordModifyDialog extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PasswordModifyDialog.class.getResource("/res/password.png")));
 		setFont(new Font("Dialog", Font.PLAIN, 16));
 		setTitle("ÐÞ¸ÄÃÜÂë");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 505, 338);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

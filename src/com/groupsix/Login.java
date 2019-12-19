@@ -23,7 +23,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
+import javax.swing.plaf.InsetsUIResource;
+
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
 import com.groupsix.Login;
 import com.groupsix.LoginPanel;
@@ -139,6 +144,21 @@ public class Login extends JFrame {
 		// TODO 自动生成的方法存根
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				try {
+					BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
+					org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+					BeautyEyeLNFHelper.translucencyAtFrameInactive = true;
+					UIManager.put("RootPane.setupButtonVisible", false);
+					UIManager.put("TabbedPane.tabAreaInsets", new InsetsUIResource(0,0,0,0));
+                    UIManager.put("TabbedPane.contentBorderInsets", new InsetsUIResource(0,0,2,0));
+                    UIManager.put("TabbedPane.tabInsets", new InsetsUIResource(3,10,9,10));
+					Font frameTitleFont = (Font)UIManager.get("InternalFrame.titleFont");
+                    frameTitleFont = frameTitleFont.deriveFont(Font.PLAIN);
+                    UIManager.put("InternalFrame.titleFont", frameTitleFont);
+				} catch (Exception e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
 				loginFrame = new Login();
 				loginFrame.setVisible(true);
 			}

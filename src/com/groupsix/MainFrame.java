@@ -18,6 +18,7 @@ import java.lang.reflect.Constructor;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JToolBar;
@@ -52,9 +54,11 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import com.groupsix.dao.Dao;
 import com.groupsix.frame.PersonInfoManage.PersonnelInfoManage;
 import com.groupsix.frame.PersonnelManage.PersonManage;
 import com.groupsix.frame.PersonnelManage.jiangcheng;
+import com.groupsix.frame.SalaryManagement.SalaryManage;
 import com.groupsix.frame.userManage.UserManage;
 
 
@@ -76,6 +80,8 @@ public class MainFrame extends JFrame {
 	private JMenuItem menuItem_attendance;
 	private JMenuItem menuItem_rewardAndPunish;
 	private JMenuItem menuItem_training;
+	private JMenuItem menuItem_reckoning;
+	private JMenuItem menuItem_personalSetup;
 	
 
 	/**
@@ -107,14 +113,14 @@ public class MainFrame extends JFrame {
 		setBounds(100, 100, 1440, 900);
 		iFrames = new HashMap<JMenuItem, JInternalFrame>();
 		
-		try {
-			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.mac.MacLookAndFeel");
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-				| UnsupportedLookAndFeelException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		try {
+//			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.mac.MacLookAndFeel");
+//			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+//		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+//				| UnsupportedLookAndFeelException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -169,6 +175,18 @@ public class MainFrame extends JFrame {
 			}
 		});
 		menu.add(menuItem_recordManage);
+		
+		JMenu menu_1 = new JMenu("\u5F85\u9047\u7BA1\u7406");
+		menu_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
+		menuBar.add(menu_1);
+		
+		menuItem_reckoning = new JMenuItem("账套管理");
+		menuItem_reckoning.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
+		menu_1.add(menuItem_reckoning);
+		
+		menuItem_personalSetup = new JMenuItem("人员工资设置");
+		menuItem_personalSetup.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
+		menu_1.add(menuItem_personalSetup);
 		
 		JMenu mnNewMenu = new JMenu("系统选项");
 		mnNewMenu.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
@@ -376,18 +394,17 @@ public class MainFrame extends JFrame {
 		treatmentNode.add(new DefaultMutableTreeNode("账套管理"));
 		treatmentNode.add(new DefaultMutableTreeNode("人员工资设置"));
 		root.add(treatmentNode);
-		
-//		DefaultMutableTreeNode frameNode = new DefaultMutableTreeNode(
-//				"组织架构");
-//		//recordNode.add(new DefaultMutableTreeNode("入库信息管理"));
-//		frameNode.add(new DefaultMutableTreeNode("岗位管理"));
-//		frameNode.add(new DefaultMutableTreeNode("岗位资料"));
-//		root.add(frameNode);
 
-		DefaultMutableTreeNode toolNode = new DefaultMutableTreeNode("系统用户管理");
-		toolNode.add(new DefaultMutableTreeNode("添加用户"));
-		toolNode.add(new DefaultMutableTreeNode("修改用户"));
-		toolNode.add(new DefaultMutableTreeNode("删除用户"));
+		DefaultMutableTreeNode userNode = new DefaultMutableTreeNode("系统用户管理");
+		userNode.add(new DefaultMutableTreeNode("添加用户"));
+		userNode.add(new DefaultMutableTreeNode("删除用户"));
+		root.add(userNode);
+		
+		DefaultMutableTreeNode toolNode = new DefaultMutableTreeNode(
+				"便捷访问");
+		toolNode.add(new DefaultMutableTreeNode("计算器"));
+		toolNode.add(new DefaultMutableTreeNode("打开Word"));
+		toolNode.add(new DefaultMutableTreeNode("打开Excel"));
 		root.add(toolNode);
 
 		DefaultTreeModel treeModel = new DefaultTreeModel(root);// 通过树结点对象创建树模型对象
@@ -410,95 +427,89 @@ public class MainFrame extends JFrame {
 			TreePath path = new TreePath(node.getPath());// 获得结点对象的路径
 			tree.expandPath(path);// 展开该结点
 		}
-//		tree.addTreeSelectionListener(new SelectNodeActionListener());
+		tree.addTreeSelectionListener(new SelectNodeActionListener());
 		panel.add(tree);
 	}
 	
-//	private class SelectNodeActionListener implements TreeSelectionListener {// 选择树结点动作事件的监听
-//		@Override
-//		public void valueChanged(TreeSelectionEvent e) {
-//			// TODO 自动生成的方法存根
-//			//desktopPane.removeAll();	//让操作过程中桌面面板上只留下一个操作窗，暂保留
-//			TreePath treePath = e.getPath();
-//			if (treePath.getPathCount() == 2) {
-//				//选取到了二级结点，不做任何操作
-//			} else {	//选取到可操作叶子结点
-//				String selectedNode = treePath.getLastPathComponent().toString();
-//				String parentNode = treePath.getParentPath().getLastPathComponent().toString();
-//				
-//				if (parentNode.equals("客户信息管理")) {
-//					if (selectedNode.equals("添加客户信息")) {
-//						createIFrame(menuItem_clientManage, ClientManage.class);
-//						ClientManage.setTabPane(0);
-//					} else if (selectedNode.equals("修改客户信息")) {
-//						createIFrame(menuItem_clientManage, ClientManage.class);
-//						ClientManage.setTabPane(1);
-//					} else if (selectedNode.equals("删除客户信息")) {
-//						createIFrame(menuItem_clientManage, ClientManage.class);
-//						ClientManage.setTabPane(2);
-//					} else {// 查询客户信息
-//						createIFrame(menuItem_clientManage, ClientManage.class);
-//						ClientManage.setTabPane(2);
-//					}
-//				} else if (parentNode.equals("药品信息管理")) {
-//					if (selectedNode.equals("添加药品信息")) {
-//						createIFrame(menuItem_medicineManage, MedicineManage.class);
-//						MedicineManage.setTabPane(0);
-//					} else if (selectedNode.equals("修改药品信息")) {
-//						createIFrame(menuItem_medicineManage, MedicineManage.class);
-//						MedicineManage.setTabPane(1);
-//					} else if (selectedNode.equals("删除药品信息")) {
-//						createIFrame(menuItem_medicineManage, MedicineManage.class);
-//						MedicineManage.setTabPane(2);
-//					} else {// 查询药品信息
-//						createIFrame(menuItem_medicineManage, MedicineManage.class);
-//						MedicineManage.setTabPane(2);
-//					}
-//				} else if (parentNode.equals("经办人信息管理")) {
-//					if (selectedNode.equals("添加经办人信息")) {
-//						createIFrame(menuItem_agencyManage, AgencyManage.class);
-//						AgencyManage.setTabPane(0);
-//					} else if (selectedNode.equals("修改经办人信息")) {
-//						createIFrame(menuItem_agencyManage, AgencyManage.class);
-//						AgencyManage.setTabPane(1);
-//					} else if (selectedNode.equals("删除经办人信息")) {
-//						createIFrame(menuItem_agencyManage, AgencyManage.class);
-//						AgencyManage.setTabPane(2);
-//					} else {// 查询经办人信息
-//						createIFrame(menuItem_agencyManage, AgencyManage.class);
-//						AgencyManage.setTabPane(2);
-//					}
-//				} else if (parentNode.equals("单据信息管理")) {
-//					if (selectedNode.equals("销售信息管理")) {
-//						createIFrame(menuItem_orderQuery, OrderQuery.class);
-//					} else {//销售排行
-//						createIFrame(menuItem_orderRanking, OrderRankingList.class);
-//					}
-//				} else {	// 系统用户管理
-//					if (selectedNode.equals("添加用户")) {
-//						createIFrame(menuItem_userManage, UserManage.class);
-//						UserManage.setTabPane(0);
-//					} else if (selectedNode.equals("修改用户")) {
-//						createIFrame(menuItem_userManage, UserManage.class);
-//						UserManage.setTabPane(1);
-//					} else {// 删除用户
-//						createIFrame(menuItem_userManage, UserManage.class);
-//						UserManage.setTabPane(2);
-//					}
-//				}
-//			}
-//			SwingUtilities.updateComponentTreeUI(desktopPane);
-//		}
-//	}
-	
-	/*	修改密码响应操作参考
-		desktopPane.removeAll();
-		SwingUtilities
-				.updateComponentTreeUI(desktopPane);
-		UpdatePasswordDialog updatePasswordDialog = new UpdatePasswordDialog();
-		updatePasswordDialog.setRecord(record);
-		updatePasswordDialog.setVisible(true);
-	*/
+	private class SelectNodeActionListener implements TreeSelectionListener {// 选择树结点动作事件的监听
+		@Override
+		public void valueChanged(TreeSelectionEvent e) {
+			// TODO 自动生成的方法存根
+			//desktopPane.removeAll();	//让操作过程中桌面面板上只留下一个操作窗，暂保留
+			TreePath treePath = e.getPath();
+			if (treePath.getPathCount() == 2) {
+				//选取到了二级结点，不做任何操作
+			} else {	//选取到可操作叶子结点
+				String selectedNode = treePath.getLastPathComponent().toString();
+				String parentNode = treePath.getParentPath().getLastPathComponent().toString();
+				
+				if (parentNode.equals("档案中心")) {
+					if (selectedNode.equals("档案添加")) {
+						createIFrame(menuItem_recordManage, PersonnelInfoManage.class);
+						PersonnelInfoManage.setTabPane(0);
+					} else {// 档案查询与修改
+						createIFrame(menuItem_recordManage, PersonnelInfoManage.class);
+						PersonnelInfoManage.setTabPane(1);
+					}
+				} else if (parentNode.equals("人事管理")) {
+					if (selectedNode.equals("考勤管理")) {
+						createIFrame(menuItem_attendance, PersonManage.class);
+						PersonManage.setTabPane(0);
+					} else if (selectedNode.equals("奖惩管理")) {
+						createIFrame(menuItem_rewardAndPunish, PersonManage.class);
+						PersonManage.setTabPane(1);
+					} else {// 培训管理
+						createIFrame(menuItem_training, PersonManage.class);
+						PersonManage.setTabPane(2);
+					}
+				} else if (parentNode.equals("待遇管理")) {
+					if (selectedNode.equals("账套管理")) {
+						createIFrame(menuItem_reckoning, SalaryManage.class);
+						SalaryManage.setTabPane(0);
+					} else {// 人员设置
+						createIFrame(menuItem_personalSetup, SalaryManage.class);
+						SalaryManage.setTabPane(1);
+					}
+				} else if (parentNode.equals("系统用户管理")) {
+					if (selectedNode.equals("添加用户")) {
+						createIFrame(menuItem_userManage, UserManage.class);
+						UserManage.setTabPane(0);
+					} else {// 查询与删除用户
+						createIFrame(menuItem_userManage, UserManage.class);
+						UserManage.setTabPane(1);
+					}
+				} else {// 便捷访问
+					if (Desktop.isDesktopSupported()) {
+						Desktop desktop = Desktop.getDesktop();
+						File file = null;
+						try {
+							if (selectedNode.equals("计算器")) {
+								Runtime runtime = Runtime
+										.getRuntime();
+								runtime.exec("calc.exe");
+							} else if (selectedNode
+									.equals("打开Word")) {
+								file = new File("src/office/new.docx");
+								desktop.open(file);
+							} else {// 打开EXCEL
+								file = new File("src/office/new.xlsx");
+								desktop.open(file);
+							}
+						} catch (Exception e1) {
+							JOptionPane
+									.showMessageDialog(
+											null,
+											"很抱歉，未能打开您请求的系统工具！",
+											"友情提示",
+											JOptionPane.INFORMATION_MESSAGE);
+							return;
+						}
+					}
+				}
+			}
+			SwingUtilities.updateComponentTreeUI(desktopPane);
+		}
+	}
 	
 	public static JLabel getCurrentUserLabel() {		// 获得“操作员”标签的方法
 		if (label_currentUser == null) {				// “操作员”标签对象为空
