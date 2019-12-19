@@ -1,10 +1,7 @@
 package com.groupsix.frame.SalaryManagement;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.beans.PropertyVetoException;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JTabbedPane;
 
