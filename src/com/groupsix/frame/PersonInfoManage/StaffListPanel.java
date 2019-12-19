@@ -43,7 +43,10 @@ public class StaffListPanel extends JPanel {
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
-
+		
+		scrollPane = new JScrollPane();
+		panel_1.add(scrollPane, BorderLayout.CENTER);
+		
 		JPanel panel = new JPanel();
 		panel_1.add(panel, BorderLayout.NORTH);
 		JButton button_modify = new JButton("\u4FEE\u6539\u5458\u5DE5\u6863\u6848");
@@ -98,8 +101,7 @@ public class StaffListPanel extends JPanel {
 		//scrollPane = new JScrollPane();
 		scrollPane.setViewportView(table);
 		
-		scrollPane = new JScrollPane();
-		panel_1.add(scrollPane, BorderLayout.CENTER);
+		
 		initList();
 	}
 
@@ -117,6 +119,10 @@ public class StaffListPanel extends JPanel {
 			Class.forName(dbClassName);
 			conn = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
 
+			int num = dftm.getRowCount();// 初始化要确保表格内清空
+			for (int i = 0; i < num; i++)
+				dftm.removeRow(0);
+			
 			String sql2 = "select tb_record.id,tb_record.record_number,tb_record.name,tb_record.sex,tb_duty_info.dept_id,tb_duty_info.duty_id"
 					+ " from tb_record,tb_duty_info where tb_record.id=tb_duty_info.id";
 			stmt = conn.prepareStatement(sql2);

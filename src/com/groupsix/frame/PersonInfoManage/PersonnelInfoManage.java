@@ -47,6 +47,7 @@ public class PersonnelInfoManage extends JInternalFrame {
 		tabbedPane.addTab("档案列表", null, t1, null);
 		RecordInfoPanel t = new RecordInfoPanel();
 		tabbedPane.addTab("档案资料编辑", null, t, null);
+		
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				try {

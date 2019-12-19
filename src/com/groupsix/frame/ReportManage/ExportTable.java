@@ -20,10 +20,9 @@ public class ExportTable {
             for(int j=0; j < model.getColumnCount(); j++) {
                // bWriter.write(model.getValueAt(i,j).toString());
             	//bWriter.write("1");
-            	String a=(String) table.getValueAt(i, j);
-            	if(a==null) {
-            		a="--";
-            	}
+            	
+            	String a = table.getValueAt(i, j)==null ? "--" : table.getValueAt(i, j).toString();
+            	
             	bWriter.write(a);
                 bWriter.write("\t");
             }

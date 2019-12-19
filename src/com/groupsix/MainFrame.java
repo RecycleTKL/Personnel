@@ -485,7 +485,7 @@ public class MainFrame extends JFrame {
 				String parentNode = treePath.getParentPath().getLastPathComponent().toString();
 				
 				if (parentNode.equals("档案中心")) {
-					if (selectedNode.equals("档案添加")) {
+					if (selectedNode.equals("档案列表")) {
 						createIFrame(menuItem_recordManage, PersonnelInfoManage.class);
 						PersonnelInfoManage.setTabPane(0);
 					} else {// 档案查询与修改

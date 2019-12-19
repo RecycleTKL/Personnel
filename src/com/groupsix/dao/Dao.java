@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
@@ -203,7 +204,13 @@ public class Dao {
 	}
 	/***************************************************/
 
+	public static ResultSet getReckoningItem(String id) {
+		// TODO Auto-generated method stub
+		return query("select * from tb_reckoning_item where id="+id);
+	}
+
 	public static TbReckoning getReckoning(Item item) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	

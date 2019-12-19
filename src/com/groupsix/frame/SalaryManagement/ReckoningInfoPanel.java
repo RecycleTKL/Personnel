@@ -20,7 +20,11 @@ import com.groupsix.dao.Dao;
 import com.groupsix.dao.model.TbReckoning;
 import com.groupsix.frame.PersonInfoManage.RecordInfoPanel;
 import com.groupsix.frame.PersonInfoManage.StaffListPanel;
+import com.mwq.frame.treatement.AddAccountItemDialog;
+import com.mwq.hibernate.mapping.TbAccountItem;
+import com.mwq.hibernate.mapping.TbReckoningInfo;
 
+import java.util.Iterator;
 import java.util.Vector;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -33,11 +37,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ReckoningInfoPanel extends JPanel {
-	private JTable leftTable;
+	private static JTable leftTable;
 	private JTable rightTable;
 	public static String str;
-	JScrollPane leftScrollPane;
-	private DefaultTableModel leftTableModel;
+	static JScrollPane leftScrollPane;
+	private static DefaultTableModel leftTableModel;
 
 	private DefaultTableModel rightTableModel;
 	private final Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -110,13 +114,14 @@ public class ReckoningInfoPanel extends JPanel {
 			}
 			str=leftTable.getValueAt(leftTable.getSelectedRow(), 0).toString();
 			try {
+				initLeftTable();
 				ModifysetManage modifyd = new ModifysetManage();
 				modifyd.initModifyMode(str);
 				modifyd.setVisible(true);
+				initLeftTable();
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
 				}
-			initLeftTable();
 			}
 		});
 		panel_leftButton.add(button_1);
@@ -141,15 +146,27 @@ public class ReckoningInfoPanel extends JPanel {
 
 		JPanel panel_rightButton = new JPanel();
 		panel_right.add(panel_rightButton, BorderLayout.NORTH);
+		
+				JButton button_5 = new JButton("\u6DFB\u52A0\u9879\u76EE");
+				button_5.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int leftSelectedRow = leftTable.getSelectedRow();// 获得选中的账套
+						if (leftSelectedRow == -1) {// 未选中任何账套
+							JOptionPane.showMessageDialog(null, "请先建立账套！", "友情提示",
+									JOptionPane.INFORMATION_MESSAGE);// 弹出提示信息
+						} else {// 已选中账套
+							addItem(leftSelectedRow);// 调用方法添加账套
+						}
+						
+					}
+				});
+				panel_rightButton.add(button_5);
+		
+				JButton button_4 = new JButton("\u5220\u9664\u9879\u76EE");
+				panel_rightButton.add(button_4);
 
 		JButton button_3 = new JButton("\u4FEE\u6539\u91D1\u989D");
 		panel_rightButton.add(button_3);
-
-		JButton button_4 = new JButton("\u5220\u9664\u9879\u76EE");
-		panel_rightButton.add(button_4);
-
-		JButton button_5 = new JButton("\u6DFB\u52A0\u9879\u76EE");
-		panel_rightButton.add(button_5);
 
 		JScrollPane rightScrollPane = new JScrollPane();
 		panel_right.add(rightScrollPane);
@@ -176,6 +193,7 @@ public class ReckoningInfoPanel extends JPanel {
 		panel.add(button_6);
 		
 	}
+
 	/**
 	 * 删除账套处理事件
 	 * @throws ClassNotFoundException 
@@ -206,7 +224,7 @@ public class ReckoningInfoPanel extends JPanel {
 	}
 
 	// 初始化左边表格内容的方法
-	public void initLeftTable() {
+	public static void initLeftTable() {
 		String dbClassName = "com.mysql.cj.jdbc.Driver";
 		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
 		String dbUser = "studio";
@@ -252,6 +270,8 @@ public class ReckoningInfoPanel extends JPanel {
 			// TODO Auto-generated method stub
 			if(arg0.getValueIsAdjusting()) {
 				int row = leftTable.getSelectedRow();// 选中行
+				String id = leftTable.getValueAt(row, 0).toString();
+				Dao.getReckoningItem(id);
 			}
 		}
 	}
@@ -265,6 +285,53 @@ public class ReckoningInfoPanel extends JPanel {
 		}
 	}
 
+	public void addItem(int leftSelectedRow) {
+		AddAccountItemDialog addAccountItemDialog = new AddAccountItemDialog();
+		addAccountItemDialog.setBounds((WIDTH - 500) / 2, (HEIGHT - 375) / 2,
+				500, 375);
+		addAccountItemDialog.setVisible(true);// 弹出添加项目对话框
+		//
+		JTable itemTable = addAccountItemDialog.getTable();// 获得对话框中的表格对象
+		int[] selectedRows = itemTable.getSelectedRows();// 获得选中行的索引
+		if (selectedRows.length > 0) {// 有新添加的项目
+			needSaveRow = leftSelectedRow;// 设置当前账套为需要保存的账套
+			int defaultSelectedRow = rightTable.getRowCount();// 将选中行设置为新添加项目的第一行
+			TbReckoning reckoning = reckoningV.get(leftSelectedRow);// 获得选中账套的对象
+			for (int i = 0; i < selectedRows.length; i++) {// 通过循环向账套中添加项目
+				String name = itemTable.getValueAt(selectedRows[i], 1)
+						.toString();// 获得项目名称
+				String unit = itemTable.getValueAt(selectedRows[i], 2)
+						.toString();// 获得项目单位
+				Iterator<TbReckoningInfo> reckoningInfoIt = reckoning
+						.getTbReckoningInfos().iterator();// 遍历账套中的现有项目
+				boolean had = false;// 默认在现有项目中不包含新添加的项目
+				while (reckoningInfoIt.hasNext()) {// 通过循环查找是否存在
+					TbAccountItem accountItem = reckoningInfoIt.next()
+							.getTbAccountItem();// 获得已有的项目对象
+					if (accountItem.getName().equals(name)
+							&& accountItem.getUnit().equals(unit)) {
+						had = true;// 存在
+						break;// 跳出循环
+					}
+				}
+				if (!had) {// 如果没有则添加
+					TbReckoningInfo reckoningInfo = new TbReckoningInfo();// 创建账套信息对象
+					TbAccountItem accountItem = (TbAccountItem) dao
+							.queryAccountItemByNameUnit(name, unit);// 获得账套项目对象
+					accountItem.getTbReckoningInfos().add(reckoningInfo);// 建立从账套项目对象到账套信息对象的关联
+					reckoningInfo.setTbAccountItem(accountItem);// 建立从账套信息对象到账套项目对象的关联
+					reckoningInfo.setMoney(0);// 设置项目金额为0
+					reckoningInfo.setTbReckoning(reckoning);// 建立从账套信息对象到账套对象的关联
+					reckoning.getTbReckoningInfos().add(reckoningInfo);// 建立从账套对象到账套信息对象的关联
+				}
+			}
+			refreshItemAllRowValueV(leftSelectedRow);// 同步刷新右侧的账套项目表格
+			rightTable.setRowSelectionInterval(defaultSelectedRow,
+					defaultSelectedRow);// 设置新添加项目的第一行为选中行
+			addAccountItemDialog.dispose();// 销毁添加项目对话框
+		}
+	}
+	
 	// 对添加到数据库成功后执行的表格内容追加操作
 	// 使用方法，单击了添加账套，成功执行insert数据库的操作弹出了成功提示框后，执行一条下面的代码:
 	// refreshTable(tbreckoning, leftTableModel);

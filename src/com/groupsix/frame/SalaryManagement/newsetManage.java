@@ -143,6 +143,7 @@ public class newsetManage extends JFrame {
 					stmt.close();
 					conn.close();
 					st = explained;
+					ReckoningInfoPanel.initLeftTable();
 			        dispose();
 				}
 				catch(SQLException e1) {
