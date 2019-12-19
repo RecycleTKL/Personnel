@@ -54,6 +54,8 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+
 import com.groupsix.dao.Dao;
 import com.groupsix.frame.PersonInfoManage.PersonnelInfoManage;
 import com.groupsix.frame.PersonnelManage.PersonManage;
@@ -91,6 +93,18 @@ public class MainFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					try {
+						BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
+						org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+						BeautyEyeLNFHelper.translucencyAtFrameInactive = true;
+						UIManager.put("RootPane.setupButtonVisible", false);
+						Font frameTitleFont = (Font)UIManager.get("InternalFrame.titleFont");
+			            frameTitleFont = frameTitleFont.deriveFont(Font.PLAIN);
+			            UIManager.put("InternalFrame.titleFont", frameTitleFont);
+					} catch (Exception e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}
 					MainFrame frame = new MainFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
