@@ -62,6 +62,7 @@ import com.groupsix.frame.PersonnelManage.PersonManage;
 import com.groupsix.frame.PersonnelManage.jiangcheng;
 import com.groupsix.frame.SalaryManagement.SalaryManage;
 import com.groupsix.frame.userManage.UserManage;
+import com.groupsix.frame.ReportManage.*;
 
 
 public class MainFrame extends JFrame {
@@ -84,6 +85,7 @@ public class MainFrame extends JFrame {
 	private JMenuItem menuItem_training;
 	private JMenuItem menuItem_reckoning;
 	private JMenuItem menuItem_personalSetup;
+	private JMenuItem menuItem_reportTable;
 	
 
 	/**
@@ -189,6 +191,17 @@ public class MainFrame extends JFrame {
 			}
 		});
 		menu.add(menuItem_recordManage);
+		
+		menuItem_reportTable = new JMenuItem("报表生成");
+		menuItem_reportTable.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
+		menuItem_reportTable.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO 自动生成的方法存根
+				createIFrame(menuItem_recordManage, ReportManage.class);
+			}
+		});
+		menu.add(menuItem_reportTable);
 		
 		JMenu menu_1 = new JMenu("\u5F85\u9047\u7BA1\u7406");
 		menu_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
