@@ -208,7 +208,7 @@ public class SearchAndDeleteUserPanel extends JPanel {
 			String record_number, sql;
 			int row = table.getSelectedRow();
 			record_number = table.getValueAt(row, 0).toString();
-			sql = "delete tb_manager where id=(select id from tb_record where record_number='" + record_number + "'";
+			sql = "delete from tb_manager where id =(select id from tb_record where record_number='" + record_number + "')";
 			int confirm = JOptionPane.showConfirmDialog(SearchAndDeleteUserPanel.this, "确认删除用户信息吗?");// 弹出“确认删除经办人信息吗？”提示框
 			if (confirm == JOptionPane.YES_OPTION) {// 点击“确认�?�键
 				int rs = Dao.delete(sql);// 获得删除用户信息的数�?

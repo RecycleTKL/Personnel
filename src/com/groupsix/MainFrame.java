@@ -377,12 +377,12 @@ public class MainFrame extends JFrame {
 		treatmentNode.add(new DefaultMutableTreeNode("人员工资设置"));
 		root.add(treatmentNode);
 		
-		DefaultMutableTreeNode frameNode = new DefaultMutableTreeNode(
-				"组织架构");
-		//recordNode.add(new DefaultMutableTreeNode("入库信息管理"));
-		frameNode.add(new DefaultMutableTreeNode("岗位管理"));
-		frameNode.add(new DefaultMutableTreeNode("岗位资料"));
-		root.add(frameNode);
+//		DefaultMutableTreeNode frameNode = new DefaultMutableTreeNode(
+//				"组织架构");
+//		//recordNode.add(new DefaultMutableTreeNode("入库信息管理"));
+//		frameNode.add(new DefaultMutableTreeNode("岗位管理"));
+//		frameNode.add(new DefaultMutableTreeNode("岗位资料"));
+//		root.add(frameNode);
 
 		DefaultMutableTreeNode toolNode = new DefaultMutableTreeNode("系统用户管理");
 		toolNode.add(new DefaultMutableTreeNode("添加用户"));
