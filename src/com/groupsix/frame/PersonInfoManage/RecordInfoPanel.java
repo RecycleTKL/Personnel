@@ -675,6 +675,7 @@ public class RecordInfoPanel extends JPanel {
 		panel_4.add(label);
 		
 		record_numberField = new JTextField();
+		record_numberField.setEditable(false);
 		record_numberField.setColumns(10);
 		panel_4.add(record_numberField);
 		
@@ -922,7 +923,7 @@ public class RecordInfoPanel extends JPanel {
 		String ones_strong_suit = tf3_12.getText();
 		String postalcode1 = tf3_13.getText();
 		String address1 = tf3_14.getText();
-		if("".equals(name.trim())||"".equals(birthday.trim())||"请选择".equals(nation_id.trim())||"请选择".equals(native_place_id.trim())||"".equals(id_card.trim())||"".equals(specialty.trim())
+		if("".equals(birthday.trim())||"请选择".equals(nation_id.trim())||"请选择".equals(native_place_id.trim())||"".equals(id_card.trim())||"".equals(specialty.trim())
 			||"".equals(grade.trim())) {
 			JOptionPane.showMessageDialog(null,"请填完所以信息!","提示",JOptionPane.INFORMATION_MESSAGE);
 			return ;

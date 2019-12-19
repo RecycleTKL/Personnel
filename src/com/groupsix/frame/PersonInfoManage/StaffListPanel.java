@@ -63,13 +63,11 @@ public class StaffListPanel extends JPanel {
 				
 				button_new = new JButton("\u65B0\u5EFA\u5458\u5DE5\u6863\u6848");
 				button_new.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						
+					public void actionPerformed(ActionEvent arg0) {					
 						RecordInfoPanel.initForNewMode();
 						PersonnelInfoManage.setTabPane(1);
 						setVisible(true);
-					}
-					
+					}					
 				});
 				
 				panel.add(button_new);				
@@ -77,9 +75,6 @@ public class StaffListPanel extends JPanel {
 				
 				scrollPane = new JScrollPane();
 				panel_1.add(scrollPane, BorderLayout.CENTER);
-				
-				//table = new JTable();
-				//scrollPane.setViewportView(table);
 				init();
 	}
 	public void init() throws ClassNotFoundException {
@@ -117,6 +112,7 @@ public class StaffListPanel extends JPanel {
 		 	rowData.add(V);
 		}
 		table=new JTable(rowData, columnName);
+		table.updateUI();
 		table.getSelectionModel().addListSelectionListener(new SelectRowListener());
 		scrollPane.setViewportView(table);
 		

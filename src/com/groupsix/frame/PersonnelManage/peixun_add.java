@@ -10,7 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
-
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +22,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import com.groupsix.frame.PersonInfoManage.RecordInfoPanel;
@@ -36,7 +39,8 @@ public class peixun_add extends JFrame {
 	private JTable table;
 	private JTextField textField_7;
 	private JPanel contentPane;
-	private DefaultTableCellRenderer de; 
+	JScrollPane scrollPane;
+	public String str1;
 	/**
 	 * Launch the application.
 	 */
@@ -138,7 +142,7 @@ public class peixun_add extends JFrame {
 		label_5.setBounds(44, 218, 80, 20);
 		panel.add(label_5);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(123, 220, 703, 419);
 		panel.add(scrollPane);
 		
@@ -177,72 +181,32 @@ public class peixun_add extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent arg0) {
-				String dbClassName = "com.mysql.cj.jdbc.Driver";
-				String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
-				String dbUser = "studio";
-				String dbPwd = "Mystudi0";
-				Connection conn = null;
-				PreparedStatement stmt = null;
-				ResultSet rs = null;
-				Vector rowData = new Vector();
-				Vector<String> columnName = new Vector<String>();
-				
 				try {
-					Class.forName(dbClassName);				
-				 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
-				 	columnName.add("序号");
-				 	columnName.add("档案编号");
-				 	columnName.add("姓名");
-				 	columnName.add("性别");
-				 	columnName.add("部门");
-				 	columnName.add("职务");
-				 
-				 	String sql2="select tb_record.id,tb_record.record_number,tb_record.name,tb_record.sex,tb_duty_info.dept_id,tb_duty_info.duty_id"
-				 			+ " from tb_record,tb_duty_info where tb_record.id=tb_duty_info.id";
-				 	stmt = conn.prepareStatement(sql2);
-				 	rs = stmt.executeQuery();
-				 	
-				 	while(rs.next()) {
-				 		Vector<Object> V = new Vector<>();
-				 		V.add(rs.getString(1));
-				 		V.add(rs.getString(2));
-				 		V.add(rs.getString(3));
-				 		V.add(rs.getString(4));
-				 		V.add(rs.getString(5));
-				 		V.add(rs.getString(6));
-				 		rowData.add(V);
-				 	}
-				 	de=new DefaultTableCellRenderer();
-		            table.setDefaultRenderer(Object.class, de);
-		            table=new JTable(rowData, columnName);
-		            table.updateUI();
-		            scrollPane.setViewportView(table);
-		            this.setVisible(true);
-		            
-		            JOptionPane.showMessageDialog(peixun_add.this,
-							"添加成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
-		            
-		            stmt.close();
-		            conn.close();
-				}catch(SQLException e1) {
-					e1.printStackTrace();
+					AddPersonActionPerformed();
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 
-			private void setVisible(boolean b) {
-				// TODO Auto-generated method stub
-				
-			}
 		});
 		btnNewButton_1.setBounds(286, 7, 140, 23);
 		
 		JButton button = new JButton("\u53D6\u6D88\u53C2\u8BAD\u8D44\u683C");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					CancelPersonActionPerformed();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					AddPersonActionPerformed();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		panel_1.add(button);
@@ -262,6 +226,103 @@ public class peixun_add extends JFrame {
 		});
 		savebutton.setBounds(594, 7, 93, 23);
 
+	}
+	/**
+	 * 取消参训人员处理事件
+	 * @throws ClassNotFoundException 
+	 */
+	protected void CancelPersonActionPerformed() throws ClassNotFoundException {
+		str1 = table.getValueAt(table.getSelectedRow(), 0).toString();
+		String dbClassName = "com.mysql.cj.jdbc.Driver";
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
+		String dbUser = "studio";
+		String dbPwd = "Mystudi0";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			Class.forName(dbClassName);				
+		 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
+		 	
+		 	String sql = "delete from tb_record where id = ?";
+		 	stmt = conn.prepareStatement(sql);	
+			stmt.setString(1,str1);
+			stmt.executeUpdate();
+		 	
+			String Sql = "delete from tb_duty_info where id = ?";
+		 	stmt = conn.prepareStatement(Sql);	
+			stmt.setString(1,str1);
+			stmt.executeUpdate();
+			
+		 	stmt.close();
+            conn.close();
+		}catch(SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+	/**
+	 * 添加培训人员处理事件
+	 */
+	public void AddPersonActionPerformed() throws ClassNotFoundException {
+		String dbClassName = "com.mysql.cj.jdbc.Driver";
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
+		String dbUser = "studio";
+		String dbPwd = "Mystudi0";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Vector rowData = new Vector();
+		Vector<String> columnName = new Vector<String>();
+		
+		try {
+			Class.forName(dbClassName);				
+		 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
+		 	columnName.add("序号");
+		 	columnName.add("档案编号");
+		 	columnName.add("姓名");
+		 	columnName.add("性别");
+		 	columnName.add("部门");
+		 	columnName.add("职务");
+		 
+		 	String sql2="select tb_record.id,tb_record.record_number,tb_record.name,tb_record.sex,tb_duty_info.dept_id,tb_duty_info.duty_id"
+		 			+ " from tb_record,tb_duty_info where tb_record.id=tb_duty_info.id";
+		 	stmt = conn.prepareStatement(sql2);
+		 	rs = stmt.executeQuery();
+		 	
+		 	while(rs.next()) {
+		 		Vector<Object> V = new Vector<>();
+		 		V.add(rs.getString(1));
+		 		V.add(rs.getString(2));
+		 		V.add(rs.getString(3));
+		 		V.add(rs.getString(4));
+		 		V.add(rs.getString(5));
+		 		V.add(rs.getString(6));
+		 		rowData.add(V);
+		 	}
+            table=new JTable(rowData, columnName);
+            table.getSelectionModel().addListSelectionListener(new SelectRowListener());
+            table.updateUI();
+            scrollPane.setViewportView(table);
+            this.setVisible(true);
+            
+            JOptionPane.showMessageDialog(peixun_add.this,
+					"添加成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
+            
+            stmt.close();
+            conn.close();
+		}catch(SQLException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+	}
+	class SelectRowListener implements ListSelectionListener {
+		@Override
+		public void valueChanged(ListSelectionEvent arg0) {
+			// TODO Auto-generated method stub
+			if(arg0.getValueIsAdjusting()) {
+				
+			}
+		}
 	}
 	/**
 	 * 保存培训内容处理事件
