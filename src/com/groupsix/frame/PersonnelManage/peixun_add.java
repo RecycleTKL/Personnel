@@ -344,6 +344,15 @@ public class peixun_add extends JFrame {
 		String end_date = textField_6.getText();
 		String lecturer = textField_5.getText(); 
 		String place = textField_7.getText();
+		
+		if("".equals(name.trim())||"".equals(object.trim())||"".equals(content.trim())||"".equals(content.trim())
+				||"".equals(unit.trim())||"".equals(start_date.trim())||"".equals(end_date.trim())||
+				"".equals(lecturer.trim())||"".equals(place.trim())) {
+			JOptionPane.showMessageDialog(peixun_add.this,
+					"保存信息成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
 		try {
 			Class.forName(dbClassName);				
 		 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);

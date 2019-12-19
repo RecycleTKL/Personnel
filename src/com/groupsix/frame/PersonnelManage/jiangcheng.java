@@ -92,7 +92,7 @@ public class jiangcheng extends JPanel {
 		JLabel label = new JLabel("\u6240\u5728\u90E8\u95E8\uFF1A");
 		label.setBounds(182, 47, 75, 18);
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "\u8D22\u52A1\u90E8", "\u9500\u552E\u90E8", "\u8F66\u95F4", "\u7ECF\u7406\u529E\u516C\u5BA4", "\u8D28\u68C0\u90E8", "\u7ECF\u6D4E\u8FD0\u884C\u90E8"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "\u5F00\u53D1\u90E8", "\u4EBA\u4E8B\u7BA1\u7406\u90E8", "\u9500\u552E\u90E8"}));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String dbClassName = "com.mysql.cj.jdbc.Driver";
@@ -217,7 +217,7 @@ public class jiangcheng extends JPanel {
 		
 		
 		comboBox_2.setBounds(263, 576, 104, 24);
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"", "\u7ECF\u7406\u529E\u516C\u5BA4"}));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"", "\u4EBA\u4E8B\u7BA1\u7406\u90E8", "\u7ECF\u7406\u529E\u516C\u5BA4"}));
 		
 		JLabel label_8 = new JLabel("\u6279\u51C6\u4EBA\uFF1A");
 		label_8.setBounds(494, 579, 72, 18);
