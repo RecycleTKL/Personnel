@@ -81,20 +81,20 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		panel_left.setLayout(new BorderLayout(0, 0));
 		JPanel panel_leftButton = new JPanel();
 		panel_left.add(panel_leftButton, BorderLayout.NORTH);
+		
+				JButton button_2 = new JButton("\u65B0\u5EFA\u8D26\u5957");
+				button_2.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+					}
+				});
+				panel_leftButton.add(button_2);
+		
+				JButton button_1 = new JButton("\u4FEE\u6539\u8D26\u5957");
+				panel_leftButton.add(button_1);
 
 		JButton button = new JButton("\u5220\u9664\u8D26\u5957");
 		panel_leftButton.add(button);
-
-		JButton button_1 = new JButton("\u4FEE\u6539\u8D26\u5957");
-		panel_leftButton.add(button_1);
-
-		JButton button_2 = new JButton("\u65B0\u5EFA\u8D26\u5957");
-		button_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		panel_leftButton.add(button_2);
 
 		// 定义表格
 		leftTable = new JTable();
