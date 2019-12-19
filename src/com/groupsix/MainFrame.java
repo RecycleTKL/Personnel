@@ -17,8 +17,6 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.net.URI;
 import java.net.URL;
-import java.net.URLDecoder;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -405,8 +403,8 @@ public class MainFrame extends JFrame {
 
 		DefaultMutableTreeNode recordNode = new DefaultMutableTreeNode(
 				"档案中心");// 创建树的一级子结点
-		recordNode.add(new DefaultMutableTreeNode("档案添加"));// 创建树的叶子结点并添加到一级子结点
-		recordNode.add(new DefaultMutableTreeNode("档案查询与修改"));
+		recordNode.add(new DefaultMutableTreeNode("档案列表"));// 创建树的叶子结点并添加到一级子结点
+		recordNode.add(new DefaultMutableTreeNode("档案资料编辑"));
 		root.add(recordNode);// 向根结点添加一级子结点
 
 		DefaultMutableTreeNode affairsNode = new DefaultMutableTreeNode(
