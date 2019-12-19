@@ -738,13 +738,13 @@ public class RecordInfoPanel extends JPanel {
 		
 		String dept_id = (String) comboBox_3.getSelectedItem();
 		String duty_id = (String) comboBox_4.getSelectedItem();
-		String accession_date = tf2_1.getText();
+		String accession_date = tf2_1.getText()=="" ? "'null'" : "tf2_1.getText()";
 		String accession_form_id = (String) comboBox_5.getSelectedItem();
-		String dimission_date = tf2_2.getText();
+		String dimission_date = tf2_2.getText()=="" ? "'null'" : "tf2_2.getText()";
 		String dimission_reason = tf2_3.getText();
-		String pact_start_date = tf2_4.getText();
-		String pact_end_date = tf2_5.getText();
-		String first_pact_date = tf2_6.getText();
+		String pact_start_date = tf2_4.getText()=="" ? "'null'" : "tf2_4.getText()";
+		String pact_end_date = tf2_5.getText()=="" ? "'null'" : "tf2_5.getText()";
+		String first_pact_date = tf2_6.getText()=="" ? "'null'" : "tf2_6.getText()";
 		String first_pact_age = tf2_7.getText();
 		String bank_name = tf2_8.getText();
 		String society_safety_NO = tf2_9.getText();
@@ -762,11 +762,11 @@ public class RecordInfoPanel extends JPanel {
 		String E_mail = tf3_4.getText();
 		String second_school_age = tf3_5.getText();
 		String second_specialty = tf3_6.getText();
-		String graduate_date = tf3_7.getText();
+		String graduate_date = tf3_7.getText()=="" ? "'null'" : "tf3_7.getText()";;
 		String graduate_school = tf3_8.getText();
 		String computer_grade = tf3_9.getText();
 		String likes = tf3_10.getText();
-		String party_number_date = tf3_11.getText();
+		String party_number_date = tf3_11.getText()=="" ? "'null'" : "tf3_11.getText()";;
 		String ones_strong_suit = tf3_12.getText();
 		String postalcode1 = tf3_13.getText();
 		String address1 = tf3_14.getText();
@@ -891,13 +891,13 @@ public class RecordInfoPanel extends JPanel {
 		
 		String dept_id = (String) comboBox_3.getSelectedItem();
 		String duty_id = (String) comboBox_4.getSelectedItem();
-		String accession_date = tf2_1.getText();
+		String accession_date = tf2_1.getText()=="" ? "null" : "'"+tf2_1.getText()+"'";
 		String accession_form_id = (String) comboBox_5.getSelectedItem();
-		String dimission_date = tf2_2.getText();
+		String dimission_date = tf2_2.getText()=="" ? "'null'" : tf2_2.getText();
 		String dimission_reason = tf2_3.getText();
-		String pact_start_date = tf2_4.getText();
-		String pact_end_date = tf2_5.getText();
-		String first_pact_date = tf2_6.getText();
+		String pact_start_date = tf2_4.getText()=="" ? "'null'" : tf2_4.getText();
+		String pact_end_date = tf2_5.getText()=="" ? "'null'" : tf2_5.getText();
+		String first_pact_date = tf2_6.getText()=="" ? "'null'" : tf2_6.getText();
 		String first_pact_age = tf2_7.getText();
 		String bank_name = tf2_8.getText();
 		String society_safety_NO = tf2_9.getText();
@@ -915,11 +915,11 @@ public class RecordInfoPanel extends JPanel {
 		String E_mail = tf3_4.getText();
 		String second_school_age = tf3_5.getText();
 		String second_specialty = tf3_6.getText();
-		String graduate_date = tf3_7.getText();
+		String graduate_date = tf3_7.getText()=="" ? "'null'" : tf3_7.getText();
 		String graduate_school = tf3_8.getText();
 		String computer_grade = tf3_9.getText();
 		String likes = tf3_10.getText();
-		String party_number_date = tf3_11.getText();
+		String party_number_date = tf3_11.getText()=="" ? "'null'" : tf3_11.getText();
 		String ones_strong_suit = tf3_12.getText();
 		String postalcode1 = tf3_13.getText();
 		String address1 = tf3_14.getText();
@@ -967,29 +967,36 @@ public class RecordInfoPanel extends JPanel {
             stmt.setString(16, grade);
             stmt.executeUpdate();
             //插入职务信息表
-            String sql1 = "insert into tb_duty_info(dept_id,duty_id,accession_date,accession_form_id,dimission_date,dimission_reason,first_pact_date,pact_start_date,pact_end_date,"
-            		+ "bank_name,bank_NO,society_safety_NO,annuity_safety_NO,dole_safety_NO,medicare_safety_NO,compo_safety_NO,accumulation_fund_NO,first_pact_age) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            
-            stmt = conn.prepareStatement(sql1);
-            stmt.setString(1, dept_id);
-            stmt.setString(2, duty_id); 
-            stmt.setString(3, accession_date); 
-            stmt.setString(4, accession_form_id);
-            stmt.setString(5, dimission_date);
-            stmt.setString(6, dimission_reason);
-            stmt.setString(7, first_pact_date);
-            stmt.setString(8, pact_start_date);
-            stmt.setString(9, pact_end_date);
-            stmt.setString(10, bank_name);
-            stmt.setString(11, bank_NO); 
-            stmt.setString(12, society_safety_NO); 
-            stmt.setString(13, annuity_safety_NO);
-            stmt.setString(14, dole_safety_NO);
-            stmt.setString(15, medicare_safety_NO);
-            stmt.setString(16, compo_safety_NO);
-            stmt.setString(17, accumulation_fund_NO);
-            stmt.setString(18, first_pact_age);
-            stmt.executeUpdate();
+//            String sql1 = "insert into tb_duty_info(dept_id,duty_id,accession_date,accession_form_id,dimission_date,dimission_reason,first_pact_date,pact_start_date,pact_end_date,"
+//            		+ "bank_name,bank_NO,society_safety_NO,annuity_safety_NO,dole_safety_NO,medicare_safety_NO,compo_safety_NO,accumulation_fund_NO,first_pact_age) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql1 = "insert into tb_duty_info(dept_id,duty_id,accession_date,"
+            		+ "accession_form_id,dimission_date,dimission_reason,first_pact_date,"
+            		+ "pact_start_date,pact_end_date,bank_name,bank_NO,society_safety_NO,"
+            		+ "annuity_safety_NO,dole_safety_NO,medicare_safety_NO,compo_safety_NO,"
+            		+ "accumulation_fund_NO,first_pact_age) "
+            		+ "values('" + dept_id + "','" + duty_id + "',"+accession_date+",'"
+            				+ accession_form_id +"','";
+
+//            stmt = conn.prepareStatement(sql1);
+//            stmt.setString(1, dept_id);
+//            stmt.setString(2, duty_id); 
+//            stmt.setString(3, accession_date); 
+//            stmt.setString(4, accession_form_id);
+//            stmt.setString(5, dimission_date);
+//            stmt.setString(6, dimission_reason);
+//            stmt.setString(7, first_pact_date);
+//            stmt.setString(8, pact_start_date);
+//            stmt.setString(9, pact_end_date);
+//            stmt.setString(10, bank_name);
+//            stmt.setString(11, bank_NO); 
+//            stmt.setString(12, society_safety_NO); 
+//            stmt.setString(13, annuity_safety_NO);
+//            stmt.setString(14, dole_safety_NO);
+//            stmt.setString(15, medicare_safety_NO);
+//            stmt.setString(16, compo_safety_NO);
+//            stmt.setString(17, accumulation_fund_NO);
+//            stmt.setString(18, first_pact_age);
+//            stmt.executeUpdate();
             //插入个人信息表
 		 	String sql2 = "insert into tb_personal_info(QQ,E_mail,handset,telephone,address,postalcode,second_school_age,second_specialty,graduate_school,"
 		 			+ "graduate_date,party_number_date,computer_grade,likes,ones_strong_suit) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";

@@ -6,27 +6,16 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
 
-import javax.swing.JInternalFrame;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.groupsix.Item;
 import com.groupsix.dao.Dao;
 import com.groupsix.dao.model.TbReckoning;
-import com.groupsix.dao.model.TbReckoningInfo;
-
-import java.awt.event.ActionListener;
-import java.util.Iterator;
 import java.util.Vector;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Connection;
@@ -34,8 +23,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ReckoningInfoPanel extends JPanel implements MouseListener {
 	private JTable leftTable;
@@ -85,9 +74,28 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		setBounds(100, 100, 907, 755);
 		setLayout(new BorderLayout(0, 0));
 
-		/*********左边面板**********/
+		/********* 左边面板 **********/
 		JPanel panel_left = new JPanel();
 		add(panel_left, BorderLayout.WEST);
+
+		panel_left.setLayout(new BorderLayout(0, 0));
+		JPanel panel_leftButton = new JPanel();
+		panel_left.add(panel_leftButton, BorderLayout.NORTH);
+
+		JButton button = new JButton("\u5220\u9664\u8D26\u5957");
+		panel_leftButton.add(button);
+
+		JButton button_1 = new JButton("\u4FEE\u6539\u8D26\u5957");
+		panel_leftButton.add(button_1);
+
+		JButton button_2 = new JButton("\u65B0\u5EFA\u8D26\u5957");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		panel_leftButton.add(button_2);
+
 		// 定义表格
 		leftTable = new JTable();
 		// leftTable.setPreferredScrollableViewportSize(new Dimension(450, 200));
@@ -102,39 +110,25 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		leftTableModel = (DefaultTableModel) leftTable.getModel();
 		String[] leftTableHeads = new String[] { "序号", "账套名称", "账套说明" };
 		leftTableModel.setColumnIdentifiers(leftTableHeads);
-		
-		panel_left.setLayout(new BorderLayout(0, 0));
-
-		JPanel panel_leftButton = new JPanel();
-		panel_left.add(panel_leftButton, BorderLayout.NORTH);
-
-		JButton button = new JButton("\u5220\u9664\u8D26\u5957");
-		panel_leftButton.add(button);
-
-		JButton button_1 = new JButton("\u4FEE\u6539\u8D26\u5957");
-		panel_leftButton.add(button_1);
-
-		JButton button_2 = new JButton("\u65B0\u5EFA\u8D26\u5957");
-		panel_leftButton.add(button_2);
 		// 将表格组件加入面板
 		leftScrollPane = new JScrollPane();
-		panel_left.add(leftScrollPane);
+		panel_left.add(leftScrollPane, BorderLayout.CENTER);
 		leftScrollPane.setViewportView(leftTable);
 
-		/***********右边面板***********/
+		/*********** 右边面板 ***********/
 		JPanel panel_right = new JPanel();
 		add(panel_right, BorderLayout.EAST);
 		panel_right.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel_rightButton = new JPanel();
 		panel_right.add(panel_rightButton, BorderLayout.NORTH);
-		
+
 		JButton button_3 = new JButton("\u4FEE\u6539\u91D1\u989D");
 		panel_rightButton.add(button_3);
-		
+
 		JButton button_4 = new JButton("\u5220\u9664\u9879\u76EE");
 		panel_rightButton.add(button_4);
-		
+
 		JButton button_5 = new JButton("\u6DFB\u52A0\u9879\u76EE");
 		panel_rightButton.add(button_5);
 
@@ -150,12 +144,12 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		rightTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);// 设置列宽调整模式
 		rightTable.setFont(new Font("宋体", Font.PLAIN, 14));
 		rightTable.addMouseListener(this);
-		rightTableModel = (DefaultTableModel) leftTable.getModel();
+		rightTableModel = (DefaultTableModel) rightTable.getModel();
 		String[] rightTableHeads = new String[] { "序号", "项目名称", "项目单位", "项目类型", "金额" };
 		rightTableModel.setColumnIdentifiers(rightTableHeads);
 		// 将表格组件加入面板
 		rightScrollPane.setViewportView(rightTable);
-		
+
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.NORTH);
 
@@ -224,33 +218,12 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 
 		dftm.addRow(rowData);// 向表格对象中添加行数据（信息）
 	}
-	/*
-	 * public void refreshItemAllRowValueV(int row) {
-	 * rightTableValueV.removeAllElements(); if (reckoningV.size() > 0) {
-	 * TbReckoning reckoning = reckoningV.get(row);
-	 * textArea.setText(reckoning.getExplain()); Iterator<TbReckoningInfo>
-	 * reckoningInfoIt = reckoning.getTbReckoningInfos().iterator(); int
-	 * reckoningInfoNum = 1; while (reckoningInfoIt.hasNext()) { TbReckoningInfo
-	 * reckoningInfo = reckoningInfoIt.next(); Vector<String> reckoningInfoV = new
-	 * Vector<String>(); reckoningInfoV.add(reckoningInfoNum++ + "");
-	 * reckoningInfoV.add(reckoningInfo.getTbAccountItem().getName());
-	 * reckoningInfoV.add(reckoningInfo.getTbAccountItem().getUnit());
-	 * reckoningInfoV.add(reckoningInfo.getTbAccountItem().getType());
-	 * reckoningInfoV.add(reckoningInfo.getMoney().toString());
-	 * rightTableValueV.add(reckoningInfoV); } } else { textArea.setText(""); }
-	 * rightTableModel.setDataVector(rightTableValueV, rightTableColumnV); if
-	 * (rightTable.getRowCount() > 0) rightTable.setRowSelectionInterval(0, 0);
-	 * 
-	 * }
-	 */
 
 	@Override
-	public void mouseClicked(MouseEvent e) {// 主要是下面那个Init有用，用来刷新表格//你这里的click是指哪种情况下的点击//这个不知道二狗教的//？？？
+	public void mouseClicked(MouseEvent e) {
 		// TODO 自动生成的方法存根
 		initLeftTable();
 		int i = leftTable.getSelectedRow();
-
-		System.out.print(leftTable.getValueAt(i, 1).toString());
 		str = setText(leftTable.getValueAt(i, 0).toString());
 
 	}
