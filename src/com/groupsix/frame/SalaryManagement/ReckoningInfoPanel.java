@@ -7,14 +7,20 @@ import java.awt.Font;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 import com.groupsix.Item;
 import com.groupsix.dao.Dao;
 import com.groupsix.dao.model.TbReckoning;
+import com.groupsix.frame.PersonInfoManage.RecordInfoPanel;
+import com.groupsix.frame.PersonInfoManage.StaffListPanel;
+
 import java.util.Vector;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -26,31 +32,15 @@ import java.sql.SQLException;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ReckoningInfoPanel extends JPanel implements MouseListener {
+public class ReckoningInfoPanel extends JPanel {
 	private JTable leftTable;
 	private JTable rightTable;
 	public static String str;
 	JScrollPane leftScrollPane;
-	private int needSaveRow = -1;
-	private int lastSelectedRow = -1;
-	private final Vector<String> leftTableColumnV = new Vector<String>();
-
-	private final Vector<Vector<String>> leftTableValueV = new Vector<Vector<String>>();// 这个可以不用，后面你整理的时候再删，看我
-
 	private DefaultTableModel leftTableModel;
 
-	private final Vector<String> rightTableColumnV = new Vector<String>();
-
-	private final Vector<Vector<String>> rightTableValueV = new Vector<Vector<String>>();
-
 	private DefaultTableModel rightTableModel;
-	private final Vector<TbReckoning> reckoningV = new Vector<TbReckoning>();
-	private String reckoningExplain = "";
 	private final Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	private final int width = dimension.width;
-
-	private final int height = dimension.height;
-
 	/**
 	 * Launch the application.
 	 */
@@ -82,31 +72,16 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		JPanel panel_leftButton = new JPanel();
 		panel_left.add(panel_leftButton, BorderLayout.NORTH);
 		
-				JButton button_2 = new JButton("\u65B0\u5EFA\u8D26\u5957");
-				button_2.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-
-					}
-				});
-				panel_leftButton.add(button_2);
-		
-				JButton button_1 = new JButton("\u4FEE\u6539\u8D26\u5957");
-				panel_leftButton.add(button_1);
-
-		JButton button = new JButton("\u5220\u9664\u8D26\u5957");
-		panel_leftButton.add(button);
-
 		// 定义表格
 		leftTable = new JTable();
-		// leftTable.setPreferredScrollableViewportSize(new Dimension(450, 200));
-		leftTable.setModel(new DefaultTableModel() {// 防止表格单击格子进入编辑状态不方便
-			public boolean isCellEditable(int row, int column) {
+		leftTable.setModel(new DefaultTableModel() {
+		public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		});
+		leftTable.getSelectionModel().addListSelectionListener(new SelectLeftTableListener());
 		leftTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);// 设置列宽调整模式
 		leftTable.setFont(new Font("宋体", Font.PLAIN, 14));
-		leftTable.addMouseListener(this);
 		leftTableModel = (DefaultTableModel) leftTable.getModel();
 		String[] leftTableHeads = new String[] { "序号", "账套名称", "账套说明" };
 		leftTableModel.setColumnIdentifiers(leftTableHeads);
@@ -114,6 +89,50 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		leftScrollPane = new JScrollPane();
 		panel_left.add(leftScrollPane, BorderLayout.CENTER);
 		leftScrollPane.setViewportView(leftTable);
+		
+		initLeftTable();
+		
+		JButton button_2 = new JButton("\u65B0\u5EFA\u8D26\u5957");
+		button_2.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			new newsetManage().setVisible(true);
+			}
+		});
+		panel_leftButton.add(button_2);
+		
+		JButton button_1 = new JButton("\u4FEE\u6539\u8D26\u5957");
+		button_1.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			if(leftTable.getSelectedRow()==-1) {
+				JOptionPane.showMessageDialog(ReckoningInfoPanel.this,
+					"请选择要修改的账套!", "未选择修改对象", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			str=leftTable.getValueAt(leftTable.getSelectedRow(), 0).toString();
+			try {
+				ModifysetManage modifyd = new ModifysetManage();
+				modifyd.initModifyMode(str);
+				modifyd.setVisible(true);
+				} catch (ClassNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			initLeftTable();
+			}
+		});
+		panel_leftButton.add(button_1);
+
+		JButton button = new JButton("\u5220\u9664\u8D26\u5957");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					deletesetManageActionPerformed();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		panel_leftButton.add(button);
 
 		/*********** 右边面板 ***********/
 		JPanel panel_right = new JPanel();
@@ -143,7 +162,7 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		});
 		rightTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);// 设置列宽调整模式
 		rightTable.setFont(new Font("宋体", Font.PLAIN, 14));
-		rightTable.addMouseListener(this);
+		rightTable.getSelectionModel().addListSelectionListener(new SelectRightTableListener());
 		rightTableModel = (DefaultTableModel) rightTable.getModel();
 		String[] rightTableHeads = new String[] { "序号", "项目名称", "项目单位", "项目类型", "金额" };
 		rightTableModel.setColumnIdentifiers(rightTableHeads);
@@ -155,7 +174,34 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 
 		JButton button_6 = new JButton("\u4FDD\u5B58");
 		panel.add(button_6);
-
+		
+	}
+	/**
+	 * 删除账套处理事件
+	 * @throws ClassNotFoundException 
+	 */
+	protected void deletesetManageActionPerformed() throws ClassNotFoundException {
+		String dbClassName = "com.mysql.cj.jdbc.Driver";
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
+		String dbUser = "studio";
+		String dbPwd = "Mystudi0";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			Class.forName(dbClassName);
+			conn = DriverManager.getConnection(dbUrl, dbUser, dbPwd);
+			String SQL = "delete from tb_reckoning where id=?";
+			stmt = conn.prepareStatement(SQL);	
+			stmt.setString(1,leftTable.getValueAt(leftTable.getSelectedRow(), 0).toString());
+			stmt.executeUpdate();
+			stmt.close();
+			conn.close();
+			JOptionPane.showMessageDialog(null, "删除成功！", "请继续操作",
+					JOptionPane.INFORMATION_MESSAGE);
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} 
 		initLeftTable();
 	}
 
@@ -188,7 +234,8 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 				rowData.add(rs.getString(3));
 				leftTableModel.addRow(rowData);
 			}
-
+			leftTable.updateUI();
+			leftScrollPane.setViewportView(leftTable);
 			stmt.close();
 			conn.close();
 		} catch (SQLException e1) {
@@ -196,6 +243,25 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}
+	}
+	
+	class SelectLeftTableListener implements ListSelectionListener {
+		@Override
+		public void valueChanged(ListSelectionEvent arg0) {
+			// TODO Auto-generated method stub
+			if(arg0.getValueIsAdjusting()) {
+				int row = leftTable.getSelectedRow();// 选中行
+			}
+		}
+	}
+	private class SelectRightTableListener implements ListSelectionListener {
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			// TODO 自动生成的方法存根
+			if (e.getValueIsAdjusting()) {
+				//自己组织
+			}
 		}
 	}
 
@@ -217,44 +283,6 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		System.out.println(tbreckoning.getId() + tbreckoning.getName());
 
 		dftm.addRow(rowData);// 向表格对象中添加行数据（信息）
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO 自动生成的方法存根
-		initLeftTable();
-		int i = leftTable.getSelectedRow();
-		str = setText(leftTable.getValueAt(i, 0).toString());
-
-	}
-
-	private String setText(String string) {
-		// TODO 自动生成的方法存根
-		return string;
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO 自动生成的方法存根
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO 自动生成的方法存根
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO 自动生成的方法存根
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO 自动生成的方法存根
-
 	}
 
 }

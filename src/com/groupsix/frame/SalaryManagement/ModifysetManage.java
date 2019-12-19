@@ -1,12 +1,12 @@
 package com.groupsix.frame.SalaryManagement;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -19,12 +19,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.groupsix.frame.PersonInfoManage.StaffListPanel;
+
 public class ModifysetManage extends JFrame {
 	
 	private JPanel contentPane1;
 	public static JTextField nameTextField;
 	public static JTextArea explainTextArea;
-	private boolean submit = true;
 	private String name;
 	public static String st;
 	public void set_Explain(String name) {
@@ -88,8 +89,7 @@ public class ModifysetManage extends JFrame {
 		JButton button = new JButton("\u9000\u51FA");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				submit = false;
-				dispose();
+				dispose();//算了就这样把
 			}
 		});
 		button.setBounds(245, 231, 70, 27);
@@ -98,51 +98,93 @@ public class ModifysetManage extends JFrame {
 		JButton submitButton = new JButton("\u786E\u5B9A");
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
-				String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
-				String dbUser = "studio";
-				String dbPwd = "Mystudi0";
-				Connection conn = null;
-				PreparedStatement stmt = null;
-				String name = nameTextField.getText().trim();
-				String explained = explainTextArea.getText().trim();
-				if (nameTextField.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "请填写账套名称！", "友情提示",
-							JOptionPane.INFORMATION_MESSAGE);
-					return;
-				}
-				if (explainTextArea.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "请填写账套说明！", "友情提示",
-							JOptionPane.INFORMATION_MESSAGE);
-					return;
-				}
-				dispose();
+				
 				try {
-					Class.forName(dbClassName);				
-				 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
-				 	String sql2="insert into tb_reckoning(name,explained) values(?,?)";		 	
-				 	stmt = conn.prepareStatement(sql2);
-				 	stmt.setString(1, name); 
-					stmt.setString(2, explained);
-					stmt.executeUpdate();
-					stmt.close();
-					conn.close();
-					st = explained;
-			        dispose();
-				}
-				catch(SQLException e1) {
-					e1.printStackTrace();
+					ModifysetManageActionPerformed();
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				/*
-				 * Jo ReckoningInfoPanel.r
-				 */
 			}
 		});
 		submitButton.setBounds(329, 231, 70, 27);
 		contentPane1.add(submitButton);
+	}
+	/**
+	 * 修改账套管理处理事件
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	protected void ModifysetManageActionPerformed() throws ClassNotFoundException, SQLException {
+		String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
+		String dbUser = "studio";
+		String dbPwd = "Mystudi0";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String name = nameTextField.getText().trim();
+		String explained = explainTextArea.getText().trim();
+		
+		
+		try {
+			Class.forName(dbClassName);				
+		 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
+		 	String sql2="update tb_reckoning set id = ?,name=?,explained=? where id=?";		 	
+		 	stmt = conn.prepareStatement(sql2);
+		 	stmt.setString(1, ReckoningInfoPanel.str); 
+			stmt.setString(2, name);
+			stmt.setString(3, explained);
+			stmt.setString(4, ReckoningInfoPanel.str);
+			stmt.executeUpdate();
+			
+			stmt.close();
+			conn.close();
+			JOptionPane.showMessageDialog(null, "修改成功！", "请继续操作",
+					JOptionPane.INFORMATION_MESSAGE);
+		}
+		catch(SQLException e1) {
+			e1.printStackTrace();
+		} 
+		dispose();
+		
+	}
+
+	public static void initModifyMode(String id) throws ClassNotFoundException {
+		// TODO Auto-generated method stub
+		//System.out.print(StaffListPanel.str);
+		String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
+		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
+		String dbUser = "studio";
+		String dbPwd = "Mystudi0";
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;	
+		try {
+			Class.forName(dbClassName);				
+		 	conn = DriverManager.getConnection(dbUrl,dbUser,dbPwd);
+			String sql1 = "select * from tb_reckoning where id = ?";
+			conn.prepareStatement(sql1,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+			stmt = conn.prepareStatement(sql1);
+			stmt.setString(1, id);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				System.out.println("ok");
+				nameTextField.setText(rs.getString(2));
+				explainTextArea.setText(rs.getString(3));
+			}
+			
+			
+			
+			stmt.close();
+			conn.close();
+		}
+		catch(SQLException e1) {
+			e1.printStackTrace();
+		} 
+
 	}
 
 }

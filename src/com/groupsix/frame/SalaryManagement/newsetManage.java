@@ -106,6 +106,7 @@ public class newsetManage extends JFrame {
 		
 		JButton submitButton = new JButton("\u786E\u5B9A");
 		submitButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("null")
 			public void actionPerformed(ActionEvent arg0) {
 				String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
 				String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
@@ -115,10 +116,10 @@ public class newsetManage extends JFrame {
 				PreparedStatement stmt = null;
 				TbReckoning tbrecok=null;
 				String name = nameTextField.getText().trim();
-				tbrecok.setId(10);
-				tbrecok.setName(name);
+				//tbrecok.setId(10);
+				//tbrecok.setName(name);
 				String explained = explainTextArea.getText().trim();
-				tbrecok.setExplain(explained);
+				//tbrecok.setExplain(explained);
 				if (nameTextField.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "请填写账套名称！", "友情提示",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -129,7 +130,7 @@ public class newsetManage extends JFrame {
 							JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
-				ReckoningInfoPanel.refreshTable(tbrecok, leftTableModel);
+			//	ReckoningInfoPanel.refreshTable(tbrecok, leftTableModel);
 				dispose();
 				try {
 					Class.forName(dbClassName);				
@@ -156,13 +157,6 @@ public class newsetManage extends JFrame {
 		submitButton.setBounds(329, 231, 70, 27);
 		contentPane.add(submitButton);
 	}
-	/*public JTextArea getExplainTextArea() {
-		return explainTextArea;
-	}
-
-	public JTextField getNameTextField() {
-		return nameTextField;
-	}*/
 
 	public boolean isSubmit() {
 		return submit;
