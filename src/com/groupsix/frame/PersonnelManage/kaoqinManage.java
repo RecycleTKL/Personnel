@@ -146,7 +146,7 @@ public class kaoqinManage extends JPanel {
 		
 		
 		comboBox.setBounds(180, 121, 100, 24);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "\u5F00\u53D1\u90E8", "\u4EBA\u4E8B\u7BA1\u7406\u90E8", "\u9500\u552E\u90E8"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "\u8D22\u52A1\u90E8", "\u9500\u552E\u90E8", "\u8F66\u95F4", "\u7ECF\u7406\u529E\u516C\u5BA4", "\u8D28\u68C0\u90E8", "\u7ECF\u6D4E\u8FD0\u884C\u90E8"}));
 		panel_1.add(comboBox);
 		
 		JLabel label_1 = new JLabel("\u8003\u52E4\u5458\u5DE5\uFF1A");
@@ -253,7 +253,7 @@ public class kaoqinManage extends JPanel {
 				}
 			}
 		});
-		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"", "\u4EBA\u4E8B\u7BA1\u7406\u90E8", "\u7ECF\u7406\u529E\u516C\u5BA4"}));
+		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"", "\u7ECF\u7406\u529E\u516C\u5BA4"}));
 		comboBox_4.setBounds(180, 433, 100, 24);
 		panel_1.add(comboBox_4);
 		

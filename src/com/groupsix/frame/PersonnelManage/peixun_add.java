@@ -240,6 +240,11 @@ public class peixun_add extends JFrame {
 		btnNewButton_1.setBounds(286, 7, 140, 23);
 		
 		JButton button = new JButton("\u53D6\u6D88\u53C2\u8BAD\u8D44\u683C");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		panel_1.add(button);
 		button.setBounds(440, 7, 140, 23);
 		

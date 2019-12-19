@@ -78,8 +78,8 @@ public class StaffListPanel extends JPanel {
 				scrollPane = new JScrollPane();
 				panel_1.add(scrollPane, BorderLayout.CENTER);
 				
-				table = new JTable();
-				scrollPane.setViewportView(table);
+				//table = new JTable();
+				//scrollPane.setViewportView(table);
 				init();
 	}
 	public void init() throws ClassNotFoundException {

@@ -347,7 +347,7 @@ public class RecordInfoPanel extends JPanel {
 		panel_2.add(label_17);
 		
 		
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "\u5F00\u53D1\u90E8", "\u4EBA\u4E8B\u7BA1\u7406\u90E8", "\u7ECF\u7406\u529E\u516C\u5BA4", "\u9500\u552E\u90E8"}));
+		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "\u8D22\u52A1\u90E8", "\u9500\u552E\u90E8", "\u8F66\u95F4", "\u7ECF\u7406\u529E\u516C\u5BA4", "\u8D28\u68C0\u90E8", "\u7ECF\u6D4E\u8FD0\u884C\u90E8"}));
 		comboBox_3.setBounds(90, 20, 72, 24);
 		panel_2.add(comboBox_3);
 		
@@ -357,7 +357,7 @@ public class RecordInfoPanel extends JPanel {
 		panel_2.add(label_18);
 		
 		
-		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "\u5F00\u53D1\u5458\u5DE5", "\u4EBA\u4E8B\u5458\u5DE5", "\u7ECF\u7406", "\u9500\u552E\u5458\u5DE5"}));
+		comboBox_4.setModel(new DefaultComboBoxModel(new String[] {"\u8BF7\u9009\u62E9", "\u8D22\u52A1\u5458\u5DE5", "\u9500\u552E\u5458\u5DE5", "\u8F66\u95F4\u5458\u5DE5", "\u7ECF\u7406", "\u8D28\u68C0\u5458\u5DE5", "\u7ECF\u6D4E\u8FD0\u884C\u5458\u5DE5"}));
 		comboBox_4.setBounds(296, 20, 72, 24);
 		panel_2.add(comboBox_4);
 		
