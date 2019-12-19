@@ -1,5 +1,6 @@
 package com.groupsix.frame.SalaryManagement;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -54,7 +55,7 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 
 	private final Vector<Vector<String>> rightTableValueV = new Vector<Vector<String>>();
 
-	private final DefaultTableModel rightTableModel = new DefaultTableModel(rightTableValueV, rightTableColumnV);
+	private DefaultTableModel rightTableModel;
 	private final Vector<TbReckoning> reckoningV = new Vector<TbReckoning>();
 	private String reckoningExplain = "";
 	private final Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -83,71 +84,84 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 	 */
 	public ReckoningInfoPanel() {
 		setBounds(100, 100, 907, 755);
-		setLayout(null);
+		setLayout(new BorderLayout(0, 0));
 
-		// 新建账套
-		JButton addSetButton = new JButton("\u65B0\u5EFA\u8D26\u5957");
-		addSetButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent arg0) {
-				new newsetManage().setVisible(true);
-
-			}
-
-		});
-		addSetButton.setBounds(76, 13, 100, 27);
-		add(addSetButton);
-		// 修改账套
-		JButton updateSetButton = new JButton("\u4FEE\u6539\u8D26\u5957");
-		updateSetButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new ModifysetManage().setVisible(true);
-				// 怎么说？//
+		/*********左边面板**********/
+		JPanel panel_left = new JPanel();
+		add(panel_left, BorderLayout.WEST);
+		// 定义表格
+		leftTable = new JTable();
+		// leftTable.setPreferredScrollableViewportSize(new Dimension(450, 200));
+		leftTable.setModel(new DefaultTableModel() {// 防止表格单击格子进入编辑状态不方便
+			public boolean isCellEditable(int row, int column) {
+				return false;
 			}
 		});
-		updateSetButton.setBounds(177, 13, 100, 27);
-		add(updateSetButton);
-		// 删除账套
-		JButton delSetButton = new JButton("\u5220\u9664\u8D26\u5957");
-		delSetButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		delSetButton.setBounds(279, 13, 100, 27);
-		add(delSetButton);
-		// 添加项目
-		JButton addItemButton = new JButton("\u6DFB\u52A0\u9879\u76EE");
-		addItemButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		addItemButton.setBounds(405, 13, 100, 27);
-		add(addItemButton);
-		// 删除项目
-		JButton delItemButton = new JButton("\u5220\u9664\u9879\u76EE");
-		delItemButton.setBounds(509, 13, 100, 27);
-		add(delItemButton);
-		// 修改金额
-		JButton updateMoneyButton = new JButton("\u4FEE\u6539\u91D1\u989D");
-		updateMoneyButton.setBounds(612, 13, 100, 27);
-		add(updateMoneyButton);
-		// 保存
-		JButton saveButton = new JButton("\u4FDD\u5B58");
-		saveButton.setBounds(752, 13, 70, 27);
-		add(saveButton);
-		// leftScrollPane = new JScrollPane();
-		// leftScrollPane.setBounds(14, 62, 294, 515);
-		// add(leftScrollPane);
+		leftTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);// 设置列宽调整模式
+		leftTable.setFont(new Font("宋体", Font.PLAIN, 14));
+		leftTable.addMouseListener(this);
+		leftTableModel = (DefaultTableModel) leftTable.getModel();
+		String[] leftTableHeads = new String[] { "序号", "账套名称", "账套说明" };
+		leftTableModel.setColumnIdentifiers(leftTableHeads);
+		
+		panel_left.setLayout(new BorderLayout(0, 0));
 
-		// leftTable = new JTable();
-		// leftScrollPane.setColumnHeaderView(leftTable);
+		JPanel panel_leftButton = new JPanel();
+		panel_left.add(panel_leftButton, BorderLayout.NORTH);
+
+		JButton button = new JButton("\u5220\u9664\u8D26\u5957");
+		panel_leftButton.add(button);
+
+		JButton button_1 = new JButton("\u4FEE\u6539\u8D26\u5957");
+		panel_leftButton.add(button_1);
+
+		JButton button_2 = new JButton("\u65B0\u5EFA\u8D26\u5957");
+		panel_leftButton.add(button_2);
+		// 将表格组件加入面板
+		leftScrollPane = new JScrollPane();
+		panel_left.add(leftScrollPane);
+		leftScrollPane.setViewportView(leftTable);
+
+		/***********右边面板***********/
+		JPanel panel_right = new JPanel();
+		add(panel_right, BorderLayout.EAST);
+		panel_right.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_rightButton = new JPanel();
+		panel_right.add(panel_rightButton, BorderLayout.NORTH);
+		
+		JButton button_3 = new JButton("\u4FEE\u6539\u91D1\u989D");
+		panel_rightButton.add(button_3);
+		
+		JButton button_4 = new JButton("\u5220\u9664\u9879\u76EE");
+		panel_rightButton.add(button_4);
+		
+		JButton button_5 = new JButton("\u6DFB\u52A0\u9879\u76EE");
+		panel_rightButton.add(button_5);
 
 		JScrollPane rightScrollPane = new JScrollPane();
-		rightScrollPane.setBounds(14, 376, 879, 379);
-		add(rightScrollPane);
-
+		panel_right.add(rightScrollPane);
 		rightTable = new JTable();
 		rightScrollPane.setColumnHeaderView(rightTable);
+		rightTable.setModel(new DefaultTableModel() {// 防止表格单击格子进入编辑状态不方便
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		});
+		rightTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);// 设置列宽调整模式
+		rightTable.setFont(new Font("宋体", Font.PLAIN, 14));
+		rightTable.addMouseListener(this);
+		rightTableModel = (DefaultTableModel) leftTable.getModel();
+		String[] rightTableHeads = new String[] { "序号", "项目名称", "项目单位", "项目类型", "金额" };
+		rightTableModel.setColumnIdentifiers(rightTableHeads);
+		// 将表格组件加入面板
+		rightScrollPane.setViewportView(rightTable);
+		
+		JPanel panel = new JPanel();
+		add(panel, BorderLayout.NORTH);
+
+		JButton button_6 = new JButton("\u4FDD\u5B58");
+		panel.add(button_6);
 
 		initLeftTable();
 	}
@@ -162,27 +176,7 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 
-		// 定义表格
-		leftTable = new JTable();
-		// leftTable.setPreferredScrollableViewportSize(new Dimension(450, 200));
-		leftTable.setModel(new DefaultTableModel() {// 防止表格单击格子进入编辑状态不方便
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		});
-		leftTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);// 设置列宽调整模式
-		leftTableModel = (DefaultTableModel) leftTable.getModel();
-		String[] leftTableHeads = new String[] { "序号", "账套名称", "账套说明" };
-		leftTableModel.setColumnIdentifiers(leftTableHeads);
-		leftTable.setFont(new Font("宋体", Font.PLAIN, 14));
-		leftTable.addMouseListener(this);
-		// 将表格组件加入面板
-		leftScrollPane = new JScrollPane();
-		leftScrollPane.setBounds(14, 53, 879, 310);
-		add(leftScrollPane);
-		leftScrollPane.setViewportView(leftTable);
-
-		int num = dftm.getRowCount();//初始化要确保表格内清空
+		int num = dftm.getRowCount();// 初始化要确保表格内清空
 		for (int i = 0; i < num; i++)
 			dftm.removeRow(0);
 
@@ -213,10 +207,10 @@ public class ReckoningInfoPanel extends JPanel implements MouseListener {
 	}
 
 	// 对添加到数据库成功后执行的表格内容追加操作
-	//使用方法，单击了添加账套，成功执行insert数据库的操作弹出了成功提示框后，执行一条下面的代码:
-	//refreshTable(tbreckoning, leftTableModel);
+	// 使用方法，单击了添加账套，成功执行insert数据库的操作弹出了成功提示框后，执行一条下面的代码:
+	// refreshTable(tbreckoning, leftTableModel);
 	public static void refreshTable(TbReckoning tbrecok, final DefaultTableModel dftm) {
-		// int num = dftm.getRowCount();	//这个时候就保留原来的表格内数据别删了
+		// int num = dftm.getRowCount(); //这个时候就保留原来的表格内数据别删了
 		// for (int i = 0; i < num; i++)
 		// dftm.removeRow(0);
 		TbReckoning tbreckoning;// 信息对象
