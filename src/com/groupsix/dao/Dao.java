@@ -139,6 +139,13 @@ public class Dao {
 		return list;
 	}
 	
+	public static String getMaxRecordNumber() throws SQLException {
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery("select max(record_number) from tb_record");
+		rs.next();
+		return rs.getString(1);
+	}
+	
 	/********************系统用户信息操作*********************/
 	// 添加用户信息的方法
 	public static boolean addManager(TbManager manager) {
