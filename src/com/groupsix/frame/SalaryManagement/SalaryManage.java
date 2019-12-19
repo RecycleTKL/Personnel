@@ -35,11 +35,11 @@ public class SalaryManage extends JInternalFrame {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		setManage t = new setManage();
-		tabbedPane.addTab("账套管理", null, t, null);
+		ReckoningInfoPanel reckoningInfoPanel = new ReckoningInfoPanel();
+		tabbedPane.addTab("账套管理", null, reckoningInfoPanel, null);
 		
-		PersonalSetupManage t1 = new PersonalSetupManage();
-		tabbedPane.addTab("人员设置", null, t1, null);
+		PersonalSetupPanel personalSetupPanel = new PersonalSetupPanel();
+		tabbedPane.addTab("人员设置", null, personalSetupPanel, null);
 	}
 
 }

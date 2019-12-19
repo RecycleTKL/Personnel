@@ -21,7 +21,7 @@ import com.groupsix.dao.Dao;
 import com.groupsix.dao.model.TbReckoning;
 
 //人员设置模块
-public class PersonalSetupManage extends JPanel {
+public class PersonalSetupPanel extends JPanel {
 	private JTextArea explainTextArea;
 	private Vector<String> listTableColumnV;
 	private Vector<Vector<String>> listTableValueV;
@@ -33,7 +33,7 @@ public class PersonalSetupManage extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PersonalSetupManage() {
+	public PersonalSetupPanel() {
 		setBounds(100, 100, 907, 755);
 		setLayout(new BorderLayout(0, 0));
 		

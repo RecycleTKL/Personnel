@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
-
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -26,6 +26,7 @@ public class newsetManage extends JFrame {
 	private JPanel contentPane;
 	public JTextField nameTextField;
 	private JTextArea explainTextArea;
+	private DefaultTableModel leftTableModel;
 	private boolean submit = true;
 	private String name;
 	public static String st;
@@ -123,6 +124,7 @@ public class newsetManage extends JFrame {
 							JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
+				refreshTable(nameTextField, leftTableModel);
 				dispose();
 				try {
 					Class.forName(dbClassName);				
@@ -144,6 +146,7 @@ public class newsetManage extends JFrame {
 					e.printStackTrace();
 				}
 			}
+			
 		});
 		submitButton.setBounds(329, 231, 70, 27);
 		contentPane.add(submitButton);

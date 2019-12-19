@@ -59,7 +59,7 @@ public class ModifysetManage extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 620, 420);
 		setLocationRelativeTo(null);
-		System.out.print(setManage.str);
+		System.out.print(ReckoningInfoPanel.str);
 		contentPane1 = new JPanel();
 		contentPane1.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane1);
