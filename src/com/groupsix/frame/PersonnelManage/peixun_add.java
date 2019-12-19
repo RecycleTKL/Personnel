@@ -221,6 +221,9 @@ public class peixun_add extends JFrame {
 		            
 		            JOptionPane.showMessageDialog(peixun_add.this,
 							"添加成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
+		            
+		            stmt.close();
+		            conn.close();
 				}catch(SQLException e1) {
 					e1.printStackTrace();
 				} catch (ClassNotFoundException e) {

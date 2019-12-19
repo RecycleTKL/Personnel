@@ -682,7 +682,7 @@ public class RecordInfoPanel extends JPanel {
 		button_new.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					baocunActionPerformed();
+					xinjianActionPerformed();
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -696,6 +696,7 @@ public class RecordInfoPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					modifyRecordInfoActionPerformed();
+					//new StaffListPanel().init();
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -850,8 +851,10 @@ public class RecordInfoPanel extends JPanel {
 		 	//new StaffListPanel();
 		 	toNewMode();
 		 	PersonnelInfoManage.setTabPane(0);
+		// 	new StaffListPanel().setVisible(true);
             setNull();
-            
+            stmt.close();
+            conn.close();
 		}catch(SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -861,7 +864,7 @@ public class RecordInfoPanel extends JPanel {
 	 * 保存档案管理信息处理事件
 	 * @throws ClassNotFoundException 
 	 */
-	private void baocunActionPerformed() throws ClassNotFoundException {
+	private void xinjianActionPerformed() throws ClassNotFoundException {
 		String dbClassName = "com.mysql.cj.jdbc.Driver";// MySQL数据库驱动类的名称
 		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";// 访问MySQL数据库的路径
 		String dbUser = "studio";// 访问MySQL数据库的用户名
@@ -1008,8 +1011,13 @@ public class RecordInfoPanel extends JPanel {
 		 	stmt.executeUpdate();
 		 
 		 	JOptionPane.showMessageDialog(RecordInfoPanel.this,
-					"保存成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
+					"新建成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
+		 	toModifyMode();
+		 	PersonnelInfoManage.setTabPane(1);
+		 	new StaffListPanel().setVisible(true);
 		 	setNull();
+		 	stmt.close();
+		 	conn.close();
 		}catch(SQLException e1) {
 			e1.printStackTrace();
 		}
@@ -1180,6 +1188,8 @@ public class RecordInfoPanel extends JPanel {
 				tf3_10.setText(rs.getString(14));
 				tf3_12.setText(rs.getString(15));
 			}
+			stmt.close();
+			conn.close();
 		}catch(SQLException e1) {
 			e1.printStackTrace();
 		}

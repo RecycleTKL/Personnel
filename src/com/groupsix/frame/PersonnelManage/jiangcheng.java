@@ -307,7 +307,8 @@ public class jiangcheng extends JPanel {
             stmt.setString(9, ratifier_record_id);
             stmt.setString(10, ratifier_date);
             stmt.executeUpdate();
-            
+            stmt.close();
+            conn.close();
             JOptionPane.showMessageDialog(jiangcheng.this,
 					"保存信息成功!", "请继续操作", JOptionPane.WARNING_MESSAGE);
             setNull();

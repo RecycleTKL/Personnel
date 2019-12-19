@@ -9,9 +9,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,34 +17,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class StaffListPanel extends JPanel {
-	private JScrollPane scrollPane;
 	public static String str;
-	private JPanel panel2;
 	private JPanel panel_1;
-	private JTable table;
 	private JButton button_new;
+	private JScrollPane scrollPane;
+	private JTable table;
 	/**
 	 * Create the panel.
 	 * @throws ClassNotFoundException 
 	 * @throws SQLException 
 	 */
 	public StaffListPanel() throws ClassNotFoundException {
-		panel2=new JPanel();
+		//new JPanel();
+		
 		setBounds(0, 0, 907, 755);
 		setLayout(new BorderLayout(0, 0));
-		
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
-			
+		
 			JPanel panel = new JPanel();
 			panel_1.add(panel, BorderLayout.NORTH);
-				JButton button_1 = new JButton("\u4FEE\u6539\u5458\u5DE5\u6863\u6848");
-				button_1.addActionListener(new ActionListener() {
+				JButton button_modify = new JButton("\u4FEE\u6539\u5458\u5DE5\u6863\u6848");
+				button_modify.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(table.getSelectedRow()==-1) {
 							JOptionPane.showMessageDialog(StaffListPanel.this,
@@ -56,14 +50,13 @@ public class StaffListPanel extends JPanel {
 						}
 						str=table.getValueAt(table.getSelectedRow(), 0).toString();
 						try {
+							init();
 							RecordInfoPanel.initForModifyMode(str);
+							init();
 						} catch (ClassNotFoundException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						//System.out.println(str);
 						PersonnelInfoManage.setTabPane(1);
-						
 						setVisible(true);
 					}
 				});
@@ -71,21 +64,25 @@ public class StaffListPanel extends JPanel {
 				button_new = new JButton("\u65B0\u5EFA\u5458\u5DE5\u6863\u6848");
 				button_new.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
+						
 						RecordInfoPanel.initForNewMode();
+						PersonnelInfoManage.setTabPane(1);
+						setVisible(true);
 					}
+					
 				});
-				panel.add(button_new);
 				
-				panel.add(button_1);
-			
-		try {
-		Init();
-		}catch(ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
+				panel.add(button_new);				
+				panel.add(button_modify);
+				
+				scrollPane = new JScrollPane();
+				panel_1.add(scrollPane, BorderLayout.CENTER);
+				
+				table = new JTable();
+				scrollPane.setViewportView(table);
+				init();
 	}
-	private void Init() throws ClassNotFoundException {
+	public void init() throws ClassNotFoundException {
 		String dbClassName = "com.mysql.cj.jdbc.Driver";
 		String dbUrl = "jdbc:mysql://rm-wz9lq6k6utik309l04o.mysql.rds.aliyuncs.com:3306/db_person";
 		String dbUser = "studio";
@@ -121,11 +118,10 @@ public class StaffListPanel extends JPanel {
 		}
 		table=new JTable(rowData, columnName);
 		table.getSelectionModel().addListSelectionListener(new SelectRowListener());
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 598, 239);
 		scrollPane.setViewportView(table);
-		panel_1.add(scrollPane, BorderLayout.CENTER);
 		
+		stmt.close();
+		conn.close();
 		}
         catch(SQLException e1) {
     		e1.printStackTrace();

@@ -101,6 +101,7 @@ public class TrainingPanel extends JPanel{
 		            table.updateUI();
 		            scrollPane.setViewportView(table);
 		            this.setVisible(true);
+		            
 		            stmt.close();
 		            conn.close();
 				}catch(SQLException e1) {
@@ -108,8 +109,7 @@ public class TrainingPanel extends JPanel{
 				} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-				
+				}				
 				
 			} 
 
