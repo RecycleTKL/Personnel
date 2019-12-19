@@ -147,7 +147,7 @@ public class Login extends JFrame {
 				try {
 					BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
 					org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-					BeautyEyeLNFHelper.translucencyAtFrameInactive = true;
+					BeautyEyeLNFHelper.translucencyAtFrameInactive = false;
 					UIManager.put("RootPane.setupButtonVisible", false);
 					Font frameTitleFont = (Font)UIManager.get("InternalFrame.titleFont");
                     frameTitleFont = frameTitleFont.deriveFont(Font.PLAIN);

@@ -96,7 +96,7 @@ public class MainFrame extends JFrame {
 					try {
 						BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
 						org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-						BeautyEyeLNFHelper.translucencyAtFrameInactive = true;
+						BeautyEyeLNFHelper.translucencyAtFrameInactive = false;
 						UIManager.put("RootPane.setupButtonVisible", false);
 						Font frameTitleFont = (Font)UIManager.get("InternalFrame.titleFont");
 			            frameTitleFont = frameTitleFont.deriveFont(Font.PLAIN);
@@ -119,6 +119,7 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		super("人力资源信息管理系统");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/res/main.png")));
 		initUI();
 	}
 
@@ -144,6 +145,7 @@ public class MainFrame extends JFrame {
 		menuBar.add(menu_2);
 		
 		menuItem_attendance = new JMenuItem("考勤管理");
+		menuItem_attendance.setIcon(new ImageIcon(MainFrame.class.getResource("/res/calendar_small.png")));
 		menuItem_attendance.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menuItem_attendance.addActionListener(new ActionListener() {
 			@Override
@@ -156,6 +158,7 @@ public class MainFrame extends JFrame {
 		menu_2.add(menuItem_attendance);
 		
 		menuItem_rewardAndPunish = new JMenuItem("奖惩管理");
+		menuItem_rewardAndPunish.setIcon(new ImageIcon(MainFrame.class.getResource("/res/reward_small.png")));
 		menuItem_rewardAndPunish.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menuItem_rewardAndPunish.addActionListener(new ActionListener() {
 			@Override
@@ -168,6 +171,7 @@ public class MainFrame extends JFrame {
 		menu_2.add(menuItem_rewardAndPunish);
 		
 		menuItem_training = new JMenuItem("培训管理");
+		menuItem_training.setIcon(new ImageIcon(MainFrame.class.getResource("/res/cog_small.png")));
 		menuItem_training.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menuItem_training.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -182,6 +186,7 @@ public class MainFrame extends JFrame {
 		menuBar.add(menu);
 		
 		menuItem_recordManage = new JMenuItem("档案管理");
+		menuItem_recordManage.setIcon(new ImageIcon(MainFrame.class.getResource("/res/folder_small.png")));
 		menuItem_recordManage.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menuItem_recordManage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -191,6 +196,7 @@ public class MainFrame extends JFrame {
 		menu.add(menuItem_recordManage);
 		
 		menuItem_reportTable = new JMenuItem("报表生成");
+		menuItem_reportTable.setIcon(new ImageIcon(MainFrame.class.getResource("/res/minfo.png")));
 		menuItem_reportTable.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menuItem_reportTable.addActionListener(new ActionListener() {
 			@Override
@@ -206,10 +212,12 @@ public class MainFrame extends JFrame {
 		menuBar.add(menu_1);
 		
 		menuItem_reckoning = new JMenuItem("账套管理");
+		menuItem_reckoning.setIcon(new ImageIcon(MainFrame.class.getResource("/res/wallet.png")));
 		menuItem_reckoning.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menu_1.add(menuItem_reckoning);
 		
 		menuItem_personalSetup = new JMenuItem("人员工资设置");
+		menuItem_personalSetup.setIcon(new ImageIcon(MainFrame.class.getResource("/res/modify.png")));
 		menuItem_personalSetup.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menu_1.add(menuItem_personalSetup);
 		
@@ -218,6 +226,7 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnNewMenu);
 		
 		menuItem_userManage = new JMenuItem("系统用户管理");
+		menuItem_userManage.setIcon(new ImageIcon(MainFrame.class.getResource("/res/manager.png")));
 		menuItem_userManage.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menuItem_userManage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -231,10 +240,12 @@ public class MainFrame extends JFrame {
 		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem menuItem = new JMenuItem("\u5173\u4E8E...(\u5F00\u53D1\u4E2D)");
+		menuItem.setIcon(new ImageIcon(MainFrame.class.getResource("/res/help_small.png")));
 		menuItem.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		mnNewMenu_1.add(menuItem);
 		
 		JMenuItem menuItem_1 = new JMenuItem("联系技术支持");
+		menuItem_1.setIcon(new ImageIcon(MainFrame.class.getResource("/res/mail_small.png")));
 		menuItem_1.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menuItem_1.addActionListener(new ActionListener() {
 			@Override
@@ -254,6 +265,7 @@ public class MainFrame extends JFrame {
 		mnNewMenu_1.add(menuItem_1);
 		
 		JMenuItem menuItem_2 = new JMenuItem("访问站点");
+		menuItem_2.setIcon(new ImageIcon(MainFrame.class.getResource("/res/website_small.png")));
 		menuItem_2.setFont(new Font("Microsoft YaHei UI", Font.PLAIN, 14));
 		menuItem_2.addActionListener(new ActionListener() {
 			@Override
@@ -281,6 +293,7 @@ public class MainFrame extends JFrame {
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		
 		JButton button_attendanceManage = new JButton("考勤管理");
+		button_attendanceManage.setIcon(new ImageIcon(MainFrame.class.getResource("/res/calendar.png")));
 		button_attendanceManage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				createIFrame(menuItem_attendance, PersonManage.class);
@@ -291,6 +304,7 @@ public class MainFrame extends JFrame {
 		toolBar.add(button_attendanceManage);
 		
 		JButton button_trainingManage = new JButton("培训管理");
+		button_trainingManage.setIcon(new ImageIcon(MainFrame.class.getResource("/res/cog.png")));
 		button_trainingManage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createIFrame(menuItem_userManage, PersonManage.class);
@@ -301,6 +315,7 @@ public class MainFrame extends JFrame {
 		toolBar.add(button_trainingManage);
 		
 		JButton button_modifyPassword = new JButton("修改密码");
+		button_modifyPassword.setIcon(new ImageIcon(MainFrame.class.getResource("/res/password.png")));
 		button_modifyPassword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new PasswordModifyDialog(label_currentUser.getText()).setVisible(true);
@@ -310,6 +325,7 @@ public class MainFrame extends JFrame {
 		toolBar.add(button_modifyPassword);
 		
 		JButton button_exit = new JButton("退出");
+		button_exit.setIcon(new ImageIcon(MainFrame.class.getResource("/res/exit.png")));
 		button_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
