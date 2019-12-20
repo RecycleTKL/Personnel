@@ -184,7 +184,7 @@ public class RecordInfoPanel extends JPanel {
 
 		comboBox.setModel(new DefaultComboBoxModel(
 				new String[] { "\u8BF7\u9009\u62E9", "  \u6C49\u65CF", " \u5C11\u6570\u6C11\u65CF" }));
-		comboBox.setBounds(86, 62, 80, 24);
+		comboBox.setBounds(86, 62, 98, 24);
 		panel_1.add(comboBox);
 
 		JLabel label_6 = new JLabel("*\u7C4D   \u8D2F\uFF1A");
@@ -219,7 +219,7 @@ public class RecordInfoPanel extends JPanel {
 		comboBox_2.setFont(new Font("宋体", Font.PLAIN, 15));
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] { "\u8BF7\u9009\u62E9", "  \u535A\u58EB",
 				"  \u7855\u58EB", "  \u672C\u79D1", "  \u4E13\u79D1", "  \u9AD8\u4E2D" }));
-		comboBox_2.setBounds(86, 99, 80, 24);
+		comboBox_2.setBounds(86, 99, 98, 24);
 		panel_1.add(comboBox_2);
 
 		JLabel label_9 = new JLabel("*\u4E13   \u4E1A\uFF1A");
@@ -264,14 +264,14 @@ public class RecordInfoPanel extends JPanel {
 
 		radioButton_3 = new JRadioButton("\u672A\u5A5A");
 		buttonGroup_2.add(radioButton_3);
-		radioButton_3.setFont(new Font("宋体", Font.PLAIN, 11));
-		radioButton_3.setBounds(503, 133, 50, 27);
+		radioButton_3.setFont(new Font("宋体", Font.PLAIN, 14));
+		radioButton_3.setBounds(503, 133, 62, 27);
 		panel_1.add(radioButton_3);
 
 		radioButton_4 = new JRadioButton("\u5DF2\u5A5A");
 		buttonGroup_2.add(radioButton_4);
-		radioButton_4.setFont(new Font("宋体", Font.PLAIN, 11));
-		radioButton_4.setBounds(559, 134, 55, 27);
+		radioButton_4.setFont(new Font("宋体", Font.PLAIN, 14));
+		radioButton_4.setBounds(559, 133, 62, 27);
 		panel_1.add(radioButton_4);
 
 		JLabel label_14 = new JLabel("\u90AE\u653F\u7F16\u7801\uFF1A");
@@ -296,13 +296,13 @@ public class RecordInfoPanel extends JPanel {
 
 		radioButton_5 = new JRadioButton("\u662F");
 		buttonGroup_1.add(radioButton_5);
-		radioButton_5.setFont(new Font("宋体", Font.PLAIN, 11));
+		radioButton_5.setFont(new Font("宋体", Font.PLAIN, 14));
 		radioButton_5.setBounds(503, 98, 50, 27);
 		panel_1.add(radioButton_5);
 
 		radioButton_6 = new JRadioButton("\u5426");
 		buttonGroup_1.add(radioButton_6);
-		radioButton_6.setFont(new Font("宋体", Font.PLAIN, 11));
+		radioButton_6.setFont(new Font("宋体", Font.PLAIN, 14));
 		radioButton_6.setBounds(559, 98, 50, 27);
 		panel_1.add(radioButton_6);
 
@@ -354,7 +354,7 @@ public class RecordInfoPanel extends JPanel {
 		comboBox_3.setModel(new DefaultComboBoxModel(
 				new String[] { "\u8BF7\u9009\u62E9", "\u8D22\u52A1\u90E8", "\u9500\u552E\u90E8", "\u8F66\u95F4",
 						"\u7ECF\u7406\u529E\u516C\u5BA4", "\u8D28\u68C0\u90E8", "\u7ECF\u6D4E\u8FD0\u884C\u90E8" }));
-		comboBox_3.setBounds(90, 20, 72, 24);
+		comboBox_3.setBounds(90, 20, 86, 24);
 		panel_2.add(comboBox_3);
 
 		JLabel label_18 = new JLabel("*\u804C   \u52A1\uFF1A");
@@ -365,7 +365,7 @@ public class RecordInfoPanel extends JPanel {
 		comboBox_4.setModel(new DefaultComboBoxModel(new String[] { "\u8BF7\u9009\u62E9", "\u8D22\u52A1\u5458\u5DE5",
 				"\u9500\u552E\u5458\u5DE5", "\u8F66\u95F4\u5458\u5DE5", "\u7ECF\u7406", "\u8D28\u68C0\u5458\u5DE5",
 				"\u7ECF\u6D4E\u8FD0\u884C\u5458\u5DE5" }));
-		comboBox_4.setBounds(296, 20, 72, 24);
+		comboBox_4.setBounds(296, 20, 86, 24);
 		panel_2.add(comboBox_4);
 
 		JLabel label_19 = new JLabel("\u5165\u804C\u65E5\u671F\uFF1A");
@@ -386,7 +386,7 @@ public class RecordInfoPanel extends JPanel {
 		comboBox_5.setModel(new DefaultComboBoxModel(new String[] { "\u8BF7\u9009\u62E9", "\u56FA\u5B9A\u7528\u5DE5",
 				"\u4E34\u65F6\u7528\u5DE5", "\u975E\u5168\u65E5\u5236\u7528\u5DE5" }));
 		comboBox_5.setToolTipText("");
-		comboBox_5.setBounds(296, 48, 72, 24);
+		comboBox_5.setBounds(296, 48, 86, 24);
 		panel_2.add(comboBox_5);
 
 		JLabel label_21 = new JLabel("\u79BB\u804C\u65E5\u671F\uFF1A");
@@ -935,7 +935,7 @@ public class RecordInfoPanel extends JPanel {
 		String postalcode1 = tf3_13.getText();
 		String address1 = tf3_14.getText();
 		if ("".equals(birthday.trim()) || "请选择".equals(nation_id.trim()) || "请选择".equals(native_place_id.trim())
-				|| "".equals(id_card.trim()) || "".equals(specialty.trim()) || "".equals(grade.trim())) {
+				|| "".equals(id_card.trim()) || "".equals(specialty.trim()) ) {
 			JOptionPane.showMessageDialog(null, "请填完所以信息!", "提示", JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}
