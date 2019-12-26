@@ -37,6 +37,7 @@ public class ReportManage extends JInternalFrame {
 	 * Create the panel.
 	 */
 	public ReportManage() {
+		setTitle("\u62A5\u8868\u5BFC\u51FA");
 		setBounds(100, 100, 950, 757);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		setMaximizable(true);

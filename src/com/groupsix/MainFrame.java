@@ -94,13 +94,14 @@ public class MainFrame extends JFrame {
 			public void run() {
 				try {
 					try {
-						BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
-						org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-						BeautyEyeLNFHelper.translucencyAtFrameInactive = false;
-						UIManager.put("RootPane.setupButtonVisible", false);
-						Font frameTitleFont = (Font)UIManager.get("InternalFrame.titleFont");
-			            frameTitleFont = frameTitleFont.deriveFont(Font.PLAIN);
-			            UIManager.put("InternalFrame.titleFont", frameTitleFont);
+//						BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;
+//						org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//						BeautyEyeLNFHelper.translucencyAtFrameInactive = false;
+//						UIManager.put("RootPane.setupButtonVisible", false);
+//						Font frameTitleFont = (Font)UIManager.get("InternalFrame.titleFont");
+//			            frameTitleFont = frameTitleFont.deriveFont(Font.PLAIN);
+//			            UIManager.put("InternalFrame.titleFont", frameTitleFont);
+						UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
 					} catch (Exception e) {
 						// TODO 自动生成的 catch 块
 						e.printStackTrace();

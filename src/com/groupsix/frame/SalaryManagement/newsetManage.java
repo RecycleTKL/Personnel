@@ -25,8 +25,8 @@ import java.awt.event.ActionEvent;
 public class newsetManage extends JFrame {
 
 	private JPanel contentPane;
-	public JTextField nameTextField;
-	private JTextArea explainTextArea;
+	public static JTextField nameTextField;
+	private static JTextArea explainTextArea;
 	private DefaultTableModel leftTableModel;
 	private boolean submit = true;
 	private String name;
@@ -144,6 +144,7 @@ public class newsetManage extends JFrame {
 					conn.close();
 					st = explained;
 					ReckoningInfoPanel.initLeftTable();
+					
 			        dispose();
 				}
 				catch(SQLException e1) {
@@ -161,5 +162,13 @@ public class newsetManage extends JFrame {
 
 	public boolean isSubmit() {
 		return submit;
+	}
+	
+	public static String getNameTextField() {
+		return nameTextField.getText();
+	}
+	
+	public static String getExplainTextArea() {
+		return explainTextArea.getText();
 	}
 }

@@ -14,6 +14,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 import com.groupsix.Item;
+import com.groupsix.dao.model.TbAccountItem;
 import com.groupsix.dao.model.TbManager;
 import com.groupsix.dao.model.TbReckoning;
 
@@ -132,6 +133,21 @@ public class Dao {
 		return list;
 	}
 	/***************************************************/
+	
+	public static TbAccountItem queryAccountItemByNameUnit(String name, String unit) throws Exception {
+		TbAccountItem tb_accountItem = new TbAccountItem();
+		ResultSet rs = query("select * from TbAccountItem where name='" + name
+				+ "' and unit='" + unit + "'");
+		if(rs.next()==false) {
+			return null;
+		}
+		tb_accountItem.setId(Integer.parseInt(rs.getString(1)));
+		tb_accountItem.setName(rs.getString(2));
+		tb_accountItem.setType(rs.getString(3));
+		tb_accountItem.setUnit(rs.getString(4));
+		tb_accountItem.setIsTimecard(rs.getString(5));
+		return tb_accountItem;
+	}
 	
 	/********************tb_record档案表操作*********************/
 	//获取档案表所有

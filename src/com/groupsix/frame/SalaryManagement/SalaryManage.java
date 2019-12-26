@@ -31,6 +31,7 @@ public class SalaryManage extends JInternalFrame {
 	 * @throws Exception 
 	 */
 	public SalaryManage() throws Exception {
+		setTitle("\u5DE5\u8D44\u7BA1\u7406");
 		setMaximizable(true);
 		setIconifiable(true);
 		setBounds(100, 100, 739, 533);

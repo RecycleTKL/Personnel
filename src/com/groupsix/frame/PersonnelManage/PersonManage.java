@@ -33,6 +33,7 @@ public class PersonManage extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public PersonManage() {
+		setTitle("\u4EBA\u4E8B\u4FE1\u606F\u7BA1\u7406");
 		setMaximizable(true);
 		setIconifiable(true);
 		setBounds(100, 100, 950, 757);
